@@ -9,6 +9,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { TeamspacesComponent } from './components/teamspaces/teamspaces.component';
 import { UserteamspacesComponent } from './components/userteamspaces/userteamspaces.component';
 import { AuthtokesComponent } from './components/authtokes/authtokes.component';
+import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AuthtokesComponent } from './components/authtokes/authtokes.component';
     NotesComponent,
     TeamspacesComponent,
     UserteamspacesComponent,
-    AuthtokesComponent
+    AuthtokesComponent,
+    LeftmenuComponent
   ],
   imports: [
     BrowserModule,
