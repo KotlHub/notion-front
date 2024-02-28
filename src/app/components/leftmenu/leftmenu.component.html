@@ -1,5 +1,6 @@
-<div class="left-menu">
-    <div *ngFor="let menuItem of menuItems"
+
+<div class="left-menu" [ngStyle]="{ 'width.px': leftMenuVisible ? 250 : 0 }">
+    <div *ngFor="let menuItem of menuItems; let i = index"
          class="menu-item"
          [ngClass]="{'active': menuItem.name === activeMenuItem}"
          (click)="menuItem.submenu ? toggleDropdown(menuItem.name) : setActive(menuItem.name)">
@@ -7,6 +8,7 @@
       <div *ngIf="menuItem.submenu && menuItem.name === activeMenuItem" class="dropdown-content">
         <div *ngFor="let subItem of menuItem.submenu" class="dropdown-item" (click)="setActive(subItem)">{{ subItem }}</div>
       </div>
+      <div *ngIf="i === 2" class="separator"></div>
     </div>
   </div>
   

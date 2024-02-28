@@ -1,0 +1,34 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px; /* Задайте желаемую высоту шапки */
+    background-color: black; /* Прозрачный фон */
+    z-index: 100;
+    display: flex;
+    align-items: center;
+  }
+  
+  .avatar-container {
+    margin-right: 20px; /* Отступ справа */
+    float: right;
+  }
+  
+  .avatar {
+    width: 50px; /* Задайте размеры вашей аватарки */
+    height: 50px;
+  }
+
+  .toggle-menu-btn {
+    margin-left: 20px;
+    background-color: #4F57FF;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    outline: none;
+  }
+  
+  

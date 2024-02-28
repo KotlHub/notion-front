@@ -10,6 +10,8 @@ import { TeamspacesComponent } from './components/teamspaces/teamspaces.componen
 import { UserteamspacesComponent } from './components/userteamspaces/userteamspaces.component';
 import { AuthtokesComponent } from './components/authtokes/authtokes.component';
 import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LeftMenuService } from './services/left-menu.service';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,14 @@ import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
     TeamspacesComponent,
     UserteamspacesComponent,
     AuthtokesComponent,
-    LeftmenuComponent
+    LeftmenuComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ LeftMenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
