@@ -1,16 +1,18 @@
 <div class="side-nav-content" *ngIf="!menuVisible">
   <ul class="nav-list">
     <ng-container *ngFor="let item of menuItems; let i = index">
-      <li class="nav-list-item" 
-          (click)="toggleDropdown(item.name)" 
+      <li class="nav-list-item"  
           (mouseenter)="setActiveItem(i)" 
           (mouseleave)="clearActiveItem()">
+        <i class="fa-solid fa-chevron-right" (click)="toggleDropdown(item.name)"></i>
         <i class="{{item.icon}}"></i>
         <span><a href="#">{{ item.name }}</a></span>
         <span *ngIf="activeItem === i" class="ellipsis-icon"><i class="fas fa-ellipsis"></i></span>
+      </li>
+      <li>
         <ul *ngIf="showDropdown && item.name === activeMenuItem" class="submenu">
-          <li *ngFor="let subItem of item.submenu">
-            <a href="#">{{ subItem }}</a>
+          <li *ngFor="let subItem of item.submenu" class="nav-list-item">
+            <span><a href="#">{{ subItem }}</a></span>
           </li>
         </ul>
       </li>

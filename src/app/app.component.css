@@ -2,21 +2,21 @@ app-header {
     position: fixed;
     width: 100%;
     top: 0%;
-    height: 2rem;
+    height: 3rem;
     z-index: 2;
 }
 
 main {
     position: absolute;
     width: 100vh;
-    top: 4rem;
+    top: 3rem;
 }
 
 app-leftmenu {
     position: absolute;
     left: 0rem;
     width: 250px;
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 3rem);
     background-color: black;
 }
 

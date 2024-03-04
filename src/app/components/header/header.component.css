@@ -16,8 +16,8 @@
   }
   
   .avatar {
-    width: 50px; /* Задайте размеры вашей аватарки */
-    height: 50px;
+    width: 24px; /* Задайте размеры вашей аватарки */
+    height: 24px;
   }
 
   .toggle-menu-btn {
