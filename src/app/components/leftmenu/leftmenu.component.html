@@ -1,14 +1,20 @@
-
-<div class="left-menu" [ngStyle]="{ 'width.px': leftMenuVisible ? 250 : 0 }">
-    <div *ngFor="let menuItem of menuItems; let i = index"
-         class="menu-item"
-         [ngClass]="{'active': menuItem.name === activeMenuItem}"
-         (click)="menuItem.submenu ? toggleDropdown(menuItem.name) : setActive(menuItem.name)">
-      {{ menuItem.name }}
-      <div *ngIf="menuItem.submenu && menuItem.name === activeMenuItem" class="dropdown-content">
-        <div *ngFor="let subItem of menuItem.submenu" class="dropdown-item" (click)="setActive(subItem)">{{ subItem }}</div>
-      </div>
-      <div *ngIf="i === 2" class="separator"></div>
-    </div>
-  </div>
-  
+<div class="side-nav-content" *ngIf="!menuVisible">
+  <ul class="nav-list">
+    <ng-container *ngFor="let item of menuItems; let i = index">
+      <li class="nav-list-item" 
+          (click)="toggleDropdown(item.name)" 
+          (mouseenter)="setActiveItem(i)" 
+          (mouseleave)="clearActiveItem()">
+        <i class="{{item.icon}}"></i>
+        <span><a href="#">{{ item.name }}</a></span>
+        <span *ngIf="activeItem === i" class="ellipsis-icon"><i class="fas fa-ellipsis"></i></span>
+        <ul *ngIf="showDropdown && item.name === activeMenuItem" class="submenu">
+          <li *ngFor="let subItem of item.submenu">
+            <a href="#">{{ subItem }}</a>
+          </li>
+        </ul>
+      </li>
+      <hr *ngIf="i === 2">
+    </ng-container>
+  </ul>
+</div>

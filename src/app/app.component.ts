@@ -8,4 +8,5 @@ import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
 })
 export class AppComponent {
   title = 'notion-front';
+  menuVisible: boolean = false;
 }

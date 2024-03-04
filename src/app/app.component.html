@@ -1,2 +1,6 @@
-<app-header></app-header>
-<app-leftmenu></app-leftmenu>
+<div class="container-fluid g-0">
+    <app-header (LeftMenuToggled)="menuVisible = $event;"></app-header>
+    <main>
+        <app-leftmenu [menuVisible] = "menuVisible" [ngClass]="{'nav-list-close': menuVisible}"></app-leftmenu>
+    </main>
+</div>

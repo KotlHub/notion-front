@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
 import { LeftMenuService } from 'src/app/services/left-menu.service';
 import { HeaderService } from 'src/app/services/header.service';
 
@@ -7,14 +7,21 @@ import { HeaderService } from 'src/app/services/header.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent{
+export class HeaderComponent implements OnInit {
+  @Output() LeftMenuToggled = new EventEmitter<boolean>(); 
+  menuVisible: boolean = false;
+  avatarLink: String = "assets\\avatar.png";
+  constructor() { }
+  ngOnInit(): void {
 
-  constructor(private LeftMenuService: LeftMenuService, private HeaderService: HeaderService) { }
-  leftMenuVisible: boolean = false;
-
-  toggleMenu()
-  {
-    this.leftMenuVisible = !this.leftMenuVisible;
-    this.HeaderService.leftMenuVisible = !this.HeaderService.leftMenuVisible;
   }
+
+  
+
+  LeftMenuToggle() {
+    this.menuVisible = !this.menuVisible;
+    this.LeftMenuToggled.emit(this.menuVisible);
+    //console.log(this.menuVisible);
+  }
+
 }

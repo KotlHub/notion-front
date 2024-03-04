@@ -1,0 +1,25 @@
+app-header {
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    height: 2rem;
+    z-index: 2;
+}
+
+main {
+    position: absolute;
+    width: 100vh;
+    top: 4rem;
+}
+
+app-leftmenu {
+    position: absolute;
+    left: 0rem;
+    width: 250px;
+    height: calc(100vh - 4rem);
+    background-color: black;
+}
+
+.nav-list-close {
+    width: 0px
+}

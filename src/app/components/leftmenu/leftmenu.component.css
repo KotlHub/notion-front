@@ -1,45 +1,57 @@
-.left-menu {
-  z-index: 101;
-  width: 0px;
-  height: 100vh;
-  background-color: black;
+.side-nav-content {
   color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.nav-list {
+  list-style: none;
+  height: 100%;
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 10px
+}
+
+.nav-list-item {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  padding-top: 20px;
+  align-items: center;
+  height: 30px;
+  border-radius: 15px;
 }
-
-.menu-item {
+.nav-list-item span {
+  margin-left: 10px ;
+  width: 170px;
+}
+.nav-list-item i {
   margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;
-  cursor: pointer;
 }
 
-.menu-item:hover,
-.menu-item:focus {
-  outline: none;
+.nav-list-item .ellipsis-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
 }
 
-.menu-item.active {
+.nav-list-item:hover {
   background-color: #4F57FF;
-  border-radius: 10px;
 }
 
-.separator {
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 100%;
-  height: 1px;
-  background-color: #555;
-  margin: 10px 0;
+a {
+  text-decoration: none;
+  color: greenyellow;
 }
 
-.dropdown-content {
-  padding: 10px;
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.dropdown-item {
-  cursor: pointer;
-  padding: 5px;
+.submenu li {
+  padding: 5px 10px;
 }
+
+.submenu li:hover {
+  background-color: #4F57FF;
+}
+
