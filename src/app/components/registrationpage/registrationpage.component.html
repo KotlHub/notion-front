@@ -1,0 +1,27 @@
+<div class="split left">
+    <div class="centered">
+    </div>
+</div>
+  
+<div class="split right">
+    <div class="centered">
+      <span>Log in</span>
+      <br>
+      <div style="width: 388px;">
+      <button type="button" class="login-clickable google-button"><img src="assets/icons/google.svg"> Continue with Google</button>
+      <br>
+      <hr>
+      <p>Email</p>
+      <input class="login-clickable login-input" placeholder="Enter your email">
+      <button type="button" class="login-clickable black-button" (click)="emailClick()">Continue with email</button>
+      <div *ngIf="extendedPage" class="extended-page">
+        <small>Check your inbox</small>
+        <br>
+        <p>Email</p>
+        <input class="login-clickable login-input" placeholder="Enter your email">
+        <button type="button" class="login-clickable black-button">Continue with email</button>
+        <small>Didn't recieve your code?</small>
+      </div>
+      </div>
+    </div>
+</div>

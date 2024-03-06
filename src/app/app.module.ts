@@ -12,6 +12,7 @@ import { AuthtokesComponent } from './components/authtokes/authtokes.component';
 import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LeftMenuService } from './services/left-menu.service';
+import { RegistrationpageComponent } from './components/registrationpage/registrationpage.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LeftMenuService } from './services/left-menu.service';
     UserteamspacesComponent,
     AuthtokesComponent,
     LeftmenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegistrationpageComponent
   ],
   imports: [
     BrowserModule,
