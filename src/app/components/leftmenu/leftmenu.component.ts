@@ -21,11 +21,12 @@ export class LeftmenuComponent implements OnInit {
   }
   
   menuItems: MenuItem[] = [
-    { name: 'Search', icon: "fa-regular fa-magnifying-glass" },
-    { name: 'New Page', icon: "fa-regular fa-plus"},
-    { name: 'Templates', icon: "fa-solid fa-house" },
-    { name: 'Personal Home',icon: "fa-solid fa-house", submenu: ['Element 1', 'Element 2', 'Element 3'] },
-    { name: 'Task list', icon: "fa-solid fa-house", submenu: ['write html', 'write css', 'pet the cat'] }
+    { name: 'Search', icon: "assets/icons/attach_file.svg" },
+    { name: 'New Page', icon: "assets/icons/attach_file.svg"},
+    { name: 'Templates', icon: "assets/icons/attach_file.svg" },
+    { name: 'Quick Note', icon: "assets/icons/attach_file.svg" },
+    { name: 'Personal Home', icon: "assets/icons/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
+    { name: 'Task list', icon: "assets/icons/check.svg", submenu: ['write html', 'write css', 'pet the cat'] }
   ];
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;
@@ -33,7 +34,7 @@ export class LeftmenuComponent implements OnInit {
  
   setActive(menuItem: string): void {
     this.activeMenuItem = menuItem;
-    this.showDropdown = false; // скрыть выпадающее меню при выборе пункта меню
+    this.showDropdown = false;
   }
 
   toggleDropdown(menuItem: string): void {

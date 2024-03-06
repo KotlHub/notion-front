@@ -4,8 +4,8 @@
       <li class="nav-list-item"  
           (mouseenter)="setActiveItem(i)" 
           (mouseleave)="clearActiveItem()">
-        <i class="fa-solid fa-chevron-right" (click)="toggleDropdown(item.name)"></i>
-        <i class="{{item.icon}}"></i>
+        <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/down_arrow.svg' : 'assets/icons/right_arrow.svg'" (click)="toggleDropdown(item.name)">
+        <img src="{{item.icon}}">
         <span><a href="#">{{ item.name }}</a></span>
         <span *ngIf="activeItem === i" class="ellipsis-icon"><i class="fas fa-ellipsis"></i></span>
       </li>
