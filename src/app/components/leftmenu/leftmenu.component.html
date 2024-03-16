@@ -1,7 +1,8 @@
 <div class="side-nav-content" *ngIf="!menuVisible">
   <ul class="nav-list">
     <ng-container *ngFor="let item of menuItems; let i = index">
-      <li class="nav-list-item"  
+      <li class="nav-list-item"
+          (click)="callFunction('item.funcName')"
           (mouseenter)="setActiveItem(i)" 
           (mouseleave)="clearActiveItem()">
         <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/down_arrow.svg' : 'assets/icons/right_arrow.svg'" (click)="toggleDropdown(item.name)">
@@ -20,3 +21,4 @@
     </ng-container>
   </ul>
 </div>
+

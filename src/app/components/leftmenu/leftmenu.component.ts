@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
-import { LeftMenuService } from 'src/app/services/left-menu.service';
-import { HeaderService } from 'src/app/services/header.service';
+import { NewPageService } from 'src/app/services/new-page.service';
 
 interface MenuItem {
   name: string;
   icon: string;
   submenu?: string[];
+  funcName?: string;
 }
 
 @Component({
@@ -15,23 +15,25 @@ interface MenuItem {
 })
 export class LeftmenuComponent implements OnInit {
   
-  constructor(private elementRef: ElementRef, private leftMenuService: LeftMenuService, private HeaderService: HeaderService) { }
+  constructor(private NewPageService: NewPageService, ) {this.toggleNewPage = this.toggleNewPage.bind(this);}
   @Input() menuVisible: boolean = false;
   ngOnInit(): void {
   }
   
   menuItems: MenuItem[] = [
     { name: 'Search', icon: "assets/icons/attach_file.svg" },
-    { name: 'New Page', icon: "assets/icons/attach_file.svg"},
+    { name: 'New Page', icon: "assets/icons/attach_file.svg", funcName: "toggleNewPage"},
     { name: 'Templates', icon: "assets/icons/attach_file.svg" },
-    { name: 'Quick Note', icon: "assets/icons/attach_file.svg" },
+    { name: 'Quick Note', icon: "assets/icons/attach_file.svg"},
     { name: 'Personal Home', icon: "assets/icons/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
     { name: 'Task list', icon: "assets/icons/check.svg", submenu: ['write html', 'write css', 'pet the cat'] }
   ];
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;
   activeItem: number | null = null;
- 
+
+
+
   setActive(menuItem: string): void {
     this.activeMenuItem = menuItem;
     this.showDropdown = false;
@@ -50,5 +52,23 @@ export class LeftmenuComponent implements OnInit {
     this.activeItem = null;
   }
 
+  toggleNewPage() {
+    this.NewPageService.newPageVisible = !this.NewPageService.newPageVisible;
+    console.log(this.NewPageService.newPageVisible);
+  }
 
+  myFunction() {
+    console.log('Hello from myFunction!');
+  }
+
+  [key: string]: any; // Index signature
+
+  callFunction(functionName: string) {
+    const func = this[functionName];
+    if (typeof func === 'function') {
+      func(); // This calls the function dynamically
+    } else {
+      console.error(`${functionName} is not a function.`);
+    }
+  }
 }
