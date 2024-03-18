@@ -11,13 +11,100 @@
   }
   
   .modal-content {
-    background-color: white;
+    position: relative;
+    border-radius: 20px;
+    background-color: #181818;
     margin: 15% auto;
-    padding: 20px;
+    padding-left: 88px;
+    padding-right: 88px;
+    padding-bottom: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 800px;
+    height: 608px;
+  }
+
+  input {
+    font-size: 45px;
+    color: #525252;
+    border: none;
+    outline: none;
+    background: transparent;
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 35px;
+  }
+
+  input::placeholder {
+    color: #525252;
+  }
+
+  .split {
+    height: 100%;
+    display: flex;
+    
   }
   
-  /* Добавьте стили, чтобы отображать модальное окно */
+  .left {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  
+  .right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .new-page-clickable {
+    font-size: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background-color: #202020;
+    color: white;
+    text-align: left;
+  }
+
+  .button-main {
+    padding-left: 10px;
+    border:none;
+    height: 44px;
+    width: 280px;
+  }
+  
+  .button-main:hover {
+    background-color: #434BF3;
+  }
+
+  .bottom-button-contaiter {
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bottom-button {
+    text-align: center;
+    width: 89px;
+    height: 34px;
+    border: 1px solid white;
+    
+  }
+
+  .bottom-button:hover {
+    width: 89px;
+    height: 34px;
+    color: black;
+    background-color: white;
+
+  }
+
+  
+
+
+  
+  
 
   

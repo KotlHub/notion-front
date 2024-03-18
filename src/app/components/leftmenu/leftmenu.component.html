@@ -2,7 +2,7 @@
   <ul class="nav-list">
     <ng-container *ngFor="let item of menuItems; let i = index">
       <li class="nav-list-item"
-          (click)="callFunction('item.funcName')"
+          (click)="callFunction(item)"
           (mouseenter)="setActiveItem(i)" 
           (mouseleave)="clearActiveItem()">
         <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/down_arrow.svg' : 'assets/icons/right_arrow.svg'" (click)="toggleDropdown(item.name)">

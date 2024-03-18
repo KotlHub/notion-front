@@ -1,6 +1,20 @@
 <div *ngIf="isNewPageVisible()" class="modal">
     <div class="modal-content">
-      <!-- Здесь может быть ваше содержимое модального окна -->
-      <p>This is a modal window!</p>
+      <input placeholder="Untitled" type="text">
+      <div class="split">
+        <div class="left">
+          <div *ngFor="let item of menuItemsLeft">
+            <button class="new-page-clickable button-main"><img src="{{item.icon}}"><span style="margin-left: 10px;">{{item.name}}</span></button>
+          </div>
+        </div>
+        <div class="right">
+          <div *ngFor="let item of menuItemsRight">
+            <button class="new-page-clickable button-main"><img src="{{item.icon}}"><span style="margin-left: 10px;">{{item.name}}</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-button-contaiter">
+        <button class="new-page-clickable bottom-button">Create</button>
+      </div>
     </div>
 </div>

@@ -63,12 +63,12 @@ export class LeftmenuComponent implements OnInit {
 
   [key: string]: any; // Index signature
 
-  callFunction(functionName: string) {
-    const func = this[functionName];
+  callFunction(item: any) {
+    const func = this[item.funcName];
     if (typeof func === 'function') {
       func(); // This calls the function dynamically
     } else {
-      console.error(`${functionName} is not a function.`);
+      console.error(`${item.funcName} is not a function.`);
     }
   }
 }
