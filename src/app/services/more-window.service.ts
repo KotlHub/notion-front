@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class HeaderService {
-  leftMenuVisible: boolean = true;
-  moreWindowVisible: boolean = true;
+export class MoreWindowService {
+  
   constructor() { }
 }

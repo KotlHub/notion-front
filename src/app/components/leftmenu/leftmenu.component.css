@@ -1,3 +1,7 @@
+a {
+  cursor: pointer;
+}
+
 .side-nav-content {
   color: white;
   margin-left: 15px;
@@ -40,7 +44,7 @@
 
 a {
   text-decoration: none;
-  color: greenyellow;
+  color: white;
 }
 
 .submenu {

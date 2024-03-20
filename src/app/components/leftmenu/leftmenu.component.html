@@ -2,18 +2,17 @@
   <ul class="nav-list">
     <ng-container *ngFor="let item of menuItems; let i = index">
       <li class="nav-list-item"
-          (click)="callFunction(item)"
           (mouseenter)="setActiveItem(i)" 
           (mouseleave)="clearActiveItem()">
         <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/down_arrow.svg' : 'assets/icons/right_arrow.svg'" (click)="toggleDropdown(item.name)">
         <img src="{{item.icon}}">
-        <span><a href="#">{{ item.name }}</a></span>
+        <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
         <span *ngIf="activeItem === i" class="ellipsis-icon"><i class="fas fa-ellipsis"></i></span>
       </li>
       <li>
         <ul *ngIf="showDropdown && item.name === activeMenuItem" class="submenu">
           <li *ngFor="let subItem of item.submenu" class="nav-list-item">
-            <span><a href="#">{{ subItem }}</a></span>
+            <span>{{ subItem }}</span>
           </li>
         </ul>
       </li>

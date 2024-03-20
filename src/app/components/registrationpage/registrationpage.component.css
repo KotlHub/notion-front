@@ -44,6 +44,7 @@
     height: 44px;
     font-size: 16px;
     border-radius: 4px;
+    border: 1px solid black;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -65,8 +66,24 @@
   .login-input:focus {
     outline: none !important;
     padding-left: 20px;
-    border-color: #4F57FF;
+    border: 1px solid #4F57FF;
     box-shadow: 0 0 10px #c4c4c4;
+  }
+  
+  .login-input-err {
+    outline: none !important;
+    padding-left: 20px;
+    border: 1px solid #FF0000;
+    box-shadow: 0 0 10px #c4c4c4;
+    background-color: #FAEFEF;
+  }
+
+  .login-input-filled {
+    outline: none !important;
+    padding-left: 20px;
+    border: 1px solid #4F57FF;
+    box-shadow: 0 0 10px #c4c4c4;
+    background-color: #F3F4FF;
   }
 
   .black-button {

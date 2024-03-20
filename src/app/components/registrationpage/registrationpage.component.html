@@ -12,14 +12,16 @@
       <br>
       <hr>
       <p>Email</p>
-      <input class="login-clickable login-input" placeholder="Enter your email">
-      <button type="button" class="login-clickable black-button" (click)="emailClick()">Continue with email</button>
+      <form (ngSubmit)="emailClick()">
+        <input class="login-clickable login-input" placeholder="Enter your email" [(ngModel)]="email" name="email" [ngClass]="emailValidationClass">
+        <button *ngIf="!extendedPage" type="button" class="login-clickable black-button" (click)="emailClick()">Continue with email</button>
+      </form>
       <div *ngIf="extendedPage" class="extended-page">
         <small>Check your inbox</small>
         <br>
-        <p>Email</p>
-        <input class="login-clickable login-input" placeholder="Enter your email">
-        <button type="button" class="login-clickable black-button">Continue with email</button>
+        <p>Login code</p>
+        <input class="login-clickable login-input" placeholder="Enter your login code">
+        <button type="button" class="login-clickable black-button">Continue with login code</button>
         <small>Didn't recieve your code?</small>
       </div>
       </div>
