@@ -1,0 +1,117 @@
+.settings-window {
+    position: fixed; 
+    width: 226px; 
+    height: 495px; 
+    padding: 10px;
+    background-color: #181818; 
+    top: 3.5rem; 
+    right: 3.5rem; 
+    border-left: 6px solid #434BF3; 
+    border-radius: 15px;
+    text-align: center;
+}
+
+.split {
+    height: 55px;
+    width: 164px;
+    display: flex;
+    margin: auto;
+    text-align: center;
+}
+
+.inside-split div {
+    height: auto;
+}
+
+.inside-split {
+    height: 100%;
+    width: 33.3%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inside-split span {
+    font-size: 30px;
+    color: #434BF3;
+}
+
+.inside-split small {
+    font-size: 10px;
+    color: #9C9C9C;
+}
+
+.settings-window-clickable {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+.button-settings {
+    padding-left: 10px;
+    border:none;
+    height: 28px;
+    width: 198px;
+}
+
+.button-settings:hover {
+    background-color: #434BF3;
+}
+
+
+
+
+
+
+.form-switch {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .form-switch i {
+    position: relative;
+    display: inline-block;
+    margin-right: .5rem;
+    width: 38px;
+    height: 18px;
+    background-color: #e6e6e6;
+    border-radius: 23px;
+    vertical-align: text-bottom;
+    transition: all 0.3s linear;
+  }
+  .form-switch i::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 35px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 11px;
+    transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+    transition: all 0.25s linear;
+  }
+  .form-switch i::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border-radius: 11px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+    transform: translate3d(2px, 2px, 0);
+    transition: all 0.2s ease-in-out;
+  }
+  .form-switch:active i::after {
+    width: 28px;
+    transform: translate3d(2px, 2px, 0);
+  }
+  .form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
+  .form-switch input { display: none; }
+  .form-switch input:checked + i { background-color: #434BF3; }
+  .form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
+  .form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }

@@ -27,7 +27,6 @@ export class NewpageComponent {
     { name: 'Gallery', icon: "assets/icons/check.svg" },
   ];
   constructor(private newPageService: NewPageService) { }
-  newPageVisible!: boolean;
 
   isNewPageVisible(): boolean {
     return this.newPageService.newPageVisible;

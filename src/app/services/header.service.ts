@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class HeaderService {
   leftMenuVisible: boolean = true;
-  moreWindowVisible: boolean = true;
+  settingsWindowVisible: boolean = true;
   constructor() { }
 }

@@ -15,6 +15,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { LeftMenuService } from './services/left-menu.service';
 import { RegistrationpageComponent } from './components/registrationpage/registrationpage.component';
 import { NewpageComponent } from './components/newpage/newpage.component';
+import { SettingswindowComponent } from './components/settingswindow/settingswindow.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NewpageComponent } from './components/newpage/newpage.component';
     LeftmenuComponent,
     HeaderComponent,
     RegistrationpageComponent,
-    NewpageComponent
+    NewpageComponent,
+    SettingswindowComponent
   ],
   imports: [
     BrowserModule,

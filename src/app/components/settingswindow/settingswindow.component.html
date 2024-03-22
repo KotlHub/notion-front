@@ -1,0 +1,38 @@
+<div *ngIf="isSettingsWindowVisible()" class="settings-window">
+    <div class="split">
+        <div class="inside-split">
+            <div>
+                <span>Ag</span>
+            </div>
+            <div>
+                <small>lol</small>
+            </div>
+        </div>
+        <div class="inside-split">
+            <div>
+                <span>Ag</span>
+            </div>
+            <div>
+                <small>lol</small>
+            </div>
+        </div>
+        <div class="inside-split">
+            <div>
+                <span>Ag</span>
+            </div>
+            <div>
+                <small>lol</small>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <label class="form-switch">
+        <input type="checkbox">
+        <i></i>
+    </label>
+    <hr>
+    <button *ngFor="let item of menuItemsUpper" class="settings-window-clickable button-settings">
+        <img src="{{item.icon}}">
+        <span style="margin-left: 10px;">{{item.name}}</span>
+    </button>
+</div>

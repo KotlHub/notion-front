@@ -11,14 +11,19 @@ export class HeaderComponent implements OnInit {
   @Output() LeftMenuToggled = new EventEmitter<boolean>(); 
   menuVisible: boolean = false;
   avatarLink: String = "assets\\avatar.png";
-  constructor() { }
+  constructor(private HeaderService: HeaderService) { }
   ngOnInit(): void {
 
   }
 
-  
+  settingsWindowToggle()
+  {
+    this.HeaderService.settingsWindowVisible = !this.HeaderService.settingsWindowVisible;
 
-  LeftMenuToggle() {
+  }
+
+  LeftMenuToggle() 
+  {
     this.menuVisible = !this.menuVisible;
     this.LeftMenuToggled.emit(this.menuVisible);
     //console.log(this.menuVisible);

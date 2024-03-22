@@ -19,11 +19,14 @@ export class LeftmenuComponent implements OnInit {
   @Input() menuVisible: boolean = false;
   ngOnInit(): void {
   }
-  
-  menuItems: MenuItem[] = [
+
+  menuItemsUpper: MenuItem[] = [
     { name: 'Search', icon: "assets/icons/attach_file.svg" },
     { name: 'New Page', icon: "assets/icons/attach_file.svg", funcName: "toggleNewPage"},
     { name: 'Templates', icon: "assets/icons/attach_file.svg" },
+  ];
+
+  menuItemsMid: MenuItem[] = [
     { name: 'Quick Note', icon: "assets/icons/attach_file.svg"},
     { name: 'Personal Home', icon: "assets/icons/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
     { name: 'Task list', icon: "assets/icons/check.svg", submenu: ['write html', 'write css', 'pet the cat'] }
