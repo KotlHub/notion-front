@@ -26,13 +26,46 @@
         </div>
     </div>
     <hr>
-    <label class="form-switch">
-        <input type="checkbox">
-        <i></i>
-    </label>
+    <div class="settings-window-clickable">
+        Small text
+        <div style="right: 0; position: absolute;">
+        <label class="form-switch">
+            <input type="checkbox">
+            <i></i>
+        </label>
+        </div>
+    </div>
+    <div class="settings-window-clickable">
+        Lock page
+        <div style="right: 0; position: absolute;">
+        <label class="form-switch">
+            <input type="checkbox">
+            <i></i>
+        </label>
+        </div>
+    </div>
+    <div class="settings-window-clickable">
+        Full width
+        <div style="right: 0; position: absolute;">
+        <label class="form-switch">
+            <input type="checkbox">
+            <i></i>
+        </label>
+        </div>
+    </div>
     <hr>
     <button *ngFor="let item of menuItemsUpper" class="settings-window-clickable button-settings">
         <img src="{{item.icon}}">
         <span style="margin-left: 10px;">{{item.name}}</span>
     </button>
+    <hr>
+    <button *ngFor="let item of menuItemsBottom" class="settings-window-clickable button-settings">
+        <img src="{{item.icon}}">
+        <span style="margin-left: 10px;">{{item.name}}</span>
+    </button>
+    <hr>
+    <div class="last-edited-div">
+        <span class="last-edited">Last edited by {{lastEditedBy}}</span>
+        <span class="last-edited">{{lastEditedDate.getDate()}}.{{lastEditedDate.getMonth()}} at {{lastEditedDate.getHours()}}:{{lastEditedDate.getMinutes()}}</span>
+    </div>
 </div>

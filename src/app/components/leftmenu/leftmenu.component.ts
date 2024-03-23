@@ -33,7 +33,7 @@ export class LeftmenuComponent implements OnInit {
   ];
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;
-  activeItem: number | null = null;
+  activeItem: any | null = null;
 
 
 
@@ -47,8 +47,8 @@ export class LeftmenuComponent implements OnInit {
   this.showDropdown = this.activeMenuItem !== null; // Показываем подменю только если activeMenuItem не равен null
   }
 
-  setActiveItem(index: number) {
-    this.activeItem = index;
+  setActiveItem(item: any) {
+    this.activeItem = item;
   }
 
   clearActiveItem() {

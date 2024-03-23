@@ -24,6 +24,14 @@ export class SettingswindowComponent {
     { name: 'Show Deleted pages', icon: "assets/icons/attach_file.svg"},
   ];
 
+  menuItemsBottom: MenuItem[] = [
+    { name: 'Import', icon: "assets/icons/attach_file.svg" },
+    { name: 'Export', icon: "assets/icons/attach_file.svg"},
+  ];
+
+  lastEditedDate: Date = new Date();
+  lastEditedBy: string = "Kurt Cobain";
+
   isSettingsWindowVisible(): boolean
   {
     return this.HeaderService.settingsWindowVisible;
