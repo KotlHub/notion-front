@@ -1,5 +1,8 @@
-<div *ngIf="isNewPageVisible()" class="modal">
+<div *ngIf="isNewPageVisible()" class="modal" (click)="toggleVisible($event)">
     <div class="modal-content">
+      <div class="icon-container">
+        <img src="assets/icons/more_horiz.svg" (click)="toggleVisible()">
+      </div>
       <input placeholder="Untitled" type="text">
       <div class="split">
         <div class="left">

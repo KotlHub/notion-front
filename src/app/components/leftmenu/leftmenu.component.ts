@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { NewPageService } from 'src/app/services/new-page.service';
+import { SearchPageService } from 'src/app/services/search-page.service';
 
 interface MenuItem {
   name: string;
@@ -15,13 +16,18 @@ interface MenuItem {
 })
 export class LeftmenuComponent implements OnInit {
   
-  constructor(private NewPageService: NewPageService, ) {this.toggleNewPage = this.toggleNewPage.bind(this);}
+  constructor(private NewPageService: NewPageService, private SearchPageService: SearchPageService) 
+  {
+    this.toggleNewPage = this.toggleNewPage.bind(this);
+    this.toggleSearchPage = this.toggleSearchPage.bind(this);
+  }
+
   @Input() menuVisible: boolean = false;
   ngOnInit(): void {
   }
 
   menuItemsUpper: MenuItem[] = [
-    { name: 'Search', icon: "assets/icons/attach_file.svg" },
+    { name: 'Search', icon: "assets/icons/attach_file.svg", funcName: "toggleSearchPage" },
     { name: 'New Page', icon: "assets/icons/attach_file.svg", funcName: "toggleNewPage"},
     { name: 'Templates', icon: "assets/icons/attach_file.svg" },
   ];
@@ -57,7 +63,10 @@ export class LeftmenuComponent implements OnInit {
 
   toggleNewPage() {
     this.NewPageService.newPageVisible = !this.NewPageService.newPageVisible;
-    console.log(this.NewPageService.newPageVisible);
+  }
+
+  toggleSearchPage() {
+    this.SearchPageService.searchPageVisible = !this.SearchPageService.searchPageVisible;
   }
 
   myFunction() {

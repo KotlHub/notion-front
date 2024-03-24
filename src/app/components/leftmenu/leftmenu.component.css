@@ -22,6 +22,7 @@ a {
   height: 30px;
   border-radius: 4px;
   padding-left: 10px;
+  padding-right: 10px;
 }
 .nav-list-item span {
   margin-left: 10px ;
@@ -32,11 +33,6 @@ a {
   margin-left: 10px;
 }
 
-.nav-list-item .ellipsis-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) translateX(100%);
-}
 
 .nav-list-item:hover {
   background-color: #4F57FF;

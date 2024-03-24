@@ -23,3 +23,9 @@ app-leftmenu {
 .nav-list-close {
     width: 0px
 }
+
+@media screen and (max-width: 755px) {
+    app-leftmenu {
+        width: 100%;
+    }
+  }

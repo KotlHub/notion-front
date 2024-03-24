@@ -16,6 +16,7 @@ import { LeftMenuService } from './services/left-menu.service';
 import { RegistrationpageComponent } from './components/registrationpage/registrationpage.component';
 import { NewpageComponent } from './components/newpage/newpage.component';
 import { SettingswindowComponent } from './components/settingswindow/settingswindow.component';
+import { SearchpageComponent } from './components/searchpage/searchpage.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SettingswindowComponent } from './components/settingswindow/settingswin
     HeaderComponent,
     RegistrationpageComponent,
     NewpageComponent,
-    SettingswindowComponent
+    SettingswindowComponent,
+    SearchpageComponent
   ],
   imports: [
     BrowserModule,

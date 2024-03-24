@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Directive, ElementRef, HostListener } from '@angular/core';
 import { NewPageService } from 'src/app/services/new-page.service';
 
 interface MenuItem {
@@ -27,6 +27,25 @@ export class NewpageComponent {
     { name: 'Gallery', icon: "assets/icons/check.svg" },
   ];
   constructor(private newPageService: NewPageService) { }
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    if (this.newPageService.newPageVisible && event.key === "Escape") {
+      this.newPageService.newPageVisible = false;
+    }
+  }
+
+  toggleVisible(event?: Event) {
+    const modalContent = document.querySelector('.modal-content');
+    if (this.newPageService.newPageVisible && modalContent && !modalContent.contains(event?.target as Node)) {
+      this.newPageService.newPageVisible = !this.newPageService.newPageVisible;
+    }
+
+    else if (!event && this.newPageService.newPageVisible) {
+      this.newPageService.newPageVisible = !this.newPageService.newPageVisible;
+  }
+  }
+
+  
 
   isNewPageVisible(): boolean {
     return this.newPageService.newPageVisible;

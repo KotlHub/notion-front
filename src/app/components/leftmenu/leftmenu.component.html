@@ -6,7 +6,7 @@
     (mouseleave)="clearActiveItem()">
       <img src="{{item.icon}}">
       <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
-      <span *ngIf="activeItem == item" class="ellipsis-icon"><i class="fas fa-ellipsis"></i></span>
+      <img *ngIf="activeItem == item" src="assets/icons/more_horiz.svg">
     </li>
   </ng-container>
   </ul>
@@ -19,7 +19,7 @@
         <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/down_arrow.svg' : 'assets/icons/right_arrow.svg'" (click)="toggleDropdown(item.name)">
         <img src="{{item.icon}}">
         <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
-        <span *ngIf="activeItem == item" class="ellipsis-icon"><i class="fas fa-ellipsis"></i></span>
+        <img *ngIf="activeItem == item" src="assets/icons/more_horiz.svg">
       </li>
       <li>
         <ul *ngIf="showDropdown && item.name === activeMenuItem" class="submenu">
