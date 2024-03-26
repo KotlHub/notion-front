@@ -17,6 +17,7 @@ import { RegistrationpageComponent } from './components/registrationpage/registr
 import { NewpageComponent } from './components/newpage/newpage.component';
 import { SettingswindowComponent } from './components/settingswindow/settingswindow.component';
 import { SearchpageComponent } from './components/searchpage/searchpage.component';
+import { CreatenewpageComponent } from './components/createnewpage/createnewpage.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SearchpageComponent } from './components/searchpage/searchpage.componen
     RegistrationpageComponent,
     NewpageComponent,
     SettingswindowComponent,
-    SearchpageComponent
+    SearchpageComponent,
+    CreatenewpageComponent
   ],
   imports: [
     BrowserModule,

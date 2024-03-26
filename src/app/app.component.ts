@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,11 @@ import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
 })
 export class AppComponent {
   title = 'notion-front';
+
+  constructor(private router: Router) {}
+
+  isRegistrationPageActive(): boolean {
+    return this.router.url === '/registration';
+  }
   menuVisible: boolean = false;
 }

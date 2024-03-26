@@ -1,11 +1,17 @@
-<div class="container-fluid g-0">
+
     <app-header (LeftMenuToggled)="menuVisible = $event;"></app-header>
-    <main>
-        <app-leftmenu [menuVisible] = "menuVisible" [ngClass]="{'nav-list-close': menuVisible}"></app-leftmenu>
-    </main>
-</div>
+    <app-leftmenu [menuVisible]="menuVisible" [ngClass]="{'nav-list-close': menuVisible}"></app-leftmenu>
+    <div class="main" [ngClass]="{'main-menu-visible': !menuVisible}">
+        <div class="left-column">
+            
+        </div>
+            <!-- <img src="assets/wallpaper.png" class="wallpaper"> -->
+            <router-outlet></router-outlet>
+    </div>
+
 <app-newpage></app-newpage>
 <app-searchpage></app-searchpage>
 <app-settingswindow></app-settingswindow>
+ 
 
 <!-- <app-registrationpage></app-registrationpage> -->

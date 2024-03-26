@@ -6,15 +6,23 @@ app-header {
     z-index: 2;
 }
 
-main {
-    position: absolute;
-    width: 100vh;
-    top: 3rem;
+.main {
+    position: relative;
+    width: 100%;
+    margin-top: 3rem;
+    height: calc(100vh - 3rem);
+    border: red 2px solid;
+}
+
+.main-menu-visible {
+    width: calc(100% - 250px);
+    margin-left: 250px;
 }
 
 app-leftmenu {
-    position: absolute;
+    position: fixed;
     left: 0rem;
+    top: 3rem;
     width: 250px;
     height: calc(100vh - 3rem);
     background-color: black;
@@ -23,6 +31,12 @@ app-leftmenu {
 .nav-list-close {
     width: 0px
 }
+
+.wallpaper {
+    width: auto;
+}
+
+
 
 @media screen and (max-width: 755px) {
     app-leftmenu {

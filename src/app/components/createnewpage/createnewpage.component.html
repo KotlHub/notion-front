@@ -1,0 +1,8 @@
+<div class="main">
+    <div class="container">
+        <input class="create-page-input header-input" placeholder="Untitled" type="text">
+        <!-- <input class="create-page-input content-input" placeholder="Your text"> -->
+        <textarea class="create-page-input content-input" [(ngModel)]="inputText" (input)="resizeTextarea($event)" placeholder="Input your text"></textarea>
+    </div>
+</div>
+
