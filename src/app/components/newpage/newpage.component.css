@@ -85,6 +85,10 @@
     background-color: #434BF3;
   }
 
+  .active-item {
+    background-color: #434BF3;
+  }
+
   .bottom-button-contaiter {
     bottom: 0;
     display: flex;

@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+/* Применяем стили к скроллбару для всего проекта */
+
+/* Ширина и цвет скроллбара */
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+/* Стиль ползунка */
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+/* Стиль ползунка при наведении */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Фон трека */
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Фон трека при наведении */
+::-webkit-scrollbar-track:hover {
+    background-color: transparent;
+}

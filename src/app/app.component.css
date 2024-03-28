@@ -10,7 +10,8 @@ app-header {
     position: relative;
     width: 100%;
     margin-top: 3rem;
-    height: calc(100vh - 3rem);
+    max-height: calc(100vh - 3rem);
+    overflow: auto;
     border: red 2px solid;
 }
 
@@ -26,6 +27,7 @@ app-leftmenu {
     width: 250px;
     height: calc(100vh - 3rem);
     background-color: black;
+    overflow: auto;
 }
 
 .nav-list-close {

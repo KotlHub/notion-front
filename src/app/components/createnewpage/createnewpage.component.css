@@ -1,6 +1,5 @@
 .main {
     max-height: 100%;
-    overflow: auto;
 }
 
 .container {
@@ -30,3 +29,15 @@
     resize: none; /* Disable user resizing */
   overflow-y: hidden; /* Hide vertical scrollbar */
 }
+
+.expandable-textarea {
+    resize: vertical;
+    min-height: 100px; /* настройте по желанию */
+}
+
+.quote-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+

@@ -7,17 +7,23 @@
       <div class="split">
         <div class="left">
           <div *ngFor="let item of menuItemsLeft">
-            <button class="new-page-clickable button-main"><img src="{{item.icon}}"><span style="margin-left: 10px;">{{item.name}}</span></button>
+            <button class="new-page-clickable button-main" (click)="setActiveItem(item)" [ngClass]="{'active-item': item === activeItem}">
+              <img src="{{item.icon}}">
+              <span style="margin-left: 10px;">{{item.name}}</span>
+            </button>
           </div>
         </div>
         <div class="right">
           <div *ngFor="let item of menuItemsRight">
-            <button class="new-page-clickable button-main"><img src="{{item.icon}}"><span style="margin-left: 10px;">{{item.name}}</span></button>
+            <button class="new-page-clickable button-main" (click)="setActiveItem(item)" [ngClass]="{'active-item': item === activeItem}">
+              <img src="{{item.icon}}">
+              <span style="margin-left: 10px;">{{item.name}}</span>
+             </button>
           </div>
         </div>
       </div>
       <div class="bottom-button-contaiter">
-        <button class="new-page-clickable bottom-button">Create</button>
+        <button class="new-page-clickable bottom-button" (click)="createNewPage()">Create</button>
       </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-createnewpage',
@@ -7,14 +7,19 @@ import { Component } from '@angular/core';
 })
 export class CreatenewpageComponent {
 
-  inputText: string = '';
+  @ViewChild('contentEditable', { static: false }) contentEditable!: ElementRef;
 
   constructor() { }
 
-  resizeTextarea(event: any) {
-    const textarea = event.target;
-    textarea.style.height = 'auto'; // reset to auto height
-    textarea.style.height = textarea.scrollHeight + 'px'; // set the height to the scrollHeight
+  makeBold() {
+    document.execCommand('styleWithCSS', false, 'true');
+    document.execCommand('bold', false, undefined);
+    this.contentEditable.nativeElement.focus();
   }
 
+  makeItalic() {
+    document.execCommand('styleWithCSS', false, 'true');
+    document.execCommand('italic', false, undefined);
+    this.contentEditable.nativeElement.focus();
+  }
 }
