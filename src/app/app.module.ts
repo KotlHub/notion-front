@@ -18,6 +18,7 @@ import { NewpageComponent } from './components/newpage/newpage.component';
 import { SettingswindowComponent } from './components/settingswindow/settingswindow.component';
 import { SearchpageComponent } from './components/searchpage/searchpage.component';
 import { CreatenewpageComponent } from './components/createnewpage/createnewpage.component';
+import { BigmodalwindowComponent } from './components/bigmodalwindow/bigmodalwindow.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CreatenewpageComponent } from './components/createnewpage/createnewpage
     NewpageComponent,
     SettingswindowComponent,
     SearchpageComponent,
-    CreatenewpageComponent
+    CreatenewpageComponent,
+    BigmodalwindowComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,29 @@
-<div *ngIf="isSearchPageVisible()" class="modal" (click)="toggleVisible($event)">
+  <div *ngIf="isSearchPageVisible()" class="modal" (click)="toggleVisible($event)">
     <div class="modal-content">
       <div class="icon-container">
         <img src="assets/icons/more_horiz.svg" (click)="toggleVisible()">
       </div>
+      <div class="search-container">
+        <img src="assets/icons/search_page/search.svg">
+        <input placeholder="Search...">
+        <img src="assets/icons/search_page/filter_list.svg">
+      </div>
+      <hr>
+      <div class="sort-list-container">
+        <div *ngFor="let button of ListItems" >
+          <button (click)="toggleDropdown(button.id)" class="search-clickable search-list-button">
+            <img src="{{button.icon}}">
+            <span>{{ button.name }}</span>
+          </button>
+          <div id="{{ button.id }}" class="dropdown-content">
+            <a href="#">Главная</a>
+            <a href="#">О Нас</a>
+            <a href="#">Контакты</a>
+          </div>
+        </div>
+        
+      </div>
+    
       
     </div>
-</div>
+  </div>
