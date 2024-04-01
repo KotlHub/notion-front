@@ -1,22 +1,31 @@
 <div class="side-nav-content" *ngIf="!menuVisible">
+
   <ul class="nav-list">
     <ng-container *ngFor="let item of menuItemsUpper; let i = index">
     <li class="nav-list-item"
-    (mouseenter)="setActiveItem(item)" 
-    (mouseleave)="clearActiveItem()">
+        (mouseenter)="setActiveItem(item)" 
+        (mouseleave)="clearActiveItem()">
       <img src="{{item.icon}}">
       <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
       <img *ngIf="activeItem == item" src="assets/icons/more_horiz.svg">
     </li>
   </ng-container>
   </ul>
+
   <hr>
+
   <ul class="nav-list">
+
+    <li class="nav-list-item">
+      <img src="assets/icons/more_horiz.svg">
+      <span>Private</span>
+    </li>
+
     <ng-container *ngFor="let item of menuItemsMid; let j = index">
       <li class="nav-list-item"
           (mouseenter)="setActiveItem(item)" 
           (mouseleave)="clearActiveItem()">
-        <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/down_arrow.svg' : 'assets/icons/right_arrow.svg'" (click)="toggleDropdown(item.name)">
+        <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
         <img src="{{item.icon}}">
         <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
         <img *ngIf="activeItem == item" src="assets/icons/more_horiz.svg">
@@ -30,6 +39,30 @@
       </li>
     </ng-container>
   </ul>
+
+  <li class="nav-list-item">
+    <img src="assets/icons/more_horiz.svg">
+    <span>Teamspaces</span>
+  </li>
+
+  <li class="nav-list-item">
+    <img src="assets/icons/more_horiz.svg">
+    <span>Favourite</span>
+  </li>
+
   <hr>
+
+  <ul class="nav-list">
+    <ng-container *ngFor="let item of menuItemsLower; let i = index">
+    <li class="nav-list-item"
+        (mouseenter)="setActiveItem(item)" 
+        (mouseleave)="clearActiveItem()">
+      <img src="{{item.icon}}">
+      <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
+      <img *ngIf="activeItem == item" src="assets/icons/more_horiz.svg">
+    </li>
+  </ng-container>
+  </ul>
+
 </div>
 

@@ -16,16 +16,16 @@ interface MenuItem {
 export class NewpageComponent {
 
   menuItemsLeft: MenuItem[] = [
-    { name: 'Empty page', icon: "assets/icons/attach_file.svg", funcName: "emptypage" },
-    { name: 'Table', icon: "assets/icons/attach_file.svg", funcName: "table"},
-    { name: 'List', icon: "assets/icons/attach_file.svg", funcName: "list" },
-    { name: 'Template', icon: "assets/icons/attach_file.svg", funcName: "template"},
+    { name: 'Empty page', icon: "assets/icons/new_page_modal/note_stack.svg", funcName: "emptypage" },
+    { name: 'Table', icon: "assets/icons/new_page_modal/table.svg", funcName: "table"},
+    { name: 'List', icon: "assets/icons/new_page_modal/format_list_bulleted.svg", funcName: "list" },
+    { name: 'Template', icon: "assets/icons/new_page_modal/extension.svg", funcName: "template"},
   ];
 
   menuItemsRight: MenuItem[] = [
-    { name: 'Board', icon: "assets/icons/location_home.svg", funcName: "board"},
-    { name: 'Calendar', icon: "assets/icons/check.svg", funcName: "calendar" },
-    { name: 'Gallery', icon: "assets/icons/check.svg", funcName: "Gallery" },
+    { name: 'Board', icon: "assets/icons/new_page_modal/table_chart.svg", funcName: "board"},
+    { name: 'Calendar', icon: "assets/icons/new_page_modal/calendar_month.svg", funcName: "calendar" },
+    { name: 'Gallery', icon: "assets/icons/new_page_modal/gallery_thumbnail.svg", funcName: "Gallery" },
   ];
   activeItem: any | null = null;
 

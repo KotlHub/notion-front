@@ -12,7 +12,7 @@
 
 .create-page-input {
     width: 100%;
-    color: #525252;
+    
     border: none;
     outline: none;
     background: transparent;
@@ -22,22 +22,52 @@
 .header-input {
     font-size: 40px;
     margin-bottom: 10px;
+    color: #525252;
 }
 
 .content-input {
+    color: #525252;
     font-size: 16;
     resize: none; /* Disable user resizing */
-  overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-y: hidden; /* Hide vertical scrollbar */
 }
 
-.expandable-textarea {
-    resize: vertical;
-    min-height: 100px; /* настройте по желанию */
+.button-container {
+    padding: 3px 0 3px 3px;
+    display: none; 
+    position: fixed;
+    border-radius: 4px;
+    background-color: black;
 }
 
-.quote-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+.link-container {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 3px;
 }
 
+.link-input {
+    border: solid 1px white;
+    margin-right: 3px;
+    height: 25px;
+}
+
+.new-page-clickable {
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #202020;
+    color: white;
+    text-align: left;
+}
+
+.style-button {
+    border: solid 1px white;
+    margin-right: 3px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+  
+.style-button:hover {
+    background-color: #434BF3;
+}

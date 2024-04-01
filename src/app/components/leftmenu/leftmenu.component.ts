@@ -27,15 +27,21 @@ export class LeftmenuComponent implements OnInit {
   }
 
   menuItemsUpper: MenuItem[] = [
-    { name: 'Search', icon: "assets/icons/attach_file.svg", funcName: "toggleSearchPage" },
-    { name: 'New Page', icon: "assets/icons/attach_file.svg", funcName: "toggleNewPage"},
-    { name: 'Templates', icon: "assets/icons/attach_file.svg" },
+    { name: 'Search', icon: "assets/icons/left_menu/search.svg", funcName: "toggleSearchPage" },
+    { name: 'New Page', icon: "assets/icons/left_menu/add_circle.svg", funcName: "toggleNewPage"},
+    { name: 'Templates', icon: "assets/icons/left_menu/extension.svg" },
   ];
 
   menuItemsMid: MenuItem[] = [
-    { name: 'Quick Note', icon: "assets/icons/attach_file.svg"},
-    { name: 'Personal Home', icon: "assets/icons/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
-    { name: 'Task list', icon: "assets/icons/check.svg", submenu: ['write html', 'write css', 'pet the cat'] }
+    { name: 'Quick Note', icon: "assets/icons/left_menu/attach_file.svg"},
+    { name: 'Personal Home', icon: "assets/icons/left_menu/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
+    { name: 'Task list', icon: "assets/icons/left_menu/check.svg", submenu: ['write html', 'write css', 'pet the cat'] }
+  ];
+
+  menuItemsLower: MenuItem[] = [
+    { name: 'Import', icon: "assets/icons/left_menu/upload.svg"},
+    { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
+    { name: 'Trash', icon: "assets/icons/left_menu/delete.svg", submenu: ['write html', 'write css', 'pet the cat'] }
   ];
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;

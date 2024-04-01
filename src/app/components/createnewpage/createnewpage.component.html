@@ -2,7 +2,17 @@
     <div class="container">
         <input class="create-page-input header-input" placeholder="Untitled" type="text">
         <div #contentEditable contenteditable class="create-page-input content-input">text</div>
-        <button (click)="makeBold()">B</button>
-        <button (click)="makeItalic()">I</button>
+        <div #buttonContainer class="button-container">
+            <div class="link-container" *ngIf="isLinkContainer">
+                <button class="new-page-clickable style-button" (click)="confirmLink($event)">Y</button>
+                <input placeholder="Place the link here" class="new-page-clickable link-input">
+                <button class="new-page-clickable style-button" (click)="cancelLink($event)">N</button>
+            </div>
+            <button (mousedown)="makeFormat($event, 'bold')" class="new-page-clickable style-button"><b>B</b></button>
+            <button (mousedown)="makeFormat($event, 'italic')" class="new-page-clickable style-button"><i>i</i></button>
+            <button (mousedown)="makeFormat($event, 'underline')" class="new-page-clickable style-button"><u>U</u></button>
+            <button (mousedown)="makeFormat($event, 'underline')" class="new-page-clickable style-button">I</button>
+            <button class="new-page-clickable style-button" (click)="toggleLinkContainer()">''</button>
+        </div>
     </div>
 </div>
