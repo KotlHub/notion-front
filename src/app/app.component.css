@@ -1,3 +1,8 @@
+:root {
+    --full-width-true: 0px 20px 0px 20px;
+    --full-width-false: 0px 250px 0px 250px;
+  }
+
 app-header {
     position: fixed;
     width: 100%;
@@ -46,6 +51,18 @@ app-leftmenu {
     display: block;
 }
 
+.outlet-container {
+    width: 100%;
+    height: auto;
+}
+
+.full-width-true {
+    padding: 0px 20px 0px 20px;
+}
+
+.full-width-false {
+    padding: 0px 250px 0px 250px;
+}
 
 
 @media screen and (max-width: 755px) {

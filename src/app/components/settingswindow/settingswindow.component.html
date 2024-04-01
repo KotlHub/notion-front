@@ -26,31 +26,13 @@
         </div>
     </div>
     <hr>
-    <div class="settings-window-clickable">
-        Small text
+    <div *ngFor="let checkbox of checkboxes" class="settings-window-clickable">
+        {{ checkbox.label }}
         <div style="right: 0; position: absolute;">
-        <label class="form-switch">
-            <input type="checkbox">
+          <label class="form-switch">
+            <input type="checkbox" [(ngModel)]="checkbox.checked" (change)="onCheckboxChange(checkbox)">
             <i></i>
-        </label>
-        </div>
-    </div>
-    <div class="settings-window-clickable">
-        Lock page
-        <div style="right: 0; position: absolute;">
-        <label class="form-switch">
-            <input type="checkbox">
-            <i></i>
-        </label>
-        </div>
-    </div>
-    <div class="settings-window-clickable">
-        Full width
-        <div style="right: 0; position: absolute;">
-        <label class="form-switch">
-            <input type="checkbox">
-            <i></i>
-        </label>
+          </label>
         </div>
     </div>
     <hr>

@@ -59,8 +59,8 @@ export class NewpageComponent {
 
   createNewPage() {
     if (this.activeItem && typeof this.activeItem.funcName === 'string') {
-      //const funcName = this.activeItem.funcName;
-      this.router.navigate(['/createnewpage']);
+      const funcName = this.activeItem.funcName;
+      this.router.navigate(['/createnewpage', funcName ]);
       this.newPageService.newPageVisible = false;
     } else {
       console.error('Активный элемент не имеет функции');

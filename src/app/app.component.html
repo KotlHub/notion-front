@@ -2,14 +2,13 @@
     <app-header (LeftMenuToggled)="menuVisible = $event;"></app-header>
     <app-leftmenu [menuVisible]="menuVisible" [ngClass]="{'nav-list-close': menuVisible}"></app-leftmenu>
     <div class="main" [ngClass]="{'main-menu-visible': !menuVisible}">
-        <div class="left-column">
-            
+        <!-- <img src="assets/wallpaper.png" class="wallpaper"> -->
+        <div class="image-wrapper">
+            <img src="assets/wallpaper.png" class="wallpaper">
         </div>
-            <!-- <img src="assets/wallpaper.png" class="wallpaper"> -->
-            <div class="image-wrapper">
-                <img src="assets/wallpaper.png" class="wallpaper">
-            </div>
+        <div class="outlet-container" [ngClass]="{ 'full-width-true': isFullWidth(), 'full-width-false': !isFullWidth() }">
             <router-outlet></router-outlet>
+        </div>
     </div>
 
 <app-newpage></app-newpage>

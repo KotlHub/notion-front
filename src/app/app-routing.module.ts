@@ -4,8 +4,10 @@ import { CreatenewpageComponent } from './components/createnewpage/createnewpage
 import { RegistrationpageComponent } from './components/registrationpage/registrationpage.component';
 
 const routes: Routes = [ 
-  {path: "createnewpage", component: CreatenewpageComponent}, // этот выводится через аутлет
   { path: "registration", component: RegistrationpageComponent }, // этот не выводится через аутлет
+  { path: "createnewpage/emptypage", component: CreatenewpageComponent }, // этот выводится через аутлет
+  { path: "createnewpage/board", component: CreatenewpageComponent }, // этот выводится через аутлет
+  
  
 ];
 
