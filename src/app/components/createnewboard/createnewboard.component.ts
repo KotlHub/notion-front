@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 interface Card {
-  id: string;
+  id?: string;
   name: string;
   description?: string;
   datetime?: Date;
@@ -9,7 +9,7 @@ interface Card {
 }
 
 interface List {
-  id: string;
+  id?: string;
   name: string;
   cards?: Card[];
 }
@@ -31,15 +31,46 @@ export class CreatenewboardComponent {
     console.log(this.newListVisible);
   }
 
-  createList() 
-  {
-    const newList: List = {
-      id: this.newListName || 'Untitled',
-      name: this.newListName || 'Untitled' // Используем введенное значение или "Untitled", если поле ввода пустое
-    };
-    this.lists.push(newList);
-    this.newListName = ''; // Очищаем значение после добавления списка
+  createList() {
+    if (!this.newListName.trim()) {
+      let counter = 1;
+      let newName = `Untitled${counter}`;
+  
+      while (this.lists.some(list => list.name === newName)) {
+        counter++;
+        newName = `Untitled${counter}`;
+      }
+      
+      this.newListName = newName;
 
+    } 
+
+    else {
+      const existingList = this.lists.find(list => list.name === this.newListName);
+  
+      // Если такой элемент уже существует
+      if (existingList) {
+        let counter = 1;
+        let newName = `${this.newListName}${counter}`;
+  
+        // Генерируем новое уникальное имя, пока не найдем свободное
+        while (this.lists.some(list => list.name === newName)) {
+          counter++;
+          newName = `${this.newListName}${counter}`;
+        }
+        // Используем новое уникальное имя
+        this.newListName = newName;
+      }
+    }
+  
+  
+    const newList: List = {
+      name: this.newListName
+    };
+    
+    this.lists.push(newList);
+
+    this.newListName = '';
   }
 
 }

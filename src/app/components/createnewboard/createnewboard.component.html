@@ -7,18 +7,18 @@
         <div class="board-clickable">
           <span>{{item.name}}</span>
         </div>
-        <button class="board-clickable card-button"><img src="assets\icons\board\add.svg">Add card</button>
+        <button class="board-clickable card-button"><img src="assets\icons\board\add.svg"><span>Add card</span></button>
       </div>
 
-      <form (ngSubmit)="createList(); toggleNewList()">
         <div class="list" *ngIf="newListVisible">
+        <form (ngSubmit)="createList(); toggleNewList()">
           <input class="board-clickable card-input" placeholder="Enter list title..." [(ngModel)]="newListName" name="newListName">
-          <button class="board-clickable card-button" type="submit"><img src="assets\icons\board\list_alt_add.svg">Add list</button>
+          <button class="board-clickable card-button"><img src="assets\icons\board\list_alt_add.svg"><span>Add list</span></button>
+        </form>
         </div>
-      </form>
       
       <div class="list" *ngIf="!newListVisible">
-        <button class="board-clickable card-button" (click)="toggleNewList()"><img src="assets\icons\board\add.svg">Add another list</button>
+        <button class="board-clickable card-button" (click)="toggleNewList()"><img src="assets\icons\board\add.svg"><span>Add another list</span></button>
       </div>
       
     </div>

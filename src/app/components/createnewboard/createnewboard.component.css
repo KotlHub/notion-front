@@ -44,6 +44,8 @@
     min-height: 33px;
     padding-left: 10px;
     vertical-align: auto;
+    display: flex; /* Добавлено */
+    align-items: center; /* Добавлено */
 }
 
 .board-clickable span {
@@ -61,6 +63,10 @@
     background-color: #1E1E1E;
     color: #D9D9D9D9;
     text-align: left;
+}
+
+.card-button span {
+    margin-left: 10px;
 }
 
 .card-button:hover {
