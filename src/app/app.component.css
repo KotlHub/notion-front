@@ -1,7 +1,12 @@
 :root {
     --full-width-true: 0px 20px 0px 20px;
     --full-width-false: 0px 250px 0px 250px;
-  }
+}
+
+body
+{
+    background-color: black;
+}
 
 app-header {
     position: fixed;
@@ -54,6 +59,7 @@ app-leftmenu {
 .outlet-container {
     width: 100%;
     height: auto;
+    overflow-y: auto;
 }
 
 .full-width-true {
