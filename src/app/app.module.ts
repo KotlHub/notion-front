@@ -20,6 +20,7 @@ import { SearchpageComponent } from './components/searchpage/searchpage.componen
 import { CreatenewpageComponent } from './components/createnewpage/createnewpage.component';
 import { BigmodalwindowComponent } from './components/bigmodalwindow/bigmodalwindow.component';
 import { CreatenewboardComponent } from './components/createnewboard/createnewboard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CreatenewboardComponent } from './components/createnewboard/createnewbo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [ LeftMenuService],
   bootstrap: [AppComponent]
