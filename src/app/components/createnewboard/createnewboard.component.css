@@ -23,15 +23,38 @@
     color: #525252;
 }
 
+.content-card-input {
+    color: #D9D9D9D9;
+    background-color: transparent;
+    font-size: 14px;
+    resize: none; /* Disable user resizing */
+    max-width: 100%; /* Ограничиваем максимальную ширину */
+    overflow-y: auto; /* Показываем вертикальную полосу прокрутки, если содержимое больше высоты */
+    overflow-x: hidden; /* Скрываем горизонтальную полосу прокрутки */
+}
+
+
+.card {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #2E2E2E;
+    border: none;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
 .list-container {
     display: flex;
+    align-items: flex-start;
 }
 
 .list {
     border-radius: 6px;
     background: #1E1E1E;
     min-width: 266px;
-    height: auto;
+    max-width: 266px;
     margin-right: 10px;
     margin-bottom: 10px;
     padding: 10px 10px 0 10px;
@@ -71,5 +94,47 @@
 
 .card-button:hover {
     background-color: #323232;
+}
+
+.dropdown-div {
+    position: absolute; 
+    right: 0;
+}
+
+.dropdown-menu-ul {
+    background: #181818;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.triple-dot-button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: transparent;
+    border-radius: 2px;
+
+
+}
+
+.triple-dot-button:hover {
+    background-color: #393939;
+}
+
+.dropdown-item {
+    border-radius: 4px;
+    width: 100%;
+    color: #D9D9D9;
+    font-size: 14px;
+    cursor: default;
+}
+
+.dropdown-item:hover {
+    background-color: #434BF3;
+
+}
+
+.dropdown-item span {
+    margin-left: 10px;
 }
 

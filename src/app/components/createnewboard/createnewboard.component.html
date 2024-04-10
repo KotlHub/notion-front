@@ -3,11 +3,35 @@
     <input class="board-input header-input" placeholder="Untitled" type="text">
     <hr>
     <div class="list-container">
-      <div *ngFor="let item of lists" class="list">
-        <div class="board-clickable">
-          <span>{{item.name}}</span>
+      <div *ngFor="let list of lists" class="list">
+        <div class="board-clickable" style="position: relative;">
+          <span>{{list.name}}</span>
+          
+          <div class="dropdown dropdown-div">
+            <button class="triple-dot-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="assets\icons\board\more_horiz.svg">
+            </button>
+            
+            <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
+              <li class="dropdown-item" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add Card</span></li>
+              <li class="dropdown-item" (click)="copyList(list)"><img src="assets\icons\board\content_copy.svg"><span>Copy list</span></li>
+              <li class="dropdown-item" (click)="deleteList(list)"><img src="assets\icons\board\delete.svg"><span>Delete list</span></li>
+            </ul>
+
+          </div>
         </div>
-        <button class="board-clickable card-button"><img src="assets\icons\board\add.svg"><span>Add card</span></button>
+        
+        
+        <div *ngFor="let card of list.cards" class="board-clickable card"
+          draggable="true"
+          (dragstart)="onDragStart($event, card, list)"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event, list)">
+          <div #contentEditable contenteditable class="board-input content-card-input" (blur)="onCardNameBlur($event, card)">{{card.name}}</div>
+            <img src="assets\icons\board\edit.svg">
+          </div>
+
+        <button class="board-clickable card-button" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add card</span></button>
       </div>
 
         <div class="list" *ngIf="newListVisible">

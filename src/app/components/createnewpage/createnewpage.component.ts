@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-createnewpage',
@@ -13,8 +14,11 @@ export class CreatenewpageComponent {
 
   isLinkContainer: boolean = false;
 
-  constructor() { }
 
+  constructor(private UserSevice: UserService) { }
+
+  userEmail = this.UserSevice.userEmail;
+  userToken = this.UserSevice.userToken;
   makeFormat(event: MouseEvent, style: string) {
     event.stopPropagation();
     document.execCommand('styleWithCSS', false, 'true');
