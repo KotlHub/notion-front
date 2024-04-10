@@ -36,7 +36,8 @@ app-leftmenu {
     top: 3rem;
     width: 250px;
     height: calc(100vh - 3rem);
-    background-color: black;
+    background-color: #181818;
+    ;
     overflow: auto;
 }
 

@@ -22,6 +22,7 @@ interface List {
 export class CreatenewboardComponent {
 
   lists: List[] = [];
+  headerInput: string = "";
   newListName: string = "";
   newListVisible: boolean = true;
 
@@ -93,6 +94,12 @@ export class CreatenewboardComponent {
     const newValue = (event.target as HTMLDivElement).innerText;
     card.name = newValue;
   }
+
+  onHeaderBlur(event: FocusEvent) {
+    this.headerInput = (event.target as HTMLInputElement).value;
+    console.log(this.headerInput);
+  }
+  
   
 
   onDragStart(event: DragEvent, card: Card, list: List) {

@@ -1,6 +1,6 @@
 <div class="main">
   <div class="container">
-    <input class="board-input header-input" placeholder="Untitled" type="text">
+    <input class="board-input header-input" placeholder="Untitled" type="text" (blur)="onHeaderBlur($event)">
     <hr>
     <div class="list-container">
       <div *ngFor="let list of lists" class="list">
