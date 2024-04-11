@@ -32,8 +32,7 @@ export class SearchpageComponent {
     { name: 'Date', icon: "assets/icons/search_page/swap_vert.svg", id: "dateButton" },
   ];
 
-  selectedItem: string | undefined;
-  isDropdownVisible: boolean[] = [];
+  isSortButtonsVisible: boolean = false;
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if (this.SearchPageService.searchPageVisible && event.key === "Escape") {
@@ -56,13 +55,9 @@ export class SearchpageComponent {
     return this.SearchPageService.searchPageVisible;
   }
 
-  toggleDropdown(buttonId: string) {
-    const dropdown = document.getElementById(buttonId);
-    if (dropdown?.classList.contains('show')) {
-      dropdown?.classList.remove('show');
-    } else {
-      dropdown?.classList.add('show');
-    }
+  toggleSortButtonsVisible()
+  {
+    this.isSortButtonsVisible = !this.isSortButtonsVisible;
   }
 
 

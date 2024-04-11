@@ -2,6 +2,10 @@ body {
     background-color: black;
 }
 
+hr {
+    border: 0.5px solid #ddd;
+}
+
 /* Ширина и цвет скроллбара */
 ::-webkit-scrollbar {
     width: 8px;
