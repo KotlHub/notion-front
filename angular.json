@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "notion-front:build:production"
+              "buildTarget": "notion-front:build:production"
             },
             "development": {
-              "browserTarget": "notion-front:build:development"
+              "buildTarget": "notion-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "notion-front:build"
+            "buildTarget": "notion-front:build"
           }
         },
         "test": {
