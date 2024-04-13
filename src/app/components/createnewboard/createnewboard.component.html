@@ -1,50 +1,43 @@
-<div class="main">
+<div class="main" cdkDropListGroup>
   <div class="container">
-    <input class="board-input header-input" placeholder="Untitled" type="text" (blur)="onHeaderBlur($event)">
+    <input class="board-input header-input" placeholder="Untitled" type="text" [(ngModel)]="headerInput" (blur)="onHeaderBlur()">
     <hr>
     <div class="list-container">
-      <div *ngFor="let list of lists" class="list">
+      <div *ngFor="let list of lists" class="list" cdkDropList [cdkDropListData]="list.cards" (cdkDropListDropped)="onDrop($event)">
         <div class="board-clickable" style="position: relative;">
           <span>{{list.name}}</span>
-          
           <div class="dropdown dropdown-div">
             <button class="triple-dot-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="assets\icons\board\more_horiz.svg">
             </button>
-            
             <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
               <li class="dropdown-item" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add Card</span></li>
               <li class="dropdown-item" (click)="copyList(list)"><img src="assets\icons\board\content_copy.svg"><span>Copy list</span></li>
               <li class="dropdown-item" (click)="deleteList(list)"><img src="assets\icons\board\delete.svg"><span>Delete list</span></li>
             </ul>
-
+          </div>
+        </div>
+        <div *ngFor="let card of list.cards" class="board-clickable card" cdkDrag [cdkDragData]="card">
+          <div #contentEditable contenteditable class="board-input content-card-input" (blur)="onCardNameBlur($event, card)">{{card.name}}</div>
+          
+          <div cdkDragHandle class="drag-handle">
+            <img src="assets\icons\board\edit.svg">
           </div>
         </div>
         
-        
-        <div *ngFor="let card of list.cards" class="board-clickable card"
-          draggable="true"
-          (dragstart)="onDragStart($event, card, list)"
-          (dragover)="onDragOver($event)"
-          (drop)="onDrop($event, list)">
-          <div #contentEditable contenteditable class="board-input content-card-input" (blur)="onCardNameBlur($event, card)">{{card.name}}</div>
-            <img src="assets\icons\board\edit.svg">
-          </div>
-
-        <button class="board-clickable card-button" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add card</span></button>
+        <div>
+          <button class="board-clickable card-button" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add card</span></button>
+        </div>
       </div>
-
-        <div class="list" *ngIf="newListVisible">
+      <div class="list" *ngIf="newListVisible">
         <form (ngSubmit)="createList(); toggleNewList()">
           <input class="board-clickable card-input" placeholder="Enter list title..." [(ngModel)]="newListName" name="newListName">
           <button class="board-clickable card-button"><img src="assets\icons\board\list_alt_add.svg"><span>Add list</span></button>
         </form>
-        </div>
-      
+      </div>
       <div class="list" *ngIf="!newListVisible">
         <button class="board-clickable card-button" (click)="toggleNewList()"><img src="assets\icons\board\add.svg"><span>Add another list</span></button>
       </div>
-      
     </div>
   </div>
 </div>

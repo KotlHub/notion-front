@@ -45,27 +45,12 @@ export class LeftmenuComponent implements OnInit {
   ];
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;
-  activeItem: any | null = null;
-
-
-
-  setActive(menuItem: string): void {
-    this.activeMenuItem = menuItem;
-    this.showDropdown = false;
-  }
 
   toggleDropdown(menuItem: string): void {
   this.activeMenuItem = this.activeMenuItem === menuItem ? null : menuItem;
   this.showDropdown = this.activeMenuItem !== null; // Показываем подменю только если activeMenuItem не равен null
   }
 
-  setActiveItem(item: any) {
-    this.activeItem = item;
-  }
-
-  clearActiveItem() {
-    this.activeItem = null;
-  }
 
   toggleNewPage() {
     this.NewPageService.newPageVisible = !this.NewPageService.newPageVisible;

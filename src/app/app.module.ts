@@ -21,6 +21,8 @@ import { CreatenewpageComponent } from './components/createnewpage/createnewpage
 import { BigmodalwindowComponent } from './components/bigmodalwindow/bigmodalwindow.component';
 import { CreatenewboardComponent } from './components/createnewboard/createnewboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CreatenewlistComponent } from './components/createnewlist/createnewlist.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +41,15 @@ import { HttpClientModule } from '@angular/common/http';
     SearchpageComponent,
     CreatenewpageComponent,
     BigmodalwindowComponent,
-    CreatenewboardComponent
+    CreatenewboardComponent,
+    CreatenewlistComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [ LeftMenuService],
   bootstrap: [AppComponent]
