@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { SearchPageService } from 'src/app/services/search-page.service';
+import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 
 interface MenuItem {
   name: string;

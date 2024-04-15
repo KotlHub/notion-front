@@ -1,6 +1,6 @@
 import { Component, Directive, ElementRef, HostListener } from '@angular/core';
 import { SearchPageService } from 'src/app/services/search-page.service';
-import { BigmodalwindowComponent } from '../bigmodalwindow/bigmodalwindow.component';
+import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 
 interface MenuItem {
   name: string;
@@ -10,19 +10,13 @@ interface MenuItem {
   id: string;
 }
 
-interface DropdownButton {
-  id: string;
-  label: string;
-  isOpen: boolean;
-}
-
 @Component({
   selector: 'app-searchpage',
   templateUrl: './searchpage.component.html',
   styleUrls: ['./searchpage.component.css']
 })
 export class SearchpageComponent {
-  constructor(private SearchPageService: SearchPageService) { }
+  constructor(private SearchPageService: SearchPageService, private BigModalWindowService: BigModalWindowService) { }
 
   ListItems: MenuItem[] = [
     { name: 'Sort', icon: "assets/icons/search_page/swap_vert.svg", id: "sortButton"},

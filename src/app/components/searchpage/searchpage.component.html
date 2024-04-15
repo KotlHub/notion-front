@@ -1,4 +1,30 @@
-  <div *ngIf="isSearchPageVisible()" class="modal" (click)="toggleVisible($event)">
+<app-bigmodalwindow *ngIf="isSearchPageVisible()">
+  <div class="search-container">
+    <img src="assets/icons/search_page/search.svg">
+    <input placeholder="Search...">
+    <img src="assets/icons/search_page/filter_list.svg" (click)="toggleSortButtonsVisible()">
+  </div>
+  <hr>
+  <div *ngIf="isSortButtonsVisible" class="sort-list-container">
+
+    <div *ngFor="let button of ListItems" class="dropdown dropdown-div">
+      <button class="search-clickable search-list-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="{{button.icon}}">
+        <span>{{ button.name }}</span>
+      </button>
+      
+      <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
+        <li class="dropdown-item"><img src="assets\icons\board\add.svg"><span>Add Cardlalalalaalal</span></li>
+        <li class="dropdown-item"><img src="assets\icons\board\content_copy.svg"><span>Copy list</span></li>
+        <li class="dropdown-item"><img src="assets\icons\board\delete.svg"><span>Delete list</span></li>
+      </ul>
+
+    </div>
+  </div>
+</app-bigmodalwindow>
+
+ 
+<!-- <div *ngIf="isSearchPageVisible()" class="modal" (click)="toggleVisible($event)">
     <div class="modal-content">
       <div class="icon-container">
         <img src="assets/icons/more_horiz.svg" (click)="toggleVisible()">
@@ -28,4 +54,4 @@
     
       
     </div>
-  </div>
+  </div> -->

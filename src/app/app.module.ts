@@ -42,14 +42,14 @@ import { CreatenewlistComponent } from './components/createnewlist/createnewlist
     CreatenewpageComponent,
     BigmodalwindowComponent,
     CreatenewboardComponent,
-    CreatenewlistComponent
+    CreatenewlistComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
   ],
   providers: [ LeftMenuService],
   bootstrap: [AppComponent]

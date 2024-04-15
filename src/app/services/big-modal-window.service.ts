@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BigModalWindowService {
-  modalVisible: boolean = false;
+  modalVisible: boolean = true;
   constructor() { }
 }
