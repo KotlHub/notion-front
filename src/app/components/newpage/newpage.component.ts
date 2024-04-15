@@ -31,22 +31,22 @@ export class NewpageComponent {
 
   constructor(private newPageService: NewPageService, private router: Router) { }
 
-  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    if (this.newPageService.newPageVisible && event.key === "Escape") {
-      this.newPageService.newPageVisible = false;
-    }
-  }
+  // @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+  //   if (this.newPageService.newPageVisible && event.key === "Escape") {
+  //     this.newPageService.newPageVisible = false;
+  //   }
+  // }
 
-  toggleVisible(event?: Event) {
-    const modalContent = document.querySelector('.modal-content');
-    if (this.newPageService.newPageVisible && modalContent && !modalContent.contains(event?.target as Node)) {
-      this.newPageService.newPageVisible = !this.newPageService.newPageVisible;
-    }
+  // toggleVisible(event?: Event) {
+  //   const modalContent = document.querySelector('.modal-content');
+  //   if (this.newPageService.newPageVisible && modalContent && !modalContent.contains(event?.target as Node)) {
+  //     this.newPageService.newPageVisible = !this.newPageService.newPageVisible;
+  //   }
 
-    else if (!event && this.newPageService.newPageVisible) {
-      this.newPageService.newPageVisible = !this.newPageService.newPageVisible;
-  }
-  }
+  //   else if (!event && this.newPageService.newPageVisible) {
+  //     this.newPageService.newPageVisible = !this.newPageService.newPageVisible;
+  // }
+  // }
 
   isNewPageVisible(): boolean {
     return this.newPageService.newPageVisible;

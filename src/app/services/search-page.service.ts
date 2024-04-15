@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SearchPageService {
-  searchPageVisible: boolean = false;
+  searchPageVisible: boolean = true;
   constructor() { }
 }

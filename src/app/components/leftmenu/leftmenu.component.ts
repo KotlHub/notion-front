@@ -17,7 +17,7 @@ interface MenuItem {
 })
 export class LeftmenuComponent implements OnInit {
   
-  constructor(private NewPageService: NewPageService, private SearchPageService: SearchPageService) 
+  constructor(private NewPageService: NewPageService, private SearchPageService: SearchPageService, private BigModalWindowService: BigModalWindowService) 
   {
     this.toggleNewPage = this.toggleNewPage.bind(this);
     this.toggleSearchPage = this.toggleSearchPage.bind(this);
@@ -55,10 +55,12 @@ export class LeftmenuComponent implements OnInit {
 
   toggleNewPage() {
     this.NewPageService.newPageVisible = !this.NewPageService.newPageVisible;
+    this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
   }
 
   toggleSearchPage() {
     this.SearchPageService.searchPageVisible = !this.SearchPageService.searchPageVisible;
+    this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
   }
 
   myFunction() {
