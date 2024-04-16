@@ -55,12 +55,15 @@ export class LeftmenuComponent implements OnInit {
 
   toggleNewPage() {
     this.NewPageService.newPageVisible = !this.NewPageService.newPageVisible;
-    this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
+    this.BigModalWindowService.modalVisible = this.NewPageService.newPageVisible;
+
   }
 
   toggleSearchPage() {
     this.SearchPageService.searchPageVisible = !this.SearchPageService.searchPageVisible;
-    this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
+    this.BigModalWindowService.modalVisible = this.SearchPageService.searchPageVisible;
+    console.log(this.SearchPageService.searchPageVisible);
+    console.log(this.BigModalWindowService.modalVisible);
   }
 
   myFunction() {

@@ -15,7 +15,6 @@ export class CreatenewlistComponent {
   lists: List[] = [];
   newListName: string = "";
   headerInput: string = "";
-  
 
   createList() {
     if (!this.newListName.trim()) {
@@ -54,17 +53,10 @@ export class CreatenewlistComponent {
   }
 
   onDrop(event: CdkDragDrop<List[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
+      moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
+    
   }
+
 
   onListNameBlur(event: FocusEvent, list: List) {
     const newValue = (event.target as HTMLInputElement).value;

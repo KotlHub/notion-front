@@ -1,4 +1,4 @@
-<div *ngIf="isModalVisible()" class="modal" (click)="toggleVisible($event)">
+<div (click)="toggleVisible($event)" *ngIf="isModalVisible()" class="modal" >
     <div class="modal-content">
       <div class="icon-container">
         <img src="assets/icons/more_horiz.svg" (click)="toggleVisible()">

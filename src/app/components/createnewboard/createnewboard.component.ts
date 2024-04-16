@@ -106,7 +106,7 @@ export class CreatenewboardComponent {
     const newList: List = { ...list };
     newList.id = Date.now().toString(); 
     newList.name = newList.name + ' (copy)';
-    newList.cards = newList.cards.map(card => ({...card})); // Копируем карточки, чтобы они не были связаны с оригиналом
+    newList.cards = newList.cards.map(card => ({...card}));
     this.lists.push(newList);
   }
   

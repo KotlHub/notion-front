@@ -1,5 +1,5 @@
-<app-bigmodalwindow>
-  <div class="search-container">
+<app-bigmodalwindow *ngIf="isSearchPageVisible()">
+  <div class="search-container" *ngIf="isSearchPageVisible()">
     <img src="assets/icons/search_page/search.svg">
     <input placeholder="Search...">
     <img src="assets/icons/search_page/filter_list.svg" (click)="toggleSortButtonsVisible()">

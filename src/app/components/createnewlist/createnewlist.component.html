@@ -1,14 +1,14 @@
-<div class="main" cdkDropListGroup>
-    <div class="container">
+<div class="main">
+  <div class="container" cdkDropListGroup>
       <input class="list-input header-input" placeholder="List" type="text" [(ngModel)]="headerInput" (blur)="onHeaderBlur()">
       <hr>
       <div class="list-container">
-        <div *ngFor="let list of lists" class="list" cdkDropList [cdkDropListData]="lists" (cdkDropListDropped)="onDrop($event)">
-            <img src="assets\icons\list\description.svg">
-            <input type="text" [(ngModel)]="list.name" class="list-input content-list-input" (blur)="onListNameBlur($event, list)">
-            <img src="assets\icons\list\edit.svg">
-        </div>
-        <button class="new-list-button" (click)="createList()"><img src="assets\icons\list\add.svg">New</button>
+          <div *ngFor="let list of lists" class="list" cdkDrag [cdkDragData]="list">
+              <img src="assets\icons\list\description.svg">
+              <input type="text" [(ngModel)]="list.name" class="list-input content-list-input" (blur)="onListNameBlur($event, list)">
+              <img src="assets\icons\list\edit.svg">
+          </div>
+          <button class="new-list-button" (click)="createList()"><img src="assets\icons\list\add.svg">New</button>
       </div>
-    </div>
   </div>
+</div>
