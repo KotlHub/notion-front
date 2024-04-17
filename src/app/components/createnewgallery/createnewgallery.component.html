@@ -1,0 +1,12 @@
+<div class="main" cdkDropListGroup>
+    <div class="container">
+      <input class="gallery-input header-input" placeholder="Gallery" type="text" [(ngModel)]="headerInput" (blur)="onHeaderBlur()">
+      <hr>
+      <div class="card-container">
+        <div *ngFor="let card of gallery" class="card">
+          
+        </div>
+        <button class="card card-button"><img src="assets\icons\gallery\add.svg"><span>New</span></button>
+      </div>
+    </div>
+  </div>

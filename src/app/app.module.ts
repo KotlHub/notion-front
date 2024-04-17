@@ -23,6 +23,7 @@ import { CreatenewboardComponent } from './components/createnewboard/createnewbo
 import { HttpClientModule } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreatenewlistComponent } from './components/createnewlist/createnewlist.component';
+import { CreatenewgalleryComponent } from './components/createnewgallery/createnewgallery.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CreatenewlistComponent } from './components/createnewlist/createnewlist
     BigmodalwindowComponent,
     CreatenewboardComponent,
     CreatenewlistComponent,
+    CreatenewgalleryComponent
   ],
   imports: [
     BrowserModule,
