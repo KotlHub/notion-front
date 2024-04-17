@@ -28,7 +28,6 @@ export class SearchpageComponent {
   isSortButtonsVisible: boolean = false;
 
   isSearchPageVisible(): boolean {
-    console.log("Hello from isSearchPageVisible!");
     return this.SearchPageService.searchPageVisible;
   }
 

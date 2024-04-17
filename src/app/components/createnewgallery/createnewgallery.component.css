@@ -27,10 +27,7 @@
     flex-wrap: wrap; /* Разрешает перенос элементов на следующую строку */
 }
 
-.card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.gallery-item {
     width: calc(25% - 20px); /* Вычисляем ширину кнопки для трех столбцов с учетом отступов */
     min-width: 150px; /* Минимальная ширина кнопки */
     height: 200px;
@@ -38,6 +35,26 @@
     border-radius: 6px;
     border: 1px solid #7C7C7C;
     background-color: transparent;
+}
+
+.card-name {
+    position: absolute;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    background-color:#252424;
+    bottom: 0; /* Отступ снизу */
+    width: 100%; /* Отступ слева */
+    color: #fff; /* Цвет текста */
+    font-size: 16px; /* Размер шрифта */
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.card-name input {
+    margin-left: 10px;
+    color: #E1DCDC;
+    font-size: 14px;
 }
 
 .card-button {
@@ -54,7 +71,7 @@
 
 /* Медиа-запрос для мобильных устройств или экранов с низким разрешением */
 @media screen and (max-width: 768px) {
-    .card {
+    .gallery-item {
         width: calc(50% - 20px); /* Вычисляем ширину кнопки для двух столбцов с учетом отступов */
         height: 150px;
     }
@@ -62,7 +79,7 @@
 
 /* Медиа-запрос для экранов с очень низким разрешением */
 @media screen and (max-width: 480px) {
-    .card {
+    .gallery-item {
         width: calc(100% - 20px); /* Вычисляем ширину кнопки для одного столбца с учетом отступов */
         height: 150px;
     }
