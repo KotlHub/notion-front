@@ -74,6 +74,13 @@
     width: auto;
 }
 
+.pencil {
+    display: none;
+  }
+  
+  .list:hover .pencil {
+    display: block;
+  }
 
 /* Стили для перетаскиваемых элементов */
 .cdk-drag-preview {

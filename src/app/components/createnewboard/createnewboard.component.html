@@ -21,7 +21,7 @@
           <div #contentEditable contenteditable class="board-input content-card-input" (blur)="onCardNameBlur($event, card)">{{card.name}}</div>
           
           <div cdkDragHandle class="drag-handle">
-            <img src="assets\icons\board\edit.svg">
+            <img src="assets\icons\board\edit.svg" (click)="toggleCard()">
           </div>
         </div>
         

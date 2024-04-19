@@ -6,7 +6,7 @@
             <div *ngFor="let list of lists" class="list" cdkDrag>
                 <img src="assets\icons\list\description.svg">
                 <input type="text" [(ngModel)]="list.name" class="list-input content-list-input" (blur)="onListNameBlur($event, list)">
-                <img src="assets\icons\list\edit.svg">
+                <img src="assets\icons\list\edit.svg" class="pencil" (click)="toggleCard()">
             </div>
             <button class="new-list-button" (click)="createList()"><img src="assets\icons\list\add.svg">New</button>
         </div>

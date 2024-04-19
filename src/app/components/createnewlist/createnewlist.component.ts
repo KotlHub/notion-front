@@ -1,5 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+import { EditCardListService } from 'src/app/services/edit-card-list.service';
+import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 
 interface List {
   name: string;
@@ -15,6 +17,7 @@ export class CreatenewlistComponent {
   lists: List[] = [];
   newListName: string = "";
   headerInput: string = "";
+  constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService) { }
 
   createList() {
     if (!this.newListName.trim()) {
@@ -65,5 +68,10 @@ export class CreatenewlistComponent {
 
   onHeaderBlur() {
     console.log(this.headerInput);
+  }
+
+  toggleCard(){
+    this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
+    this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
   }
 }

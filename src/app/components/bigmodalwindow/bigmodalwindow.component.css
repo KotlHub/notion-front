@@ -1,5 +1,5 @@
 .modal {
-    display: block;
+    display: flex;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -14,7 +14,7 @@
     position: relative;
     border-radius: 20px;
     background-color: #181818;
-    margin: 15% auto;
+    margin: auto;
     padding-left: 88px;
     padding-right: 88px;
     padding-bottom: 30px;
