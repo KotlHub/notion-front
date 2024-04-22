@@ -61,8 +61,8 @@ export class RegistrationpageComponent {
     this.http.post<any>(this.url + 'authorize', {email: email, emailCode: emailCode})
     .subscribe(response => {
       console.log('Response:', response.token);
-      this.UserService.userToken = response.token;
-      this.UserService.userEmail = this.email;
+      this.UserService.setUserToken(response.token);
+      this.UserService.setUserEmail(this.email);
       this.router.navigate(['/createnewpage/emptypage']);
     }, error => {
       console.error('Error:', error);

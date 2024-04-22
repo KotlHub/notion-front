@@ -1,0 +1,67 @@
+input {
+    font-size: 45px;
+    color: #525252;
+    border: none;
+    outline: none;
+    background: transparent;
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 100px;
+  }
+
+  input::placeholder {
+    color: #525252;
+  }
+
+  .split {
+    height: 100%;
+    display: flex;
+    
+  }
+  
+  .left {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  
+  .right {
+    padding-left: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .list-edit-clickable {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #202020;
+    text-align: left;
+    border: none;
+  }
+
+  .list-edit-clickable span{
+    margin-left: 5px;
+  }
+
+  .list-edit-clickable span{
+    margin-left: 5px;
+  }
+
+  .list-edit-textarea {
+    
+    border: none;
+    border-radius: 6px;
+    color: #D9D9D9D9;
+    background-color: #232323;
+    font-size: 16px;
+    resize: none; /* Disable user resizing */
+    max-width: 100%; /* Ограничиваем максимальную ширину */
+    min-height: 86px;
+  }
+
+  

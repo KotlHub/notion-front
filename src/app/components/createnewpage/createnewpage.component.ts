@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './createnewpage.component.html',
   styleUrls: ['./createnewpage.component.css']
 })
-export class CreatenewpageComponent {
+export class CreatenewpageComponent implements OnDestroy {
 
   @ViewChild('contentEditable', { static: false }) contentEditable!: ElementRef;
   @ViewChild('buttonContainer', { static: false }) buttonContainer!: ElementRef;
@@ -15,7 +15,7 @@ export class CreatenewpageComponent {
   isLinkContainer: boolean = false;
 
 
-  constructor(private UserSevice: UserService) { }
+  constructor(private UserSevice: UserService) {}
 
   userEmail = this.UserSevice.userEmail;
   userToken = this.UserSevice.userToken;
@@ -73,5 +73,13 @@ export class CreatenewpageComponent {
     } else if (selection?.toString().length === 0 && !buttonContainer.contains(target)) {
       this.buttonContainer.nativeElement.style.display = 'none';
     }
+  }
+
+  ngOnDestroy() {
+    this.onClose();
+  }
+
+  onClose() {
+    console.log('тут закинем старания юзера в бд'); 
   }
 }

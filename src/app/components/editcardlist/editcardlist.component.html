@@ -1,3 +1,12 @@
 <app-bigmodalwindow *ngIf="isCardListVisible()">
-<p style="color: aliceblue;">editcardlist works!</p>
+    <input placeholder="Untitled" type="text">
+    <div class="split">
+      <div class="left">
+        
+      </div>
+      <hr width=".1vw" height="80vw">
+      <div class="right">
+        <div #contentEditable contenteditable class="list-edit-textarea"></div>
+      </div>
+    </div>
 </app-bigmodalwindow>
