@@ -7,11 +7,14 @@ import { EditCardListService } from '../../services/edit-card-list.service';
   styleUrls: ['./editcardlist.component.css']
 })
 export class EditcardlistComponent{
-  description: string = '';
-
+  
   constructor(private editCardListService: EditCardListService) { }
-
+  description: string = "";
+  currentDescription: string = "";
+  
   isCardListVisible(): boolean {
+    this.currentDescription = this.editCardListService.currentListDescription;
+    
     return this.editCardListService.editCardListVisible;
   }
 

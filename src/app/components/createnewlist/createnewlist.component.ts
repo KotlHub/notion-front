@@ -83,6 +83,8 @@ export class CreatenewlistComponent {
 
   toggleCard(list: List){
     this.editCardListService.currentListId = list.id;
+    this.editCardListService.currentListDescription = list.description || "";
+    console.log("current description", this.editCardListService.currentListDescription);
     this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
     this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
   }  

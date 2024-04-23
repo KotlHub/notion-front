@@ -29,7 +29,7 @@ export class BigmodalwindowComponent {
   }
 
   toggleVisible(event?: Event) {
-    console.log("Hello from toggleVisibleBig!");
+    //console.log("Hello from toggleVisibleBig!");
     const modalContent = document.querySelector('.modal-content');
     if (this.BigModalWindowService.modalVisible && modalContent && !modalContent.contains(event?.target as Node)) {
       this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
@@ -51,7 +51,7 @@ export class BigmodalwindowComponent {
   
 
   isModalVisible(): boolean {
-    console.log("Hello from isModalVisible!");
+    //console.log("Hello from isModalVisible!");
     return this.BigModalWindowService.modalVisible;
   }
 
