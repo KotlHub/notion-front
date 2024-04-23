@@ -6,18 +6,29 @@ import { BigModalWindowService } from 'src/app/services/big-modal-window.service
 interface List {
   name: string;
   id: string;
+  description?: string;
 }
 
 @Component({
   selector: 'app-createnewlist',
   templateUrl: './createnewlist.component.html',
-  styleUrl: './createnewlist.component.css'
+  styleUrls: ['./createnewlist.component.css']
 })
 export class CreatenewlistComponent {
   lists: List[] = [];
   newListName: string = "";
   headerInput: string = "";
-  constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService) { }
+  
+  constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService) {
+    this.editCardListService.descriptionSubject.subscribe(description => {
+      if (this.lists.length > 0) {
+        const index = this.lists.findIndex(list => list.id === this.editCardListService.currentListId);
+        if (index !== -1) {
+          this.lists[index].description = description;
+        }
+      }
+    });
+  }
 
   createList() {
     if (!this.newListName.trim()) {
@@ -43,6 +54,7 @@ export class CreatenewlistComponent {
         }
         this.newListName = newName;
       }
+
     }
     
     const newList: List = {
@@ -53,13 +65,12 @@ export class CreatenewlistComponent {
     this.lists.push(newList);
 
     this.newListName = '';
+    console.log('lists: ', this.lists);
   }
 
   onDrop(event: CdkDragDrop<List[]>) {
-      moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
-    
+    moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
   }
-
 
   onListNameBlur(event: FocusEvent, list: List) {
     const newValue = (event.target as HTMLInputElement).value;
@@ -70,8 +81,9 @@ export class CreatenewlistComponent {
     console.log(this.headerInput);
   }
 
-  toggleCard(){
+  toggleCard(list: List){
+    this.editCardListService.currentListId = list.id;
     this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
     this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
-  }
+  }  
 }
