@@ -22,7 +22,7 @@ export class CreatenewlistComponent {
   constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService) {
     this.editCardListService.descriptionSubject.subscribe(description => {
       if (this.lists.length > 0) {
-        const index = this.lists.findIndex(list => list.id === this.editCardListService.currentListId);
+        const index = this.lists.findIndex(list => list.id === this.editCardListService.currentItemId);
         if (index !== -1) {
           this.lists[index].description = description;
         }
@@ -82,9 +82,9 @@ export class CreatenewlistComponent {
   }
 
   toggleCard(list: List){
-    this.editCardListService.currentListId = list.id;
-    this.editCardListService.currentListDescription = list.description || "";
-    console.log("current description", this.editCardListService.currentListDescription);
+    this.editCardListService.currentItemId = list.id;
+    this.editCardListService.currentItemDescription = list.description || "";
+    console.log("current description", this.editCardListService.currentItemDescription);
     this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
     this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
   }  

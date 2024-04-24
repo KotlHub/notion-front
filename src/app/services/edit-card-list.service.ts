@@ -8,8 +8,8 @@ export class EditCardListService {
   constructor() { }
   editCardListVisible: boolean = false;
   descriptionSubject = new BehaviorSubject<string>('');
-  currentListId: string = '';
-  currentListDescription: string = '';
+  currentItemId: string = '';
+  currentItemDescription: string = '';
 
   
   

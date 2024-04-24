@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { EditCardBoardService } from 'src/app/services/edit-card-board.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
+import { EditCardListService } from 'src/app/services/edit-card-list.service';
 
 interface Card {
   id: string;
@@ -29,9 +30,9 @@ export class CreatenewboardComponent {
   newListVisible: boolean = true;
   originalCardText: string = "";
 
-  constructor(private editCardBoardService: EditCardBoardService, private BigModalWindowService: BigModalWindowService) { 
-    this.editCardBoardService.descriptionSubject.subscribe(description => {
-      const cardToUpdate = this.findCardById(this.editCardBoardService.currentCardId);
+  constructor(private editCardBoardService: EditCardBoardService, private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService) { 
+    this.editCardListService.descriptionSubject.subscribe(description => {
+      const cardToUpdate = this.findCardById(this.editCardListService.currentItemId);
       if (cardToUpdate) {
         cardToUpdate.description = description;
       }
@@ -125,11 +126,19 @@ export class CreatenewboardComponent {
     }
   }
 
-  toggleCard(card: Card){
-    this.editCardBoardService.currentCardId = card.id;
-    this.editCardBoardService.currentCardDescription = card.description || "";
-    this.editCardBoardService.editCardBoardVisible = !this.editCardBoardService.editCardBoardVisible;
-    this.BigModalWindowService.modalVisible = this.editCardBoardService.editCardBoardVisible;
+  toggleCard(card: any){
+    // this.editCardBoardService.currentCardId = card.id;
+    // this.editCardBoardService.currentCardDescription = card.description || "";
+    // this.editCardBoardService.editCardBoardVisible = !this.editCardBoardService.editCardBoardVisible;
+    // this.BigModalWindowService.modalVisible = this.editCardBoardService.editCardBoardVisible;
+
+    /////////
+
+    this.editCardListService.currentItemId = card.id;
+    this.editCardListService.currentItemDescription = card.description || "";
+    console.log("current description", this.editCardListService.currentItemDescription);
+    this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
+    this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
   }
 
   private findCardById(id: string): Card | undefined {

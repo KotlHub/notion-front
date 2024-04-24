@@ -13,7 +13,7 @@ export class EditcardlistComponent{
   currentDescription: string = "";
   
   isCardListVisible(): boolean {
-    this.currentDescription = this.editCardListService.currentListDescription;
+    this.currentDescription = this.editCardListService.currentItemDescription;
     
     return this.editCardListService.editCardListVisible;
   }
