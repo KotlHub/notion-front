@@ -5,12 +5,13 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class EditCardListService {
+  constructor() { }
   editCardListVisible: boolean = false;
   descriptionSubject = new BehaviorSubject<string>('');
   currentListId: string = '';
   currentListDescription: string = '';
 
-  constructor() { }
+  
   
   setDescription(description: string) {
     this.descriptionSubject.next(description);

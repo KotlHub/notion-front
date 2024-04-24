@@ -1,3 +1,14 @@
-<app-bigmodalwindow *ngIf="isCardBoardVisible()">
-<p style="color: aliceblue;">editcardboard works!</p>
-</app-bigmodalwindow>
+<app-bigmodalwindow *ngIf="isCardListVisible()">
+    <input placeholder="Untitled" type="text">
+    <div class="split">
+      <div class="left">
+        
+      </div>
+      <hr width=".1vw" height="80vw">
+      <div class="right">
+        <textarea placeholder="Description" [(ngModel)]="description" (blur)="editCardList()" class="board-edit-textarea"></textarea>
+        <span>{{currentDescription}}</span>
+      </div>
+    </div>
+  </app-bigmodalwindow>
+  

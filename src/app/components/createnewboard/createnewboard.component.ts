@@ -4,7 +4,7 @@ import { EditCardBoardService } from 'src/app/services/edit-card-board.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 
 interface Card {
-  id?: string;
+  id: string;
   name: string;
   description?: string;
   datetime?: Date;
@@ -12,7 +12,7 @@ interface Card {
 }
 
 interface List {
-  id?: string;
+  id: string;
   name: string;
   cards: Card[];
 }
@@ -28,11 +28,18 @@ export class CreatenewboardComponent {
   newListName: string = "";
   newListVisible: boolean = true;
   originalCardText: string = "";
-  constructor(private editCardBoardService: EditCardBoardService, private BigModalWindowService: BigModalWindowService) { }
+
+  constructor(private editCardBoardService: EditCardBoardService, private BigModalWindowService: BigModalWindowService) { 
+    this.editCardBoardService.descriptionSubject.subscribe(description => {
+      const cardToUpdate = this.findCardById(this.editCardBoardService.currentCardId);
+      if (cardToUpdate) {
+        cardToUpdate.description = description;
+      }
+    });
+  }
 
   toggleNewList() {
     this.newListVisible = !this.newListVisible;
-    console.log(this.newListVisible);
   }
 
   createList() {
@@ -70,6 +77,7 @@ export class CreatenewboardComponent {
     this.lists.push(newList);
 
     this.newListName = '';
+    console.log(this.lists);
   }
 
   addCard(list: List) {
@@ -82,10 +90,8 @@ export class CreatenewboardComponent {
 
   onCardNameBlur(event: FocusEvent, card: Card) {
     const newValue = (event.target as HTMLDivElement).innerText;
-    console.log(newValue);
     card.name = newValue;
   }
-  
 
   onHeaderBlur() {
     console.log(this.headerInput);
@@ -103,7 +109,6 @@ export class CreatenewboardComponent {
       );
     }
   }
-  
 
   copyList(list: List) {
     const newList: List = { ...list };
@@ -120,8 +125,20 @@ export class CreatenewboardComponent {
     }
   }
 
-  toggleCard(){
+  toggleCard(card: Card){
+    this.editCardBoardService.currentCardId = card.id;
+    this.editCardBoardService.currentCardDescription = card.description || "";
     this.editCardBoardService.editCardBoardVisible = !this.editCardBoardService.editCardBoardVisible;
     this.BigModalWindowService.modalVisible = this.editCardBoardService.editCardBoardVisible;
+  }
+
+  private findCardById(id: string): Card | undefined {
+    for (const list of this.lists) {
+      const card = list.cards.find(c => c.id === id);
+      if (card) {
+        return card;
+      }
+    }
+    return undefined;
   }
 }
