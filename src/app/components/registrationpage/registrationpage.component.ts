@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { GlobalValuesService } from 'src/app/services/global-values.service';
 
 interface TokenResponse {
   token: string;
@@ -20,9 +21,8 @@ export class RegistrationpageComponent {
   emailValidationClass?: string;
 
 
-  url = 'https://26.5.203.178:5001/api/Values/';
 
-  constructor(private http: HttpClient, private UserService: UserService, private router: Router) { }
+  constructor(private GlobalValuesService: GlobalValuesService, private http: HttpClient, private UserService: UserService, private router: Router) { }
 
   emailClick() {
     console.log("Email:", this.email);
@@ -48,7 +48,7 @@ export class RegistrationpageComponent {
   
   sendEmail(email: string) {
 
-  this.http.post(this.url + 'login', { email: email })
+  this.http.post(this.GlobalValuesService + 'Values/login', { email: email })
   .subscribe(response => {
     console.log('Response:', response);
   }, error => {
@@ -58,7 +58,7 @@ export class RegistrationpageComponent {
 
   sendEmailCode(email: string, emailCode: string) {
 
-    this.http.post<any>(this.url + 'authorize', {email: email, emailCode: emailCode})
+    this.http.post<any>(this.GlobalValuesService.api + 'Value/authorize', {email: email, emailCode: emailCode})
     .subscribe(response => {
       console.log('Response:', response.token);
       this.UserService.setUserToken(response.token);

@@ -24,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreatenewlistComponent } from './components/createnewlist/createnewlist.component';
 import { CreatenewgalleryComponent } from './components/createnewgallery/createnewgallery.component';
-import { EditcardboardComponent } from './components/editcardboard/editcardboard.component';
+
 import { EditcardlistComponent } from './components/editcardlist/editcardlist.component';
 
 @NgModule({
@@ -47,7 +47,7 @@ import { EditcardlistComponent } from './components/editcardlist/editcardlist.co
     CreatenewboardComponent,
     CreatenewlistComponent,
     CreatenewgalleryComponent,
-    EditcardboardComponent,
+
     EditcardlistComponent
   ],
   imports: [

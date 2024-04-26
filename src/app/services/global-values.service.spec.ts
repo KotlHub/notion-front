@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EditCardBoardService } from './edit-card-board.service';
+import { GlobalValuesService } from './global-values.service';
 
-describe('EditCardBoardService', () => {
-  let service: EditCardBoardService;
+describe('GlobalValuesService', () => {
+  let service: GlobalValuesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EditCardBoardService);
+    service = TestBed.inject(GlobalValuesService);
   });
 
   it('should be created', () => {
