@@ -54,7 +54,8 @@ export class CreatenewboardComponent implements OnDestroy {
         cardToUpdate.description = description;
       }
     });
-    this.id = new Date().toString();
+    this.id = this.GlobalValuesService.generateUUID();
+    console.log('page id: ', this.id);
   }
 
   toggleNewList() {
@@ -212,7 +213,7 @@ export class CreatenewboardComponent implements OnDestroy {
     });
 
     const headers = new HttpHeaders({
-      'token': this.UserService.userToken
+      'Authorization': `Bearer ${this.UserService.userToken}`
     });
 
     // Отправка запроса на бэкенд
@@ -221,10 +222,10 @@ export class CreatenewboardComponent implements OnDestroy {
       .subscribe(
         (response) => {
           console.log('Response:', response); // Успешный ответ
-        },
-        (error) => {
-          console.error('Error:', error); // Обработка ошибок
         }
+        // (error) => {
+        //   console.error('Error:', error); // Обработка ошибок
+        // }
       );
   }
 }

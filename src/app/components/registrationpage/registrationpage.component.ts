@@ -48,7 +48,7 @@ export class RegistrationpageComponent {
   
   sendEmail(email: string) {
 
-  this.http.post(this.GlobalValuesService + 'Values/login', { email: email })
+  this.http.post(this.GlobalValuesService.api + 'Values/login', { email: email })
   .subscribe(response => {
     console.log('Response:', response);
   }, error => {
@@ -58,7 +58,7 @@ export class RegistrationpageComponent {
 
   sendEmailCode(email: string, emailCode: string) {
 
-    this.http.post<any>(this.GlobalValuesService.api + 'Value/authorize', {email: email, emailCode: emailCode})
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/authorize', {email: email, emailCode: emailCode})
     .subscribe(response => {
       console.log('Response:', response.token);
       this.UserService.setUserToken(response.token);
