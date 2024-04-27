@@ -9,10 +9,10 @@ import { CreatenewgalleryComponent } from './components/createnewgallery/createn
 const routes: Routes = [ 
   { path: "registration", component: RegistrationpageComponent }, 
   /////////////
-  { path: "createnewpage/emptypage", component: CreatenewpageComponent }, 
-  { path: "createnewpage/board", component: CreatenewboardComponent }, 
-  { path: "createnewpage/list", component: CreatenewlistComponent }, 
-  { path: "createnewpage/gallery", component: CreatenewgalleryComponent }, 
+  { path: "createnewpage/emptypage/:id", component: CreatenewpageComponent }, 
+  { path: "createnewpage/board/:id", component: CreatenewboardComponent }, 
+  { path: "createnewpage/list/:id", component: CreatenewlistComponent }, 
+  { path: "createnewpage/gallery/:id", component: CreatenewgalleryComponent }, 
   
  
 ];

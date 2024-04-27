@@ -8,6 +8,7 @@ interface MenuItem {
   icon: string;
   submenu?: string[];
   funcName?: string;
+  id?: string;
 }
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Directive, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
-
+import { GlobalValuesService } from 'src/app/services/global-values.service';
 interface MenuItem {
   name: string;
   icon: string;
@@ -28,8 +28,9 @@ export class NewpageComponent {
     { name: 'Gallery', icon: "assets/icons/new_page_modal/gallery_thumbnail.svg", funcName: "gallery" },
   ];
   activeItem: any | null = null;
+  newPageName: string = '';
 
-  constructor(private newPageService: NewPageService, private router: Router) { }
+  constructor(private GlobalValuesService: GlobalValuesService, private newPageService: NewPageService, private router: Router) { }
 
   isNewPageVisible(): boolean {
     return this.newPageService.newPageVisible;
@@ -42,11 +43,13 @@ export class NewpageComponent {
 
   createNewPage() {
     if (this.activeItem && typeof this.activeItem.funcName === 'string') {
+      this.newPageService.newPageName = this.newPageName;
       const funcName = this.activeItem.funcName;
-      this.router.navigate(['/createnewpage', funcName ]);
+      const id = this.GlobalValuesService.generateUUID();
+      this.router.navigate(['/createnewpage', funcName, id ]);
       this.newPageService.newPageVisible = false;
     } else {
-      console.error('Активный элемент не имеет функции');
+      console.error('active item has no function');
     }
   }
 }

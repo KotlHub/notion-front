@@ -1,5 +1,5 @@
 <app-bigmodalwindow *ngIf="isNewPageVisible()">
-      <input placeholder="Untitled" type="text">
+      <input placeholder="Untitled" type="text" [(ngModel)]="newPageName">
       <div class="split">
         <div class="left">
           <div *ngFor="let item of menuItemsLeft">

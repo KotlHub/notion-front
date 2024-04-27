@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -10,6 +10,8 @@ import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
+import { ActivatedRoute } from '@angular/router';
+import { NewPageService } from 'src/app/services/new-page.service';
 
 interface Card {
   id: string;
@@ -30,7 +32,7 @@ interface List {
   templateUrl: './createnewboard.component.html',
   styleUrls: ['./createnewboard.component.css'],
 })
-export class CreatenewboardComponent implements OnDestroy {
+export class CreatenewboardComponent implements OnDestroy, OnInit{
   id: string = '';
   lists: List[] = [];
   headerInput: string = '';
@@ -40,11 +42,13 @@ export class CreatenewboardComponent implements OnDestroy {
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
 
   constructor(
+    private newPageService: NewPageService,
     private GlobalValuesService: GlobalValuesService,
     private UserService: UserService,
     private editCardListService: EditCardListService,
     private BigModalWindowService: BigModalWindowService,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {
     this.editCardListService.descriptionSubject.subscribe((description) => {
       const cardToUpdate = this.findCardById(
@@ -54,8 +58,13 @@ export class CreatenewboardComponent implements OnDestroy {
         cardToUpdate.description = description;
       }
     });
-    this.id = this.GlobalValuesService.generateUUID();
-    console.log('page id: ', this.id);
+  }
+
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') || '';
+    console.log(this.id);
+    this.headerInput = this.newPageService.newPageName;
+    console.log(this.headerInput);
   }
 
   toggleNewList() {

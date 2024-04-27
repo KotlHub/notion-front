@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class NewPageService {
   newPageVisible: boolean = false;
+  newPageName: string = '';
   constructor() { }
 }
