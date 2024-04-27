@@ -1,7 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
+import { NewPageService } from 'src/app/services/new-page.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface List {
   name: string;
@@ -14,12 +16,15 @@ interface List {
   templateUrl: './createnewlist.component.html',
   styleUrls: ['./createnewlist.component.css']
 })
-export class CreatenewlistComponent {
+export class CreatenewlistComponent implements OnDestroy, OnInit {
   lists: List[] = [];
   newListName: string = "";
   headerInput: string = "";
+  id: string = "";
   
-  constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService) {
+  constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService, 
+    private newPageService: NewPageService, private route: ActivatedRoute
+  ) {
     this.editCardListService.descriptionSubject.subscribe(description => {
       if (this.lists.length > 0) {
         const index = this.lists.findIndex(list => list.id === this.editCardListService.currentItemId);
@@ -28,6 +33,13 @@ export class CreatenewlistComponent {
         }
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') || '';
+    console.log(this.id);
+    this.headerInput = this.newPageService.newPageName;
+    console.log(this.headerInput);
   }
 
   createList() {
@@ -88,4 +100,8 @@ export class CreatenewlistComponent {
     this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
     this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
   }  
+
+  ngOnDestroy(): void {
+    
+  }
 }
