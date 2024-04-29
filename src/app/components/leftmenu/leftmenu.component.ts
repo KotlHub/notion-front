@@ -2,6 +2,9 @@ import { Component, ElementRef, OnInit, AfterViewInit, Output, EventEmitter, Inp
 import { NewPageService } from 'src/app/services/new-page.service';
 import { SearchPageService } from 'src/app/services/search-page.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { GlobalValuesService } from 'src/app/services/global-values.service';
+import { UserService } from 'src/app/services/user.service';
 
 interface MenuItem {
   name: string;
@@ -18,15 +21,17 @@ interface MenuItem {
 })
 export class LeftmenuComponent implements OnInit {
   
-  constructor(private NewPageService: NewPageService, private SearchPageService: SearchPageService, private BigModalWindowService: BigModalWindowService) 
+  constructor(private NewPageService: NewPageService, 
+    private SearchPageService: SearchPageService, private GlobalValuesService: GlobalValuesService,
+    private UserService: UserService,
+    private BigModalWindowService: BigModalWindowService, private http: HttpClient) 
   {
     this.toggleNewPage = this.toggleNewPage.bind(this);
     this.toggleSearchPage = this.toggleSearchPage.bind(this);
   }
 
   @Input() menuVisible: boolean = false;
-  ngOnInit(): void {
-  }
+
 
   menuItemsUpper: MenuItem[] = [
     { name: 'Search', icon: "assets/icons/left_menu/search.svg", funcName: "toggleSearchPage" },
@@ -47,6 +52,27 @@ export class LeftmenuComponent implements OnInit {
   ];
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;
+
+  ngOnInit(): void {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`,
+    });
+
+    const requestBody = { email: this.UserService.userEmail };
+
+    // const formData = new FormData();
+
+    // // Добавляем JSON-данные
+    // formData.append('email', JSON.stringify(email)); // Сериализуем объект в JSON
+
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
+    .subscribe(response => {
+      console.log('Response:', response);
+    }, error => {
+      console.error('Error:', error);
+    });
+
+  }
 
   toggleDropdown(menuItem: string): void {
   this.activeMenuItem = this.activeMenuItem === menuItem ? null : menuItem;

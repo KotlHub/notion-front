@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { ActivatedRoute } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
+import { Location } from '@angular/common';
 
 interface Card {
   id: string;
@@ -40,6 +41,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   newListVisible: boolean = true;
   originalCardText: string = '';
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
+  currentLink: string = "";
 
   constructor(
     private newPageService: NewPageService,
@@ -48,7 +50,8 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     private editCardListService: EditCardListService,
     private BigModalWindowService: BigModalWindowService,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     this.editCardListService.descriptionSubject.subscribe((description) => {
       const cardToUpdate = this.findCardById(
@@ -65,6 +68,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     console.log(this.id);
     this.headerInput = this.newPageService.newPageName;
     console.log(this.headerInput);
+    this.currentLink = this.location.path();
   }
 
   toggleNewList() {
@@ -209,6 +213,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       noteId: this.id,
       title: this.headerInput,
       lists: this.lists,
+      currentLink: this.currentLink
     };
 
     const formData = new FormData();
