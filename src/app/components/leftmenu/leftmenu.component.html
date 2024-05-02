@@ -23,7 +23,7 @@
       <li class="nav-list-item">
         <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
         <img src="{{item.icon}}">
-        <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
+        <span (click)="newRoute(item.currentLink)"><a>{{ item.name }}</a></span>
         <img src="assets/icons/more_horiz.svg" class="triple-dot-button">
       </li>
       <li>

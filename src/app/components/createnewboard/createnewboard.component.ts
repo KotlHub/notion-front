@@ -232,14 +232,14 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
     // Отправка запроса на бэкенд
     this.http
-      .post(this.GlobalValuesService.api + 'Values/sendPage', formData, {headers})
+      .post(this.GlobalValuesService.api + 'Values/sendBoard', formData, {headers})
       .subscribe(
         (response) => {
           console.log('Response:', response); // Успешный ответ
+        },
+        (error) => {
+          console.error('Error:', error); // Обработка ошибок
         }
-        // (error) => {
-        //   console.error('Error:', error); // Обработка ошибок
-        // }
       );
   }
 }

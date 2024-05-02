@@ -5,6 +5,7 @@ import { BigModalWindowService } from 'src/app/services/big-modal-window.service
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 interface MenuItem {
   name: string;
@@ -12,6 +13,7 @@ interface MenuItem {
   submenu?: string[];
   funcName?: string;
   id?: string;
+  currentLink?: string;
 }
 
 @Component({
@@ -24,7 +26,8 @@ export class LeftmenuComponent implements OnInit {
   constructor(private NewPageService: NewPageService, 
     private SearchPageService: SearchPageService, private GlobalValuesService: GlobalValuesService,
     private UserService: UserService,
-    private BigModalWindowService: BigModalWindowService, private http: HttpClient) 
+    private BigModalWindowService: BigModalWindowService, private http: HttpClient,
+    private router: Router) 
   {
     this.toggleNewPage = this.toggleNewPage.bind(this);
     this.toggleSearchPage = this.toggleSearchPage.bind(this);
@@ -60,14 +63,20 @@ export class LeftmenuComponent implements OnInit {
 
     const requestBody = { email: this.UserService.userEmail };
 
-    // const formData = new FormData();
-
-    // // Добавляем JSON-данные
-    // formData.append('email', JSON.stringify(email)); // Сериализуем объект в JSON
-
+    console.log(requestBody);
     this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
     .subscribe(response => {
       console.log('Response:', response);
+
+      response.forEach((element: { name: any; iconPath: any; currentLink: any; }) => {
+        this.menuItemsMid.push(
+          {
+            name: element.name,
+            icon: element.iconPath,
+            currentLink: element.currentLink
+          }
+        );
+      });
     }, error => {
       console.error('Error:', error);
     });
@@ -93,18 +102,20 @@ export class LeftmenuComponent implements OnInit {
     console.log(this.BigModalWindowService.modalVisible);
   }
 
-  myFunction() {
-    console.log('Hello from myFunction!');
-  }
 
   [key: string]: any; // Index signature
-
   callFunction(item: any) {
     const func = this[item.funcName];
     if (typeof func === 'function') {
       func(); // This calls the function dynamically
-    } else {
+    } 
+    else {
       console.error(`${item.funcName} is not a function.`);
     }
+  }
+
+  newRoute(link: string | undefined) {
+    if(link != undefined)
+    this.router.navigate([link]);
   }
 }

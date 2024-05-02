@@ -4,6 +4,10 @@ import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { Location } from '@angular/common';
+import { GlobalValuesService } from 'src/app/services/global-values.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 interface List {
   name: string;
@@ -21,9 +25,13 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   newListName: string = "";
   headerInput: string = "";
   id: string = "";
-  
+  currentLink: string = "";
+  selectedFiles: File[] = []; // Список файлов, которые нужно отправить
+
   constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService, 
-    private newPageService: NewPageService, private route: ActivatedRoute
+    private newPageService: NewPageService, private route: ActivatedRoute, private UserService: UserService, 
+    private GlobalValuesService: GlobalValuesService,
+    private location: Location, private http: HttpClient
   ) {
     this.editCardListService.descriptionSubject.subscribe(description => {
       if (this.lists.length > 0) {
@@ -40,6 +48,9 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
     console.log(this.id);
     this.headerInput = this.newPageService.newPageName;
     console.log(this.headerInput);
+    
+    console.log(this.headerInput);
+    this.currentLink = this.location.path();
   }
 
   createList() {
@@ -103,5 +114,41 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     
+  }
+
+  onClose() {
+    const list = {
+      email: this.UserService.userEmail,
+      noteId: this.id,
+      title: this.headerInput,
+      lists: this.lists,
+      currentLink: this.currentLink
+    };
+
+    const formData = new FormData();
+
+    // Добавляем JSON-данные
+    formData.append('list', JSON.stringify(list)); // Сериализуем объект в JSON
+
+    // Добавляем все выбранные файлы
+    this.selectedFiles.forEach((file, index) => {
+      formData.append(`file_${index}`, file, file.name); // Добавляем файлы с уникальными ключами
+    });
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`
+    });
+
+    // Отправка запроса на бэкенд
+    this.http
+      .post(this.GlobalValuesService.api + 'Values/sendList', formData, {headers})
+      .subscribe(
+        (response) => {
+          console.log('Response:', response); // Успешный ответ
+        },
+        (error) => {
+          console.error('Error:', error); // Обработка ошибок
+        }
+      );
   }
 }
