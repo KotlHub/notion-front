@@ -2,8 +2,8 @@
     <div class="container">
         <span>{{userToken}}</span>
         <span>{{userEmail}}</span>
-        <input class="create-page-input header-input" placeholder="Untitled" type="text">
-        <div #contentEditable contenteditable class="create-page-input content-input">text</div>
+        <input class="create-page-input header-input" placeholder="Untitled" type="text" [(ngModel)]="headerInput">
+        <div #contentEditable contenteditable class="create-page-input content-input" [(ngModel)]="mainText">text</div>
         <div #buttonContainer class="button-container">
             <div class="link-container" *ngIf="isLinkContainer">
                 <button class="new-page-clickable style-button" (click)="confirmLink($event)">Y</button>

@@ -1,24 +1,52 @@
-import { Component, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ViewChild, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { EditCardListService } from 'src/app/services/edit-card-list.service';
+import { NewPageService } from 'src/app/services/new-page.service';
 import { UserService } from 'src/app/services/user.service';
+import { GlobalValuesService } from 'src/app/services/global-values.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-createnewpage',
   templateUrl: './createnewpage.component.html',
   styleUrls: ['./createnewpage.component.css']
 })
-export class CreatenewpageComponent implements OnDestroy {
+export class CreatenewpageComponent implements OnInit, OnDestroy {
 
   @ViewChild('contentEditable', { static: false }) contentEditable!: ElementRef;
   @ViewChild('buttonContainer', { static: false }) buttonContainer!: ElementRef;
   @ViewChild('linkContainer', { static: false }) linkContainer!: ElementRef;
 
+  id: string = '';
+  headerInput: string = '';
+  mainText: string = "";
+  currentLink: string = "";
+
+
   isLinkContainer: boolean = false;
 
-
-  constructor(private UserSevice: UserService) {}
+  constructor(private UserSevice: UserService,
+    private newPageService: NewPageService,
+    private GlobalValuesService: GlobalValuesService,
+    private UserService: UserService,
+    private editCardListService: EditCardListService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   userEmail = this.UserSevice.userEmail;
   userToken = this.UserSevice.userToken;
+
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') || '';
+    console.log(this.id);
+    this.headerInput = this.newPageService.newPageName;
+    console.log(this.headerInput);
+    this.currentLink = this.location.path();
+  }
+
   makeFormat(event: MouseEvent, style: string) {
     event.stopPropagation();
     document.execCommand('styleWithCSS', false, 'true');
@@ -76,10 +104,37 @@ export class CreatenewpageComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.onClose();
+    //this.onClose();
   }
 
   onClose() {
-    console.log('тут закинем старания юзера в бд'); 
+    const page = {
+      email: this.UserService.userEmail,
+      noteId: this.id,
+      title: this.headerInput,
+      
+      currentLink: this.currentLink
+    };
+
+    const formData = new FormData();
+
+    // Добавляем JSON-данные
+    formData.append('page', JSON.stringify(page)); // Сериализуем объект в JSON
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`
+    });
+
+    // Отправка запроса на бэкенд
+    this.http
+      .post(this.GlobalValuesService.api + 'Values/sendPage', formData, {headers})
+      .subscribe(
+        (response) => {
+          console.log('Response:', response); // Успешный ответ
+        },
+        (error) => {
+          console.error('Error:', error); // Обработка ошибок
+        }
+      );
   }
 }

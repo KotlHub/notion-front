@@ -113,6 +113,7 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   }  
 
   ngOnDestroy(): void {
+    this.onClose()
     
   }
 

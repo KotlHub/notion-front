@@ -10,7 +10,7 @@ import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { Location } from '@angular/common';
 
@@ -39,7 +39,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   headerInput: string = '';
   newListName: string = '';
   newListVisible: boolean = true;
-  originalCardText: string = '';
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
   currentLink: string = "";
 
@@ -64,11 +63,50 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id') || '';
-    console.log(this.id);
-    this.headerInput = this.newPageService.newPageName;
-    console.log(this.headerInput);
-    this.currentLink = this.location.path();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id') || '';
+      console.log(this.id);
+
+      this.headerInput = this.newPageService.newPageName;
+      console.log(this.headerInput);
+
+      this.currentLink = this.location.path();
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.UserService.userToken}`,
+      });
+
+      const requestBody = { 
+        email: this.UserService.userEmail,
+        noteId: this.id,
+      };
+
+      this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+        .subscribe(response => {
+          console.log('Response:', response);
+
+          if (response && response.lists && Array.isArray(response.lists)) {
+            this.lists = response.lists.map((listData: any) => {
+              const cards: Card[] = listData.cards.map((cardData: any) => ({
+                id: cardData.id,
+                name: cardData.name,
+                description: cardData.description,
+                datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
+                files: cardData.files ? [...cardData.files] : undefined
+              }));
+    
+              return {
+                id: listData.id,
+                name: listData.name,
+                cards: cards
+              };
+            });
+            this.headerInput = response.title;
+          }
+        }, error => {
+          console.error('Error:', error);
+        });
+    });
   }
 
   toggleNewList() {
