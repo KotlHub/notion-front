@@ -13,7 +13,7 @@ import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { Location } from '@angular/common';
-import { LeftmenuComponent } from '../leftmenu/leftmenu.component';
+
 
 interface Card {
   id: string;
@@ -35,7 +35,7 @@ interface List {
   styleUrls: ['./createnewboard.component.css'],
 })
 export class CreatenewboardComponent implements OnDestroy, OnInit{
-  @ViewChild(LeftmenuComponent) leftmenuComponent!: LeftmenuComponent;
+
 
   id: string = '';
   lists: List[] = [];
@@ -251,6 +251,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   // Метод, который вызывается при завершении работы компонента
   ngOnDestroy() {
     this.onClose();
+    this.updateMenuItems();
   }
 
   updateMenuItems() {
@@ -260,12 +261,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       currentLink: this.currentLink
     };
   
-    if (this.leftmenuComponent) {
-      this.leftmenuComponent.menuItemsMid.push(newItem);
-      console.log(this.leftmenuComponent.menuItemsMid);
-    } else {
-      console.error('LeftMenuComponent is not available.');
-    }
+    
   }
 
   onClose() {

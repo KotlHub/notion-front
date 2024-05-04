@@ -68,12 +68,13 @@ export class LeftmenuComponent implements OnInit {
     .subscribe(response => {
       console.log('Response:', response);
 
-      response.forEach((element: { name: any; iconPath: any; currentLink: any; }) => {
+      response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
         this.menuItemsMid.push(
           {
             name: element.name,
             icon: element.iconPath,
-            currentLink: element.currentLink
+            currentLink: element.currentLink,
+            id: element.id
           }
         );
       });
@@ -107,6 +108,26 @@ export class LeftmenuComponent implements OnInit {
     if (index !== -1) {
       this.menuItemsMid.splice(index, 1);
     }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`,
+    });
+
+    const requestBody = {
+       email: this.UserService.userEmail,
+       id: item.id
+      };
+
+    console.log(requestBody);
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/delPage', requestBody, {headers})
+    .subscribe(response => {
+      console.log('Response:', response);
+      
+    }, error => {
+      console.error('Error:', error);
+    });
+
+
   }
 
 
