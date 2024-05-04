@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -13,6 +13,7 @@ import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { Location } from '@angular/common';
+import { LeftmenuComponent } from '../leftmenu/leftmenu.component';
 
 interface Card {
   id: string;
@@ -34,9 +35,11 @@ interface List {
   styleUrls: ['./createnewboard.component.css'],
 })
 export class CreatenewboardComponent implements OnDestroy, OnInit{
+  @ViewChild(LeftmenuComponent) leftmenuComponent!: LeftmenuComponent;
+
   id: string = '';
   lists: List[] = [];
-  headerInput: string = '';
+  headerInput: string = 'Untitled';
   newListName: string = '';
   newListVisible: boolean = true;
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
@@ -67,7 +70,11 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       this.id = params.get('id') || '';
       console.log(this.id);
 
-      this.headerInput = this.newPageService.newPageName;
+      if(this.newPageService.newPageName.trim().length > 0)
+        {
+          this.headerInput = this.newPageService.newPageName;
+        }
+      
       console.log(this.headerInput);
 
       this.currentLink = this.location.path();
@@ -106,6 +113,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
         }, error => {
           console.error('Error:', error);
         });
+
     });
   }
 
@@ -243,6 +251,21 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   // Метод, который вызывается при завершении работы компонента
   ngOnDestroy() {
     this.onClose();
+  }
+
+  updateMenuItems() {
+    const newItem = {
+      name: this.headerInput,
+      icon: "assets/icons/left_menu/attach_file.svg",
+      currentLink: this.currentLink
+    };
+  
+    if (this.leftmenuComponent) {
+      this.leftmenuComponent.menuItemsMid.push(newItem);
+      console.log(this.leftmenuComponent.menuItemsMid);
+    } else {
+      console.error('LeftMenuComponent is not available.');
+    }
   }
 
   onClose() {

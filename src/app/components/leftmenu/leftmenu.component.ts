@@ -102,6 +102,13 @@ export class LeftmenuComponent implements OnInit {
     console.log(this.BigModalWindowService.modalVisible);
   }
 
+  deleteItem(item: any) {
+    const index = this.menuItemsMid.findIndex(menuItem => menuItem === item);
+    if (index !== -1) {
+      this.menuItemsMid.splice(index, 1);
+    }
+  }
+
 
   [key: string]: any; // Index signature
   callFunction(item: any) {
