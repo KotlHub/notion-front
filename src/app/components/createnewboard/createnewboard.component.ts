@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -47,7 +47,15 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   newListVisible: boolean = true;
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
   currentLink: string = "";
+
+
+  currentId: string | null = null;
+  previousId: string | null = null;
+
+
   paramMapSubscription: Subscription | undefined;
+
+
   private routerSubscription: Subscription | undefined;
 
   private destroyed$ = new Subject<void>();
@@ -76,17 +84,34 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
   ngOnInit(): void {
     
-    this.routerSubscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // Здесь вы можете получить новый URL строки браузера и выполнить необходимые действия
-        console.log('событие вызвалось для:', this.id);
+    this.paramMapSubscription = this.route.params.subscribe((params) => {
+      this.previousId = this.currentId; // Сохраняем текущее значение как предыдущее
+      this.currentId = params['id']; // Обновляем текущий ID
+
+      if (this.previousId !== this.currentId) {
+        this.onIdChange(this.previousId, this.currentId); // Вызываем функцию при изменении ID
       }
     });
-    
-
+    this.headerInput = 'Untitled';
     this.lists = [];
     this.subscribeToGetParams();
     //this.subscribeToRouteChanges();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    this.sendBoard();
+    $event.returnValue = true;
+  }
+
+  onIdChange(previous: string | null, current: string | null) {
+    console.log('lists: ', this.lists);
+    console.log('header: ', this.headerInput);
+    this.sendBoard();
+    console.log('ID изменился. Предыдущий:', previous, 'Новый:', current);
+    this.lists = [];
+    this.headerInput = 'Untitled';
+    // Выполняем действия, когда ID меняется
   }
 
   createNewMenuItem() {
@@ -243,11 +268,13 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       this.routerSubscription.unsubscribe();
     }
 
+    this.sendBoard();
+
   }
 
   
 
-  onClose() {
+  sendBoard() {
     const board = {
       email: this.UserService.userEmail,
       noteId: this.id,
