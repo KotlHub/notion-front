@@ -6,15 +6,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { LeftMenuService } from 'src/app/services/left-menu.service';
+import { MenuItem } from 'src/app/interfaces/menu-item';
 
-interface MenuItem {
-  name: string;
-  icon: string;
-  submenu?: string[];
-  funcName?: string;
-  id?: string;
-  currentLink?: string;
-}
 
 @Component({
   selector: 'app-leftmenu',
@@ -22,30 +16,15 @@ interface MenuItem {
   styleUrls: ['./leftmenu.component.css']
 })
 export class LeftmenuComponent implements OnInit {
-  
-  constructor(private NewPageService: NewPageService, 
-    private SearchPageService: SearchPageService, private GlobalValuesService: GlobalValuesService,
-    private UserService: UserService,
-    private BigModalWindowService: BigModalWindowService, private http: HttpClient,
-    private router: Router) 
-  {
-    this.toggleNewPage = this.toggleNewPage.bind(this);
-    this.toggleSearchPage = this.toggleSearchPage.bind(this);
-  }
 
-  @Input() menuVisible: boolean = false;
-
-
-  menuItemsUpper: MenuItem[] = [
+    menuItemsUpper: MenuItem[] = [
     { name: 'Search', icon: "assets/icons/left_menu/search.svg", funcName: "toggleSearchPage" },
     { name: 'New Page', icon: "assets/icons/left_menu/add_circle.svg", funcName: "toggleNewPage"},
     { name: 'Templates', icon: "assets/icons/left_menu/extension.svg" },
   ];
 
   menuItemsMid: MenuItem[] = [
-    { name: 'Quick Note', icon: "assets/icons/left_menu/attach_file.svg"},
-    { name: 'Personal Home', icon: "assets/icons/left_menu/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
-    { name: 'Task list', icon: "assets/icons/left_menu/check.svg", submenu: ['write html', 'write css', 'pet the cat'] }
+
   ];
 
   menuItemsLower: MenuItem[] = [
@@ -53,34 +32,54 @@ export class LeftmenuComponent implements OnInit {
     { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
     { name: 'Trash', icon: "assets/icons/left_menu/delete.svg", submenu: ['write html', 'write css', 'pet the cat'] }
   ];
+
+  constructor(private NewPageService: NewPageService, 
+    private SearchPageService: SearchPageService, private GlobalValuesService: GlobalValuesService,
+    private UserService: UserService, private LeftMenuService: LeftMenuService,
+    private BigModalWindowService: BigModalWindowService, private http: HttpClient,
+    private router: Router) 
+  {
+    this.toggleNewPage = this.toggleNewPage.bind(this);
+    this.toggleSearchPage = this.toggleSearchPage.bind(this);
+
+  }
+
+  @Input() menuVisible: boolean = false;
+
+
+
   activeMenuItem: string | null = null;
   showDropdown: boolean = false;
 
   ngOnInit(): void {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.UserService.userToken}`,
+    this.LeftMenuService.menuItemsMid.subscribe(items => {
+      this.menuItemsMid = items;
     });
 
-    const requestBody = { email: this.UserService.userEmail };
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${this.UserService.userToken}`,
+    // });
 
-    console.log(requestBody);
-    this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
-    .subscribe(response => {
-      console.log('Response:', response);
+    // const requestBody = { email: this.UserService.userEmail };
 
-      response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
-        this.menuItemsMid.push(
-          {
-            name: element.name,
-            icon: element.iconPath,
-            currentLink: element.currentLink,
-            id: element.id
-          }
-        );
-      });
-    }, error => {
-      console.error('Error:', error);
-    });
+    // console.log(requestBody);
+    // this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
+    // .subscribe(response => {
+    //   console.log('Response:', response);
+
+    //   response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
+    //     this.menuItemsMid.push(
+    //       {
+    //         name: element.name,
+    //         icon: element.iconPath,
+    //         currentLink: element.currentLink,
+    //         id: element.id
+    //       }
+    //     );
+    //   });
+    // }, error => {
+    //   console.error('Error:', error);
+    // });
 
   }
 

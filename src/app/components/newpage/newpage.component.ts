@@ -2,11 +2,7 @@ import { Component, Directive, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
-interface MenuItem {
-  name: string;
-  icon: string;
-  funcName?: string;
-}
+import { MenuItem } from 'src/app/interfaces/menu-item';
 
 @Component({
   selector: 'app-newpage',
@@ -48,6 +44,8 @@ export class NewpageComponent {
       const id = this.GlobalValuesService.generateUUID();
       this.router.navigate(['/createnewpage', funcName, id ]);
       this.newPageService.newPageVisible = false;
+      this.newPageName = '';
+
     } else {
       console.error('active item has no function');
     }

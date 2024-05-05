@@ -10,9 +10,12 @@ import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, ParamMap, Router } from '@angular/router';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { Location } from '@angular/common';
+import { Subject, Subscription, filter, takeUntil } from 'rxjs';
+import { MenuItem } from 'src/app/interfaces/menu-item';
+import { LeftMenuService } from 'src/app/services/left-menu.service';
 
 
 interface Card {
@@ -44,6 +47,9 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   newListVisible: boolean = true;
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
   currentLink: string = "";
+  paramMapSubscription: Subscription | undefined;
+
+  private destroyed$ = new Subject<void>();
 
   constructor(
     private newPageService: NewPageService,
@@ -51,9 +57,11 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     private UserService: UserService,
     private editCardListService: EditCardListService,
     private BigModalWindowService: BigModalWindowService,
+    private LeftMenuService: LeftMenuService,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {
     this.editCardListService.descriptionSubject.subscribe((description) => {
       const cardToUpdate = this.findCardById(
@@ -66,55 +74,26 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = params.get('id') || '';
-      console.log(this.id);
-
-      if(this.newPageService.newPageName.trim().length > 0)
-        {
-          this.headerInput = this.newPageService.newPageName;
-        }
-      
-      console.log(this.headerInput);
-
-      this.currentLink = this.location.path();
-
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.UserService.userToken}`,
-      });
-
-      const requestBody = { 
-        email: this.UserService.userEmail,
-        noteId: this.id,
-      };
-
-      this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
-        .subscribe(response => {
-          console.log('Response:', response);
-
-          if (response && response.lists && Array.isArray(response.lists)) {
-            this.lists = response.lists.map((listData: any) => {
-              const cards: Card[] = listData.cards.map((cardData: any) => ({
-                id: cardData.id,
-                name: cardData.name,
-                description: cardData.description,
-                datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
-                files: cardData.files ? [...cardData.files] : undefined
-              }));
+    this.lists = [];
+    this.subscribeToGetParams();
     
-              return {
-                id: listData.id,
-                name: listData.name,
-                cards: cards
-              };
-            });
-            this.headerInput = response.title;
-          }
-        }, error => {
-          console.error('Error:', error);
-        });
+    
+    //this.subscribeToRouteChanges();
+  }
 
-    });
+  createNewMenuItem() {
+    console.log('hello 1');
+
+    const newItem: MenuItem = {
+      id: this.id,
+      name: this.headerInput,
+      currentLink: this.currentLink,
+      icon: "assets/icons/board/add.svg"
+    };
+    
+    this.LeftMenuService.addMenuItem(newItem);
+    console.log('hello 2');
+
   }
 
   toggleNewList() {
@@ -250,19 +229,12 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
   // Метод, который вызывается при завершении работы компонента
   ngOnDestroy() {
-    this.onClose();
-    this.updateMenuItems();
+    console.log("destructor");
+    //this.onClose();
+    console.log(this.headerInput);
   }
 
-  updateMenuItems() {
-    const newItem = {
-      name: this.headerInput,
-      icon: "assets/icons/left_menu/attach_file.svg",
-      currentLink: this.currentLink
-    };
   
-    
-  }
 
   onClose() {
     const board = {
@@ -299,4 +271,74 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
         }
       );
   }
+
+  private subscribeToRouteChanges(): void {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe(() => {
+        // Уничтожение и переинициализация компонента
+        this.ngOnDestroy();
+
+      });
+  }
+
+  private subscribeToGetParams(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id') || '';
+      console.log(this.id);
+
+      if(this.newPageService.newPageName.trim().length > 0)
+        {
+          this.headerInput = this.newPageService.newPageName;
+        }
+
+        this.newPageService.newPageName = '';
+      
+      console.log(this.headerInput);
+
+      this.currentLink = this.location.path();
+
+      this.createNewMenuItem();
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.UserService.userToken}`,
+      });
+
+      const requestBody = { 
+        email: this.UserService.userEmail,
+        noteId: this.id,
+      };
+
+      // this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+      //   .subscribe(response => {
+      //     console.log('Response:', response);
+
+      //     if (response && response.lists && Array.isArray(response.lists)) {
+      //       this.lists = response.lists.map((listData: any) => {
+      //         const cards: Card[] = listData.cards.map((cardData: any) => ({
+      //           id: cardData.id,
+      //           name: cardData.name,
+      //           description: cardData.description,
+      //           datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
+      //           files: cardData.files ? [...cardData.files] : undefined
+      //         }));
+    
+      //         return {
+      //           id: listData.id,
+      //           name: listData.name,
+      //           cards: cards
+      //         };
+      //       });
+      //       this.headerInput = response.title;
+      //     }
+      //   }, error => {
+      //     console.error('Error:', error);
+      //   });
+
+      });
+    }
+  
 }
