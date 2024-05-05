@@ -48,6 +48,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
   currentLink: string = "";
   paramMapSubscription: Subscription | undefined;
+  private routerSubscription: Subscription | undefined;
 
   private destroyed$ = new Subject<void>();
 
@@ -74,10 +75,17 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   }
 
   ngOnInit(): void {
+    
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Здесь вы можете получить новый URL строки браузера и выполнить необходимые действия
+        console.log('событие вызвалось для:', this.id);
+      }
+    });
+    
+
     this.lists = [];
     this.subscribeToGetParams();
-    
-    
     //this.subscribeToRouteChanges();
   }
 
@@ -231,7 +239,10 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   ngOnDestroy() {
     console.log("destructor");
     //this.onClose();
-    console.log(this.headerInput);
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+
   }
 
   

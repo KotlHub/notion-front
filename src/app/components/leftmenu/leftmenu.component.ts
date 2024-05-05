@@ -68,7 +68,7 @@ export class LeftmenuComponent implements OnInit {
     //   console.log('Response:', response);
 
     //   response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
-    //     this.menuItemsMid.push(
+    //     this.LeftMenuService.menuItemsMid.push(
     //       {
     //         name: element.name,
     //         icon: element.iconPath,
