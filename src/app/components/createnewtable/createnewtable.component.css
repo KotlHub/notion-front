@@ -1,0 +1,64 @@
+.main {
+    max-height: 100%;
+}
+
+.container {
+    width: auto;
+    height: auto;
+    margin-top: 80px;
+}
+
+.table-input {
+    width: 100%;
+    
+    border: none;
+    outline: none;
+    background: transparent;
+    display: block;    
+}
+
+.header-input {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #525252;
+}
+
+.table-container {
+    display: flex;
+    text-align: left;
+}
+
+
+td {
+    border: 1px solid gray;
+}
+
+.table-cell {
+    min-width: 200px;
+    min-height: 30px;
+}
+
+.table-content {
+    background-color: transparent;
+    resize: none; /* Disable user resizing */
+    overflow-y: auto; /* Показываем вертикальную полосу прокрутки, если содержимое больше высоты */
+    overflow-x: hidden; /* Скрываем горизонтальную полосу прокрутки */
+    font-size: 16px;
+    color: #939393;
+}
+
+.add-button
+{
+    border: none;
+    background-color: transparent;
+    color: #797575;
+    text-align: left;
+    font-size: 14px;
+    min-width: 200px;
+    height: 30px;
+}
+.add-button span
+{
+    margin-left: 10px;
+}
+

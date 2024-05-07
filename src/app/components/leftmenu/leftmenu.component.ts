@@ -100,30 +100,8 @@ export class LeftmenuComponent implements OnInit {
     console.log(this.BigModalWindowService.modalVisible);
   }
 
-  deleteItem(item: any) {
-    const index = this.menuItemsMid.findIndex(menuItem => menuItem === item);
-    if (index !== -1) {
-      this.menuItemsMid.splice(index, 1);
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.UserService.userToken}`,
-    });
-
-    const requestBody = {
-       email: this.UserService.userEmail,
-       id: item.id
-      };
-
-    console.log(requestBody);
-    this.http.post<any>(this.GlobalValuesService.api + 'Values/delPage', requestBody, {headers})
-    .subscribe(response => {
-      console.log('Response:', response);
-      
-    }, error => {
-      console.error('Error:', error);
-    });
-
+  deleteItem(item: MenuItem) {
+    this.LeftMenuService.deleteItem(item);
 
   }
 

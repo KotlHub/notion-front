@@ -45,7 +45,8 @@ export class NewpageComponent {
       this.router.navigate(['/createnewpage', funcName, id ]);
       this.newPageService.newPageVisible = false;
       this.newPageName = '';
-
+      this.newPageService.justCreated = true;
+      console.log(this.newPageService.justCreated);
     } else {
       console.error('active item has no function');
     }

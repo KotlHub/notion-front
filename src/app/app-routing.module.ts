@@ -5,6 +5,7 @@ import { RegistrationpageComponent } from './components/registrationpage/registr
 import { CreatenewboardComponent } from './components/createnewboard/createnewboard.component';
 import { CreatenewlistComponent } from './components/createnewlist/createnewlist.component';
 import { CreatenewgalleryComponent } from './components/createnewgallery/createnewgallery.component';
+import { CreatenewtableComponent } from './components/createnewtable/createnewtable.component';
 
 const routes: Routes = [ 
   { path: "registration", component: RegistrationpageComponent }, 
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "createnewpage/board/:id", component: CreatenewboardComponent }, 
   { path: "createnewpage/list/:id", component: CreatenewlistComponent }, 
   { path: "createnewpage/gallery/:id", component: CreatenewgalleryComponent }, 
+  { path: "createnewpage/table/:id", component: CreatenewtableComponent }, 
   
  
 ];

@@ -1,13 +1,16 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 import { NewPageService } from 'src/app/services/new-page.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Location } from '@angular/common';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MenuItem } from 'src/app/interfaces/menu-item';
+import { LeftMenuService } from 'src/app/services/left-menu.service';
+import { Subscription } from 'rxjs';
 
 interface List {
   name: string;
@@ -28,9 +31,14 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   currentLink: string = "";
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
 
+  currentId: string | null = null;
+  previousId: string | null = null;
+
+  paramMapSubscription: Subscription | undefined;
+
   constructor(private editCardListService: EditCardListService, private BigModalWindowService: BigModalWindowService, 
     private newPageService: NewPageService, private route: ActivatedRoute, private UserService: UserService, 
-    private GlobalValuesService: GlobalValuesService,
+    private GlobalValuesService: GlobalValuesService, private LeftMenuService: LeftMenuService,
     private location: Location, private http: HttpClient
   ) {
     this.editCardListService.descriptionSubject.subscribe(description => {
@@ -44,13 +52,52 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id') || '';
-    console.log(this.id);
-    this.headerInput = this.newPageService.newPageName;
-    console.log(this.headerInput);
+
+    this.paramMapSubscription = this.route.params.subscribe((params) => {
+      this.previousId = this.currentId; // Сохраняем текущее значение как предыдущее
+      this.currentId = params['id']; // Обновляем текущий ID
+
+      if (this.previousId !== this.currentId) {
+        this.onIdChange(this.previousId, this.currentId); // Вызываем функцию при изменении ID
+      }
+    });
+    this.headerInput = '';
+    this.lists = [];
+    this.subscribeToGetParams();
+    this.createNewMenuItem();
+    this.newPageService.justCreated = false;
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    this.sendList();
+    $event.returnValue = true;
+  }
+
+  createNewMenuItem() {
+    let title = this.headerInput;
+    if(title === '')
+      {
+        title = 'Untitled';
+      }
+    const newItem: MenuItem = {
+      id: this.id,
+      name: title,
+      currentLink: this.currentLink,
+      icon: "assets/icons/left_menu/format_list_bulleted.svg"
+    };
     
-    console.log(this.headerInput);
-    this.currentLink = this.location.path();
+    this.LeftMenuService.addMenuItem(newItem);
+  }
+
+  onIdChange(previous: string | null, current: string | null) {
+    console.log('lists: ', this.lists);
+    console.log('header: ', this.headerInput);
+    this.sendList();
+    console.log('ID изменился. Предыдущий:', previous, 'Новый:', current);
+    this.lists = [];
+    this.headerInput = '';
+    // Выполняем действия, когда ID меняется
   }
 
   createList() {
@@ -113,17 +160,24 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   }  
 
   ngOnDestroy(): void {
-    this.onClose()
-    
+    this.sendList();
   }
 
-  onClose() {
+  sendList() {
+    let title = this.headerInput;
+    if(title === '')
+      {
+        title = 'Untitled';
+    }
+
+    this.LeftMenuService.updateMenuItem(this.id, title);
     const list = {
       email: this.UserService.userEmail,
       noteId: this.id,
-      title: this.headerInput,
+      title: title,
       lists: this.lists,
-      currentLink: this.currentLink
+      currentLink: this.currentLink,
+      iconPath: "assets/icons/left_menu/format_list_bulleted.svg"
     };
 
     const formData = new FormData();
@@ -152,4 +206,53 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
         }
       );
   }
+
+  private subscribeToGetParams(): void {
+    
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id') || '';
+      console.log(this.id);
+
+      if(this.newPageService.newPageName.trim().length > 0)
+        {
+          this.headerInput = this.newPageService.newPageName;
+        }
+
+        this.newPageService.newPageName = '';
+      
+      console.log(this.headerInput);
+
+      this.currentLink = this.location.path();
+      
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.UserService.userToken}`,
+      });
+
+      const requestBody = { 
+        email: this.UserService.userEmail,
+        noteId: this.id,
+      };
+      if(!this.newPageService.justCreated)
+        {
+          console.log('get list');
+        this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+        .subscribe(response => {
+          console.log('Response:', response);
+
+          if (response && response.lists && Array.isArray(response.lists)) {
+            this.lists = response.lists.map((listData: any) => {
+              return {
+                id: listData.id,
+                name: listData.name
+              };
+            });
+            this.headerInput = response.title;
+          }
+        }, error => {
+          console.error('Error:', error);
+        });
+        }
+
+      });
+    }
 }

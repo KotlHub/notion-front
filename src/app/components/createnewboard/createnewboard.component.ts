@@ -42,7 +42,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
   id: string = '';
   lists: List[] = [];
-  headerInput: string = 'Untitled';
+  headerInput: string = '';
   newListName: string = '';
   newListVisible: boolean = true;
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
@@ -55,10 +55,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
   paramMapSubscription: Subscription | undefined;
 
-
-  private routerSubscription: Subscription | undefined;
-
-  private destroyed$ = new Subject<void>();
 
   constructor(
     private newPageService: NewPageService,
@@ -92,10 +88,11 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
         this.onIdChange(this.previousId, this.currentId); // Вызываем функцию при изменении ID
       }
     });
-    this.headerInput = 'Untitled';
+    this.headerInput = '';
     this.lists = [];
     this.subscribeToGetParams();
-    //this.subscribeToRouteChanges();
+    this.createNewMenuItem();
+    this.newPageService.justCreated = false;
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -110,23 +107,25 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     this.sendBoard();
     console.log('ID изменился. Предыдущий:', previous, 'Новый:', current);
     this.lists = [];
-    this.headerInput = 'Untitled';
+    this.headerInput = '';
     // Выполняем действия, когда ID меняется
   }
 
   createNewMenuItem() {
-    console.log('hello 1');
-
+    let title = this.headerInput;
+    if(title === '')
+      {
+        title = 'Untitled';
+      }
     const newItem: MenuItem = {
       id: this.id,
-      name: this.headerInput,
+      name: title,
       currentLink: this.currentLink,
-      icon: "assets/icons/board/add.svg"
+      icon: "assets/icons/left_menu/table.svg"
     };
     
     this.LeftMenuService.addMenuItem(newItem);
-    console.log('hello 2');
-
+   
   }
 
   toggleNewList() {
@@ -223,12 +222,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   }
 
   toggleCard(card: any) {
-    // this.editCardBoardService.currentCardId = card.id;
-    // this.editCardBoardService.currentCardDescription = card.description || "";
-    // this.editCardBoardService.editCardBoardVisible = !this.editCardBoardService.editCardBoardVisible;
-    // this.BigModalWindowService.modalVisible = this.editCardBoardService.editCardBoardVisible;
-
-    /////////
 
     this.editCardListService.currentItemId = card.id;
     this.editCardListService.currentItemDescription = card.description || '';
@@ -260,27 +253,26 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     }
   }
 
-  // Метод, который вызывается при завершении работы компонента
   ngOnDestroy() {
     console.log("destructor");
-    //this.onClose();
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
-
     this.sendBoard();
 
   }
 
-  
-
   sendBoard() {
+    let title = this.headerInput;
+    if(title === '')
+      {
+        title = 'Untitled';
+    }
+    this.LeftMenuService.updateMenuItem(this.id, title);
     const board = {
       email: this.UserService.userEmail,
       noteId: this.id,
-      title: this.headerInput,
+      title: title,
       lists: this.lists,
-      currentLink: this.currentLink
+      currentLink: this.currentLink,
+      iconPath: "assets/icons/left_menu/table.svg"
     };
 
     const formData = new FormData();
@@ -310,19 +302,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       );
   }
 
-  private subscribeToRouteChanges(): void {
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe(() => {
-        // Уничтожение и переинициализация компонента
-        this.ngOnDestroy();
-
-      });
-  }
-
   private subscribeToGetParams(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id') || '';
@@ -339,8 +318,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
       this.currentLink = this.location.path();
 
-      this.createNewMenuItem();
-
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${this.UserService.userToken}`,
       });
@@ -350,31 +327,35 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
         noteId: this.id,
       };
 
-      // this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
-      //   .subscribe(response => {
-      //     console.log('Response:', response);
+      if(!this.newPageService.justCreated)
+        {
+          console.log('request to get page');
+        this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+        .subscribe(response => {
+          console.log('Response:', response);
 
-      //     if (response && response.lists && Array.isArray(response.lists)) {
-      //       this.lists = response.lists.map((listData: any) => {
-      //         const cards: Card[] = listData.cards.map((cardData: any) => ({
-      //           id: cardData.id,
-      //           name: cardData.name,
-      //           description: cardData.description,
-      //           datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
-      //           files: cardData.files ? [...cardData.files] : undefined
-      //         }));
+          if (response && response.lists && Array.isArray(response.lists)) {
+            this.lists = response.lists.map((listData: any) => {
+              const cards: Card[] = listData.cards.map((cardData: any) => ({
+                id: cardData.id,
+                name: cardData.name,
+                description: cardData.description,
+                datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
+                files: cardData.files ? [...cardData.files] : undefined
+              }));
     
-      //         return {
-      //           id: listData.id,
-      //           name: listData.name,
-      //           cards: cards
-      //         };
-      //       });
-      //       this.headerInput = response.title;
-      //     }
-      //   }, error => {
-      //     console.error('Error:', error);
-      //   });
+              return {
+                id: listData.id,
+                name: listData.name,
+                cards: cards
+              };
+            });
+            this.headerInput = response.title;
+          }
+        }, error => {
+          console.error('Error:', error);
+        });
+        }
 
       });
     }
