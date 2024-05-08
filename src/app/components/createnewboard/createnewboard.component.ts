@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
 import { Subject, Subscription, filter, takeUntil } from 'rxjs';
 import { MenuItem } from 'src/app/interfaces/menu-item';
 import { LeftMenuService } from 'src/app/services/left-menu.service';
+import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.service';
 
 
 interface Card {
@@ -47,6 +48,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   newListVisible: boolean = true;
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
   currentLink: string = "";
+  icon: string = "assets/icons/left_menu/table_chart.svg";
 
 
   currentId: string | null = null;
@@ -63,6 +65,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     private editCardListService: EditCardListService,
     private BigModalWindowService: BigModalWindowService,
     private LeftMenuService: LeftMenuService,
+    private CreateNewUserItemService: CreateNewUserItemService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private location: Location,
@@ -91,7 +94,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     this.headerInput = '';
     this.lists = [];
     this.subscribeToGetParams();
-    this.createNewMenuItem();
+    this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, this.icon)
     this.newPageService.justCreated = false;
   }
 
@@ -111,22 +114,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     // Выполняем действия, когда ID меняется
   }
 
-  createNewMenuItem() {
-    let title = this.headerInput;
-    if(title === '')
-      {
-        title = 'Untitled';
-      }
-    const newItem: MenuItem = {
-      id: this.id,
-      name: title,
-      currentLink: this.currentLink,
-      icon: "assets/icons/left_menu/table.svg"
-    };
-    
-    this.LeftMenuService.addMenuItem(newItem);
-   
-  }
 
   toggleNewList() {
     this.newListVisible = !this.newListVisible;
@@ -275,31 +262,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       iconPath: "assets/icons/left_menu/table.svg"
     };
 
-    const formData = new FormData();
-
-    // Добавляем JSON-данные
-    formData.append('board', JSON.stringify(board)); // Сериализуем объект в JSON
-
-    // Добавляем все выбранные файлы
-    this.selectedFiles.forEach((file, index) => {
-      formData.append(`file_${index}`, file, file.name); // Добавляем файлы с уникальными ключами
-    });
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.UserService.userToken}`
-    });
-
-    // Отправка запроса на бэкенд
-    this.http
-      .post(this.GlobalValuesService.api + 'Values/sendBoard', formData, {headers})
-      .subscribe(
-        (response) => {
-          console.log('Response:', response); // Успешный ответ
-        },
-        (error) => {
-          console.error('Error:', error); // Обработка ошибок
-        }
-      );
+    this.CreateNewUserItemService.sendPage(board, 'board', 'Values/sendBoard', this.selectedFiles);
   }
 
   private subscribeToGetParams(): void {
