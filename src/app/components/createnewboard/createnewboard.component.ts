@@ -48,7 +48,6 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   newListVisible: boolean = true;
   selectedFiles: File[] = []; // Список файлов, которые нужно отправить
   currentLink: string = "";
-  icon: string = "assets/icons/left_menu/table_chart.svg";
 
 
   currentId: string | null = null;
@@ -94,7 +93,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     this.headerInput = '';
     this.lists = [];
     this.subscribeToGetParams();
-    this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, this.icon)
+    //this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, this.icon)
     this.newPageService.justCreated = false;
   }
 
@@ -259,13 +258,14 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
       title: title,
       lists: this.lists,
       currentLink: this.currentLink,
-      iconPath: "assets/icons/left_menu/table.svg"
+      iconPath: "assets/icons/left_menu/table_chart.svg"
     };
 
     this.CreateNewUserItemService.sendPage(board, 'board', 'Values/sendBoard', this.selectedFiles);
   }
 
   private subscribeToGetParams(): void {
+    console.log('subscribe to params board')
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id') || '';
       console.log(this.id);
@@ -290,8 +290,8 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
         noteId: this.id,
       };
 
-      if(!this.newPageService.justCreated)
-        {
+      //if(!this.newPageService.justCreated)
+        //{
           console.log('request to get page');
         this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
         .subscribe(response => {
@@ -318,7 +318,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
         }, error => {
           console.error('Error:', error);
         });
-        }
+        //}
 
       });
     }

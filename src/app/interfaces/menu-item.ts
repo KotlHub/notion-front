@@ -5,4 +5,5 @@ export interface MenuItem {
     funcName?: string;
     id?: string;
     currentLink?: string;
+    newPageIcon?: string;
   }

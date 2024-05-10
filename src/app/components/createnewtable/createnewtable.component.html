@@ -4,9 +4,9 @@
         <hr>
         <div class="table-container">
             <table>
-                <tr *ngFor="let row of tableData; let i = index">
+                <tr *ngFor="let row of tableData; let i = index" (blur)="collectTableData()">
                   <td *ngFor="let cell of row; let j = index" class="table-cell">
-                    <div #contentEditable contenteditable class="table-content table-input">{{tableData[i][j]}}</div>
+                    <div #contentEditable contenteditable class="table-content table-input" (blur)='collectTableData()'>{{tableData[i][j]}}</div>
                   </td>
                 </tr>
             </table>

@@ -33,6 +33,7 @@ export class CreateNewUserItemService {
   ) { }
 
   createNewMenuItem(headerInput: string, id: string, currentLink: string, icon: string) {
+    console.log(headerInput);
     let title = headerInput;
     if(title === '')
       {
@@ -42,7 +43,7 @@ export class CreateNewUserItemService {
       id: id,
       name: title,
       currentLink: currentLink,
-      icon: "assets/icons/left_menu/table.svg"
+      icon: icon
     };
     
     this.LeftMenuService.addMenuItem(newItem);

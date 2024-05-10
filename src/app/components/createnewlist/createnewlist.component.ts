@@ -64,7 +64,7 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
     this.headerInput = '';
     this.lists = [];
     this.subscribeToGetParams();
-    this.createNewMenuItem();
+    //this.createNewMenuItem();
     this.newPageService.justCreated = false;
   }
 
@@ -74,23 +74,25 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
     $event.returnValue = true;
   }
 
-  createNewMenuItem() {
-    let title = this.headerInput;
-    if(title === '')
-      {
-        title = 'Untitled';
-      }
-    const newItem: MenuItem = {
-      id: this.id,
-      name: title,
-      currentLink: this.currentLink,
-      icon: "assets/icons/left_menu/format_list_bulleted.svg"
-    };
+  // createNewMenuItem() {
+  //   console.log("create new menu");
+  //   let title = this.headerInput;
+  //   if(title === '')
+  //     {
+  //       title = 'Untitled';
+  //     }
+  //   const newItem: MenuItem = {
+  //     id: this.id,
+  //     name: title,
+  //     currentLink: this.currentLink,
+  //     icon: "assets/icons/left_menu/format_list_bulleted.svg"
+  //   };
     
-    this.LeftMenuService.addMenuItem(newItem);
-  }
+  //   this.LeftMenuService.addMenuItem(newItem);
+  // }
 
   onIdChange(previous: string | null, current: string | null) {
+    console.log(this.id);
     console.log('lists: ', this.lists);
     console.log('header: ', this.headerInput);
     this.sendList();
@@ -232,8 +234,8 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
         email: this.UserService.userEmail,
         noteId: this.id,
       };
-      if(!this.newPageService.justCreated)
-        {
+      //if(!this.newPageService.justCreated)
+        //{
           console.log('get list');
         this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
         .subscribe(response => {
@@ -251,7 +253,7 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
         }, error => {
           console.error('Error:', error);
         });
-        }
+       // }
 
       });
     }

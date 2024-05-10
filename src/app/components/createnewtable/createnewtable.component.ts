@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.service';
@@ -9,6 +9,7 @@ import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { LeftMenuService } from 'src/app/services/left-menu.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-createnewtable',
@@ -46,7 +47,10 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
     private http: HttpClient,
     private route: ActivatedRoute,
     private location: Location,
+    private elementRef: ElementRef
   ) {}
+
+
 
   ngOnInit(): void {
     
@@ -59,9 +63,9 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
       }
     });
     this.headerInput = '';
-    this.tableData = [];
+    this.tableData = this.tableDefault;
     this.subscribeToGetParams();
-    this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, this.icon)
+    //this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, this.icon)
     this.newPageService.justCreated = false;
   }
   @HostListener('window:beforeunload', ['$event'])
@@ -74,7 +78,7 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
     console.log('table: ', this.tableData);
     this.sendTable();
     console.log('ID изменился. Предыдущий:', previous, 'Новый:', current);
-    this.tableData = [];
+    this.tableData = this.tableDefault;
     this.headerInput = '';
     // Выполняем действия, когда ID меняется
   }
@@ -88,31 +92,33 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
   }
 
   collectTableData() {
-    const tableRows = Array.from(document.querySelectorAll('.table-container table tr'));
+    const tableRows = document.querySelectorAll('.table-container table tr');
     this.tableData = [];
+  
     tableRows.forEach(row => {
-      const rowData: any[] = [];
-      const cells = Array.from(row.querySelectorAll('.table-cell'));
-  
-      cells.forEach(cell => {
-        const contentElement = cell.querySelector('.table-content') as HTMLElement | null;
-        const content = contentElement ? contentElement.innerText : '';
-        rowData.push(content);
-      });
-      
-      this.tableData.push(rowData);
+    const rowData: (string | null)[] = [];
+    const cells = row.querySelectorAll('.table-cell');
+    
+    cells.forEach(cell => {
+      const contentElement = cell.querySelector('.table-content');
+      const content = contentElement?.textContent?.trim() ?? '';
+      rowData.push(content);
     });
-  
-    console.log(this.tableData);
+    
+    this.tableData.push(rowData);
+  });
+
+  console.log(this.tableData);
   }
 
   ngOnDestroy(): void {
-    console.log("destructor");
+    console.log("table destructor");
+    //this.collectTableData();
     this.sendTable();
   }
 
   sendTable() {
-    this.collectTableData();
+    //this.collectTableData();
     let title = this.headerInput;
     if(title === '')
       {
@@ -127,6 +133,8 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
       currentLink: this.currentLink,
       iconPath: "assets/icons/left_menu/table.svg"
     };
+
+    console.log(table);
 
     this.CreateNewUserItemService.sendPage(table, 'table', 'Values/sendTable');
   }
@@ -156,8 +164,8 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
         noteId: this.id,
       };
 
-      if(!this.newPageService.justCreated)
-        {
+      //if(!this.newPageService.justCreated)
+        //{
           console.log('request to get page');
         this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
         .subscribe(response => {
@@ -175,7 +183,7 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
           console.error('Error:', error);
           this.tableData = this.tableDefault;
         });
-        }
+       // }
 
       });
     }

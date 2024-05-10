@@ -44,6 +44,8 @@ td {
     overflow-y: auto; /* Показываем вертикальную полосу прокрутки, если содержимое больше высоты */
     overflow-x: hidden; /* Скрываем горизонтальную полосу прокрутки */
     font-size: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
     color: #939393;
 }
 
