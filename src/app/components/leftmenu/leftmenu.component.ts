@@ -56,28 +56,7 @@ export class LeftmenuComponent implements OnInit {
       this.menuItemsMid = items;
     });
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.UserService.userToken}`,
-    });
-
-    const requestBody = { email: this.UserService.userEmail };
-
-    console.log(requestBody);
-    this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
-    .subscribe(response => {
-
-      response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
-        const newItem: MenuItem = {
-          name: element.name,
-          icon: element.iconPath,
-          currentLink: element.currentLink,
-          id: element.id
-        };
-        this.LeftMenuService.addMenuItem(newItem);
-      });
-    }, error => {
-      console.error('Error:', error);
-    });
+    this.LeftMenuService.getMenu();
 
   }
 

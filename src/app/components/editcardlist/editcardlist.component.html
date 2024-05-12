@@ -2,12 +2,22 @@
   <input placeholder="Untitled" type="text">
   <div class="split">
     <div class="left">
-      
+
+      <div class="split">
+        <div class="left">
+          <button class="list-edit-clickable"><img src="assets/icons/edit_card_list/adjust.svg"><span>lol</span></button>
+
+          <button class="new-list-button"><img src="assets/icons/edit_card_list/add.svg"><span>Add a property</span></button>
+        </div>
+        <div class="right">
+          <span style="color: aqua;">хуй</span>
+        </div>
+      </div>
     </div>
     <hr width=".1vw" height="80vw">
     <div class="right">
-      <textarea placeholder="Description" [(ngModel)]="description" (blur)="editCardList()" class="list-edit-textarea"></textarea>
-      <span>{{currentDescription}}</span>
+      <textarea placeholder="Description" [(ngModel)]="description" (blur)="editCardList()" class="list-edit-textarea">хуй</textarea>
+      <span style="color: beige;">{{currentDescription}}</span>
     </div>
   </div>
 </app-bigmodalwindow>

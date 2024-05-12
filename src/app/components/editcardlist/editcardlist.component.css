@@ -24,6 +24,7 @@ input {
     display: flex;
     flex-direction: column;
     width: 50%;
+    height: auto;
   }
   
   .right {
@@ -32,6 +33,7 @@ input {
     display: flex;
     flex-direction: column;
     width: 50%;
+    height: auto;
   }
 
   .list-edit-clickable {
@@ -39,21 +41,46 @@ input {
     align-items: center;
     font-size: 16px;
     border-radius: 6px;
-    background-color: #202020;
+    background-color: transparent;
     text-align: left;
+    height: 33px;
     border: none;
   }
 
   .list-edit-clickable span{
     margin-left: 5px;
+    color: #AAAAAA;
+    
   }
 
-  .list-edit-clickable span{
+  .list-edit-clickable img{
     margin-left: 5px;
   }
 
+  .list-edit-clickable:hover {
+    background-color: #232323;
+  }
+
+  .new-list-button {
+    border: none;
+    background-color: transparent;
+    color: #797575;
+    text-align: left;
+    font-size: 14px;
+    width: auto;
+  }
+
+  .new-list-button img{
+    margin-left: 5px;
+  }
+
+  .new-list-button span {
+    margin-left: 5px;
+  }
+
+
   .list-edit-textarea {
-    
+    padding: 5px;
     border: none;
     border-radius: 6px;
     color: #D9D9D9D9;

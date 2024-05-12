@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
+import { LeftMenuService } from 'src/app/services/left-menu.service';
 
 interface TokenResponse {
   token: string;
@@ -22,7 +23,8 @@ export class RegistrationpageComponent {
 
 
 
-  constructor(private GlobalValuesService: GlobalValuesService, private http: HttpClient, private UserService: UserService, private router: Router) { }
+  constructor(private GlobalValuesService: GlobalValuesService, private LeftMenuService: LeftMenuService,
+    private http: HttpClient, private UserService: UserService, private router: Router) { }
 
   emailClick() {
     console.log("Email:", this.email);
@@ -63,7 +65,8 @@ export class RegistrationpageComponent {
       console.log('Response:', response.token);
       this.UserService.setUserToken(response.token);
       this.UserService.setUserEmail(this.email);
-      this.router.navigate(['/createnewpage/emptypage']);
+      this.router.navigate(['']);
+      this.LeftMenuService.getMenu();
     }, error => {
       console.error('Error:', error);
     });
