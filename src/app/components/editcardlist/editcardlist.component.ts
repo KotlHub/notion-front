@@ -14,14 +14,14 @@ export class EditcardlistComponent{
   
   isCardListVisible(): boolean {
     this.currentDescription = this.editCardListService.currentItemDescription;
-    console.log(this.currentDescription);
+
     if(this.editCardListService.editCardListVisible)
       {
-        console.log('open');
+        // console.log('open');
       }
     if(!this.editCardListService.editCardListVisible)
       {
-        console.log('close');
+        // console.log('close');
         this.description = "";
       }
     

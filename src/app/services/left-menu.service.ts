@@ -14,8 +14,11 @@ export class LeftMenuService {
 
   menuItemsMid: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
     { name: 'Quick Note', icon: "assets/icons/left_menu/attach_file.svg", id: '1'},
-    { name: 'Personal Home', icon: "assets/icons/left_menu/location_home.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] , id: '2'},
-    { name: 'Task list', icon: "assets/icons/left_menu/check.svg", submenu: ['write html', 'write css', 'pet the cat'], id: '3' }
+    { name: 'Personal Home', icon: "assets/icons/left_menu/location_home.svg", id: '2'},
+    { name: 'Task list', icon: "assets/icons/left_menu/check.svg", id: '3' }
+  ]);
+
+  trashItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
   ]);
 
   getMenu()
@@ -71,11 +74,17 @@ export class LeftMenuService {
 
   deleteItem(item: MenuItem) {
     const currentItems = this.menuItemsMid.getValue();
+    const currentTrashItems = this.trashItems.getValue();
     const index = currentItems.findIndex(menuItem => menuItem === item);
     if (index !== -1) {
       currentItems.splice(index, 1);
       this.menuItemsMid.next(currentItems);
+
+      currentTrashItems.push(item);
+      this.trashItems.next(currentTrashItems);
     }
+
+    console.log(this.trashItems);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`,
@@ -98,6 +107,20 @@ export class LeftMenuService {
     });
 
 
+  }
+
+  recoverItem(item: MenuItem)
+  {
+    const currentItems = this.menuItemsMid.getValue();
+    const currentTrashItems = this.trashItems.getValue();
+    const index = currentTrashItems.findIndex(menuItem => menuItem === item);
+    if (index !== -1) {
+      currentTrashItems.splice(index, 1);
+      this.trashItems.next(currentTrashItems);
+
+      currentItems.push(item);
+      this.menuItemsMid.next(currentItems);
+    }
   }
   
 }

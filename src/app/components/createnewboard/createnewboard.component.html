@@ -8,12 +8,12 @@
           <span>{{list.name}}</span>
           <div class="dropdown dropdown-div">
             <button class="triple-dot-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="assets\icons\board\more_horiz.svg">
+              <img src="assets/icons/board/more_horiz.svg">
             </button>
             <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
-              <li class="dropdown-item" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add Card</span></li>
-              <li class="dropdown-item" (click)="copyList(list)"><img src="assets\icons\board\content_copy.svg"><span>Copy list</span></li>
-              <li class="dropdown-item" (click)="deleteList(list)"><img src="assets\icons\board\delete.svg"><span>Delete list</span></li>
+              <li class="dropdown-item" (click)="addCard(list)"><img src="assets/icons/board/add.svg"><span>Add Card</span></li>
+              <li class="dropdown-item" (click)="copyList(list)"><img src="assets/icons/board/content_copy.svg"><span>Copy list</span></li>
+              <li class="dropdown-item" (click)="deleteList(list)"><img src="assets/icons/board/delete.svg"><span>Delete list</span></li>
             </ul>
           </div>
         </div>
@@ -21,22 +21,22 @@
           <div #contentEditable contenteditable class="board-input content-card-input" (blur)="onCardNameBlur($event, card)">{{card.name}}</div>
           
           <div cdkDragHandle class="drag-handle">
-            <img src="assets\icons\board\edit.svg" (click)="toggleCard(card)">
+            <img src="assets/icons/board/edit.svg" (click)="toggleCard(card)">
           </div>
         </div>
         
         <div>
-          <button class="board-clickable card-button" (click)="addCard(list)"><img src="assets\icons\board\add.svg"><span>Add card</span></button>
+          <button class="board-clickable card-button" (click)="addCard(list)"><img src="assets/icons/board/add.svg"><span>Add card</span></button>
         </div>
       </div>
       <div class="list" *ngIf="newListVisible">
         <form (ngSubmit)="createList(); toggleNewList()">
           <input class="board-clickable card-input" placeholder="Enter list title..." [(ngModel)]="newListName" name="newListName">
-          <button class="board-clickable card-button"><img src="assets\icons\board\list_alt_add.svg"><span>Add list</span></button>
+          <button class="board-clickable card-button"><img src="assets/icons/board/list_alt_add.svg"><span>Add list</span></button>
         </form>
       </div>
       <div class="list" *ngIf="!newListVisible">
-        <button class="board-clickable card-button" (click)="toggleNewList()"><img src="assets\icons\board\add.svg"><span>Add another list</span></button>
+        <button class="board-clickable card-button" (click)="toggleNewList()"><img src="assets/icons/board/add.svg"><span>Add another list</span></button>
       </div>
     </div>
   </div>

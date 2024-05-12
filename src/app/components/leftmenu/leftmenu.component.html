@@ -20,7 +20,7 @@
 
     <ng-container *ngFor="let item of menuItemsMid; let j = index">
       <li class="nav-list-item">
-        <img [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
+        <img *ngIf="item.submenu" [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
         <img src="{{item.icon}}">
         <span (click)="newRoute(item.currentLink)"><a>{{ item.name }}</a></span>
         <!-- <img src="assets/icons/more_horiz.svg" class="triple-dot-button"> -->
@@ -29,7 +29,7 @@
             <img src="assets/icons/more_horiz.svg">
           </button>
           <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
-            <li class="dropdown-item" (click)="deleteItem(item)"><img src="assets\icons\board\delete.svg"><span>Delete list</span></li>
+            <li class="dropdown-item" (click)="deleteItem(item)"><img src="assets/icons/board/delete.svg"><span>Delete item</span></li>
           </ul>
         </div>
       </li>
@@ -55,12 +55,29 @@
 
   <ul class="nav-list">
     <ng-container *ngFor="let item of menuItemsLower; let i = index">
-    <li class="nav-list-item">
-      <img src="{{item.icon}}">
-      <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
-    </li>
-  </ng-container>
+      <li class="nav-list-item">
+        <img *ngIf="item.submenu" [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
+        <img src="{{item.icon}}">
+        <span (click)="callFunction(item)"><a>{{ item.name }}</a></span>
+      </li>
+      <li>
+        <ul *ngIf="showDropdown && item.name === activeMenuItem" class="submenu">
+          <li *ngFor="let subItem of item.submenu" class="nav-list-item">
+            <img src="{{subItem.icon}}">
+            <span>{{ subItem.name }}</span>
+            <div class="dropdown dropdown-div" class="triple-dot-button">
+              <button class="triple-dot-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="assets/icons/more_horiz.svg">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
+                <li class="dropdown-item" (click)="recoverItem(subItem)"><img src="assets/icons/board/delete.svg"><span>Recover item</span></li>              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ng-container>
   </ul>
+  
 
 </div>
 

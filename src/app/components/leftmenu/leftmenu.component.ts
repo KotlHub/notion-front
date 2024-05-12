@@ -26,12 +26,16 @@ export class LeftmenuComponent implements OnInit {
   menuItemsMid: MenuItem[] = [
 
   ];
+  trashItems: MenuItem[] = [
+  ];
 
   menuItemsLower: MenuItem[] = [
     { name: 'Import', icon: "assets/icons/left_menu/upload.svg"},
-    { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", submenu: ['Element 1', 'Element 2', 'Element 3'] },
-    { name: 'Trash', icon: "assets/icons/left_menu/delete.svg", submenu: ['write html', 'write css', 'pet the cat'] }
+    { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", },
+    { name: 'Trash', icon: "assets/icons/left_menu/delete.svg", submenu: this.trashItems }
   ];
+
+  
 
   constructor(private NewPageService: NewPageService, 
     private SearchPageService: SearchPageService, private GlobalValuesService: GlobalValuesService,
@@ -56,9 +60,21 @@ export class LeftmenuComponent implements OnInit {
       this.menuItemsMid = items;
     });
 
+    this.LeftMenuService.trashItems.subscribe(items => {
+      this.trashItems = items;
+      this.menuItemsLower.forEach(item => {
+        if (item.name === 'Trash' && this.trashItems.length > 0) {
+          item.submenu = this.trashItems;
+        }
+      });
+    });
+
+    console.log(this.trashItems);
+
     this.LeftMenuService.getMenu();
 
   }
+
 
   toggleDropdown(menuItem: string): void {
   this.activeMenuItem = this.activeMenuItem === menuItem ? null : menuItem;
@@ -81,7 +97,10 @@ export class LeftmenuComponent implements OnInit {
 
   deleteItem(item: MenuItem) {
     this.LeftMenuService.deleteItem(item);
-
+  }
+  
+  recoverItem(item: MenuItem) {
+    this.LeftMenuService.recoverItem(item);
   }
 
 
