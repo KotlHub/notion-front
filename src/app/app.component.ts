@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LeftmenuComponent } from './components/leftmenu/leftmenu.component';
 import { Router } from '@angular/router';
 import { SettingsModalWindowService } from './services/settings-modal-window.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { SettingsModalWindowService } from './services/settings-modal-window.ser
 export class AppComponent {
   title = 'notion-front';
   menuVisible: boolean = false;
-  constructor(private router: Router, private SettingsModalWindowService: SettingsModalWindowService) {}
+  constructor(private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService) {}
+  wallpaper: string = this.UserService.userWallpaper;
 
   // isRegistrationPageActive(): boolean {
   //   return this.router.url === '/registration';

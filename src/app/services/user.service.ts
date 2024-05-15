@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
   userToken: string = "";
   userEmail: string = "";
+  userWallpaper: string = "assets/wallpapers/wallpaper1.png";
   constructor() {
     // Initialize userToken and userEmail from localStorage or use empty strings if not found
     this.userToken = localStorage.getItem('userToken') || '';

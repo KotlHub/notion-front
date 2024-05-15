@@ -4,7 +4,7 @@
     <div class="main" [ngClass]="{'main-menu-visible': !menuVisible}">
         <!-- <img src="assets/wallpaper.png" class="wallpaper"> -->
         <div class="image-wrapper">
-            <img src="assets/wallpaper.png" class="wallpaper">
+            <img src="{{wallpaper}}" class="wallpaper">
         </div>
         <div class="outlet-container" [ngClass]="{ 'full-width-true': isFullWidth(), 'full-width-false': !isFullWidth() }">
             <router-outlet></router-outlet>
