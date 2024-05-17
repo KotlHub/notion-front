@@ -58,9 +58,9 @@ export class CreateNewUserItemService {
     formData.append(pageStr, JSON.stringify(page)); // Сериализуем объект в JSON
 
     // Добавляем все выбранные файлы
-    selectedFiles?.forEach((file, index) => {
-      formData.append(`file_${index}`, file, file.name); // Добавляем файлы с уникальными ключами
-    });
+    // selectedFiles?.forEach((file, index) => {
+    //   formData.append(`file_${index}`, file, file.name); // Добавляем файлы с уникальными ключами
+    // });
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`
@@ -69,6 +69,28 @@ export class CreateNewUserItemService {
     // Отправка запроса на бэкенд
     this.http
       .post(this.GlobalValuesService.api + apiStr, formData, {headers})
+      .subscribe(
+        (response) => {
+          console.log('Response:', response); // Успешный ответ
+        },
+        (error) => {
+          console.error('Error:', error); // Обработка ошибок
+        }
+      );
+  }
+
+
+  sendGallery(page: any, pageStr: string, apiStr: string, selectedFiles?: File[])
+  {
+    
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`
+    });
+
+    // Отправка запроса на бэкенд
+    this.http
+      .post(this.GlobalValuesService.api + apiStr, page, {headers})
       .subscribe(
         (response) => {
           console.log('Response:', response); // Успешный ответ

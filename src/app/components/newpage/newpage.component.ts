@@ -22,7 +22,7 @@ export class NewpageComponent {
   menuItemsRight: MenuItem[] = [
     { name: 'Board', icon: "assets/icons/new_page_modal/table_chart.svg", funcName: "board", newPageIcon: "assets/icons/left_menu/table_chart.svg"},
     { name: 'Calendar', icon: "assets/icons/new_page_modal/calendar_month.svg", funcName: "calendar" },
-    { name: 'Gallery', icon: "assets/icons/new_page_modal/gallery_thumbnail.svg", funcName: "gallery" },
+    { name: 'Gallery', icon: "assets/icons/new_page_modal/gallery_thumbnail.svg", funcName: "gallery", newPageIcon: "assets/icons/left_menu/gallery_thumbnail.svg" },
   ];
   activeItem: any | null = null;
   newPageName: string = '';

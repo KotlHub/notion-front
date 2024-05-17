@@ -4,11 +4,25 @@
     <div class="main" [ngClass]="{'main-menu-visible': !menuVisible}">
         <!-- <img src="assets/wallpaper.png" class="wallpaper"> -->
         <div class="image-wrapper">
-            <img src="{{wallpaper}}" class="wallpaper">
+            <img [src]="wallpaper" class="wallpaper">
+        </div>
+        <div class="dropdown top-right-button">
+            <button class="search-clickable search-list-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              lol
+            </button>
+            
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <div *ngFor="let image of imageUrls">
+                    <img [src]="image" style="height: 100px; width: 100px;" (click)="changeWallpaper(image)">
+                </div>
+              
+            </div>
+      
         </div>
         <div class="outlet-container" [ngClass]="{ 'full-width-true': isFullWidth(), 'full-width-false': !isFullWidth() }">
             <router-outlet></router-outlet>
         </div>
+        
     </div>
 
 <app-newpage></app-newpage>
