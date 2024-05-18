@@ -56,15 +56,55 @@ app-leftmenu {
     display: block;
 }
 
-.top-right-button {
+.top-right-div {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #fff; /* Button background color */
+    top: 20px;
+    right: 20px;
+}
+
+.top-right-menu {
+    background-color: #272727;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px;
+    border-left: 6px solid #434BF3;
+}
+
+.top-right-menu small {
+    color: #B6B6B6;
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+.top-right-button {
+    border-radius: 6px;
+    color: #D9D9D9D9;
+    padding: 10px;
+    background-color: #1e1e1e; /* Button background color */
     border: none;
     cursor: pointer;
-    display: block;
+    display: none;
 }
+
+.image-container {
+    width: 120px;
+    height: 70px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 4px; /* Optional: to add some space between images */
+}
+
+.cropped-image {
+    width: 120px; /* Width of the container */
+    height: 70px; /* Height of the container */
+    object-fit: cover; /* Ensures the image is resized to cover the container while maintaining aspect ratio */
+    object-position: center; /* Centers the image within the container */
+    display: block; /* Ensures the img is treated as a block element */
+    
+}
+
+
+
 
 .image-wrapper:hover .top-right-button {
     display: block;

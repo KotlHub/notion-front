@@ -11,6 +11,7 @@ import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.
 import { Location } from '@angular/common';
 
 interface Card {
+  [cardKey: string]: any;
   name: string;
   id: string;
   file: File | null; // Заменяем string на File
@@ -18,7 +19,8 @@ interface Card {
   imageUrl?: string;
 }
 
-interface GalleryDTO {
+export interface GalleryDTO {
+  [key: string]: any;
   email: string;
   noteId: string;
   title: string;
@@ -159,7 +161,7 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
 
     console.log(gallery);
 
-    this.CreateNewUserItemService.sendPage(gallery, 'gallery', 'Values/sendGallery');
+    this.CreateNewUserItemService.sendGallery(gallery, 'gallery', 'Values/sendGallery');
   }
 
   private subscribeToGetParams(): void {

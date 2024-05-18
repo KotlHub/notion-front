@@ -15,15 +15,16 @@ export class AppComponent implements OnInit {
   menuVisible: boolean = false;
   userWallpaper: string = "";
 
-  imageUrls: string[] = [];
+  basicUrls: string[] = [];
+  spaceUrls: string[] = [];
+  parparUrls: string[] = [];
   constructor(private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService, private http: HttpClient) {
 
   }
   ngOnInit(): void {
-    this.http.get<string[]>('assets/wallpapers/wallpaperCollection.json').subscribe(data => {
-      this.imageUrls = data;
+    this.http.get<string[]>('assets/wallpapers/spaceCollection.json').subscribe(data => {
+      this.spaceUrls = data;
     });
-    console.log(this.imageUrls);
   }
   wallpaper: string = this.UserService.userWallpaper;
 
