@@ -6,9 +6,12 @@ import { CreatenewboardComponent } from './components/createnewboard/createnewbo
 import { CreatenewlistComponent } from './components/createnewlist/createnewlist.component';
 import { CreatenewgalleryComponent } from './components/createnewgallery/createnewgallery.component';
 import { CreatenewtableComponent } from './components/createnewtable/createnewtable.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 const routes: Routes = [ 
   { path: "registration", component: RegistrationpageComponent }, 
+  { path: "welcome", component: LandingComponent }, 
+
   /////////////
   { path: "createnewpage/emptypage/:id", component: CreatenewpageComponent }, 
   { path: "createnewpage/board/:id", component: CreatenewboardComponent }, 

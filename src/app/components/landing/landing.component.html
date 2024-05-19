@@ -1,0 +1,60 @@
+<div class="main content">
+    <div class="header">
+        <img src="assets/welcome/logo-welcome-header.svg">
+        <div class="header-buttons-container">
+            <button class="landing-button">Login</button>
+        </div>
+
+    </div>
+    <hr>
+
+    <div class="ideas">
+        <span>Craft your <u>ideas</u> in your style</span>
+        <div class="ideas-button-container">
+            <button *ngFor="let button of ideasButtons" class="landing-button" [ngClass]="{'active': selectedButton.id === button.id}" (click)="selectButton(button)">
+              {{ button.name }}
+            </button>
+        </div>
+
+        <div class="display-container">
+            <div class="description-container"> 
+                <h3>{{ selectedButton.name }}</h3>
+                <span>{{selectedButton.description}}</span>
+            </div>
+            <div class="ideas-image-container">
+                <img [src]="selectedButton.imageUrl" alt="{{ selectedButton.description }}" style="width: 700px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="triple-section">
+        <div *ngFor="let section of tripleSection" class="triple-section-container">
+            <img [src]="section.imageUrl">
+            <h3>{{section.name}}</h3>
+            <span>{{section.description}}</span>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <span>About <u>us</u></span>
+
+        <div class="carousel">
+            <div class="carousel-upper">
+                <span>Name: {{selectedCharacter.name}}</span>
+                <span style="margin-left: 20px;">Role: {{selectedCharacter.role}}</span>
+                <div class="header-buttons-container">
+                    <button class="landing-button" (click)="previousCharacter()">left</button>
+                    <button class="landing-button" (click)="nextCharacter()">right</button>
+                </div>
+            </div>
+            <div class="carousel-main">
+                    <div style="width: 50%; padding: 40px;">
+                        <img [src]="selectedCharacter.imageUrl"  style="width: 100%;">
+                    </div>
+                    <div style="width: 50%; padding: 40px;"> 
+                        <span>{{selectedCharacter.text}}</span>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
