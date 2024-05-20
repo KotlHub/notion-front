@@ -56,11 +56,11 @@ export class LeftmenuComponent implements OnInit {
   showDropdown: boolean = false;
 
   ngOnInit(): void {
-    this.LeftMenuService.menuItemsMid.subscribe(items => {
+    this.LeftMenuService.menuItemsMid.subscribe((items: MenuItem[]) => {
       this.menuItemsMid = items;
     });
 
-    this.LeftMenuService.trashItems.subscribe(items => {
+    this.LeftMenuService.trashItems.subscribe((items: MenuItem[]) => {
       this.trashItems = items;
       this.menuItemsLower.forEach(item => {
         if (item.name === 'Trash' && this.trashItems.length > 0) {

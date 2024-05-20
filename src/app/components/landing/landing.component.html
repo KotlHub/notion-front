@@ -42,19 +42,24 @@
             <div class="carousel-upper">
                 <span>Name: {{selectedCharacter.name}}</span>
                 <span style="margin-left: 20px;">Role: {{selectedCharacter.role}}</span>
-                <div class="header-buttons-container">
-                    <button class="landing-button" (click)="previousCharacter()">left</button>
-                    <button class="landing-button" (click)="nextCharacter()">right</button>
+                <div class="header-buttons-container" >
+                    <img src="assets/welcome/left_arrow.svg" (click)="previousCharacter()" style="margin-right: 20px ;">
+                    <img src="assets/welcome/right_arrow.svg" (click)="nextCharacter()">
+
                 </div>
             </div>
             <div class="carousel-main">
-                    <div style="width: 50%; padding: 40px;">
+                    <div style="width: 50%; padding: 50px;">
                         <img [src]="selectedCharacter.imageUrl"  style="width: 100%;">
                     </div>
-                    <div style="width: 50%; padding: 40px;"> 
+                    <div style="width: 50%; padding: 50px;"> 
                         <span>{{selectedCharacter.text}}</span>
                     </div>
             </div>
         </div>
+    </div>
+
+    <div class="faq">
+        <span>FAQ</span>
     </div>
 </div>

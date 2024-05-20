@@ -150,6 +150,8 @@
 
 .carousel {
     display: block;
+    max-width: 75%;
+    margin: 0 auto;
 }
 
 .carousel span{
@@ -182,4 +184,18 @@
 
     display: flex;
     align-items: center;
+}
+
+
+/* //////////////////////// */
+
+
+.faq {
+    display: block;
+    margin-top: 50px;
+}
+
+.faq span {
+    font-size: 70px;
+    color: #D9D9D9;
 }

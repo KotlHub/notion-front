@@ -7,10 +7,12 @@ import { CreatenewlistComponent } from './components/createnewlist/createnewlist
 import { CreatenewgalleryComponent } from './components/createnewgallery/createnewgallery.component';
 import { CreatenewtableComponent } from './components/createnewtable/createnewtable.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [ 
   { path: "registration", component: RegistrationpageComponent }, 
   { path: "welcome", component: LandingComponent }, 
+  { path: "", component: HomeComponent }, 
 
   /////////////
   { path: "createnewpage/emptypage/:id", component: CreatenewpageComponent }, 

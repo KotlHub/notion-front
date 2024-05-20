@@ -21,6 +21,11 @@ export class LeftMenuService {
   trashItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
   ]);
 
+  itemExists(id: string): boolean {
+    const items = this.menuItemsMid.getValue();
+    return items.some(item => item.id === id);
+  }
+
   getMenu()
   {
     const headers = new HttpHeaders({

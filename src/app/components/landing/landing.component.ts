@@ -25,7 +25,7 @@ export class LandingComponent implements OnInit {
     { id: 1, name: 'Red Anna', role: 'UI/UX', text: 'the ultimate tool for note management helps you harness your creativity and reign in your note, you harness your creativity and reign in your note', imageUrl: 'assets/welcome/triple_section_1.svg' },
     { id: 2, name: 'Boiarchuk Bohdan', role: 'Backend developer', text: 'ебашил на си шарике как ёбнутый. хороший мужик одним словом', imageUrl: 'assets/welcome/triple_section_2.svg' },
     { id: 3, name: 'Velichko Vladyslav', role: 'UI/UX', text: 'ебашил на си шарике как ёбнутый. хороший мужик одним словом', imageUrl: 'assets/welcome/triple_section_3.svg' },
-    { id: 4, name: 'Kotlikov Albert', role: 'Frontend developer', text: 'ебашил на си шарике как ёбнутый. хороший мужик одним словом', imageUrl: 'assets/welcome/triple_section_4.svg' },
+    { id: 4, name: 'Kotlikov Albert', role: 'Frontend developer', text: 'ебашил на си шарике как ёбнутый. хороший мужик одним словом', imageUrl: 'assets/welcome/triple_section_1.svg' },
   ];
 
   selectedButton: any;

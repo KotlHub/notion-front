@@ -281,6 +281,11 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
 
       this.currentLink = this.location.path();
 
+      if(!this.LeftMenuService.itemExists(this.id))
+        {
+          this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, 'icon');
+        }
+
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${this.UserService.userToken}`,
       });
