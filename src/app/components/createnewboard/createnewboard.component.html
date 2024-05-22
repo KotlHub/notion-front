@@ -1,6 +1,6 @@
 <div class="main" cdkDropListGroup>
   <div class="container">
-    <input class="board-input header-input" placeholder="Untitled" type="text" [(ngModel)]="headerInput" (blur)="onHeaderBlur()">
+    <input class="board-input header-input" placeholder="Board" type="text" [(ngModel)]="headerInput" (blur)="onHeaderBlur()">
     <hr>
     <div class="list-container">
       <div *ngFor="let list of lists" class="list" cdkDropList [cdkDropListData]="list.cards" (cdkDropListDropped)="onDrop($event)">

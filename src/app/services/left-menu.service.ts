@@ -37,7 +37,6 @@ export class LeftMenuService {
     console.log(requestBody);
     this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
     .subscribe(response => {
-
       response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
         const newItem: MenuItem = {
           name: element.name,

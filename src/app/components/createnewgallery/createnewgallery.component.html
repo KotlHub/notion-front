@@ -5,7 +5,8 @@
     <div class="card-container">
       <div *ngFor="let card of gallery" class="gallery-item card">
         <div class="image-container">
-          <img [src]="getImageUrl(card)">
+          <img *ngIf="getImageUrl(card)" [src]="getImageUrl(card)" alt="Card Image" (click)="triggerFileInput(fileInput)">
+          <input #fileInput type="file" accept="image/*" (change)="updateCardImage($event, card)" style="display:none">
         </div>
         <div class="card-name">
           <input class="gallery-input" [value]="card.name" (blur)="onCardNameBlur($event, card)">

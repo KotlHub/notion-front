@@ -2,7 +2,7 @@
     <div class="container">
         <span>{{userToken}}</span>
         <span>{{userEmail}}</span>
-        <input class="create-page-input header-input" placeholder="Untitled" type="text" [(ngModel)]="headerInput">
+        <input class="create-page-input header-input" placeholder="Empty page" type="text" [(ngModel)]="headerInput">
         <div #contentEditable contenteditable class="create-page-input content-input" [(ngModel)]="mainText">text</div>
         <div #buttonContainer class="button-container">
             <div class="link-container" *ngIf="isLinkContainer">

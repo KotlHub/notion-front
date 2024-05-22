@@ -14,9 +14,8 @@ interface Card {
   [cardKey: string]: any;
   name: string;
   id: string;
-  file: File | null; // Заменяем string на File
   description: string;
-  imageUrl?: string;
+  base64Image: string; // Base64 string for the image
 }
 
 export interface GalleryDTO {
@@ -98,15 +97,37 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file = fileList[0];
-      const newCard: Card = {
-        name: "Card_name",
-        id: Date.now().toString(),
-        description: "",
-        file: file
-      }
-      this.gallery.push(newCard);
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Image = reader.result as string;
+        const newCard: Card = {
+          name: "Card_name",
+          id: Date.now().toString(),
+          description: "",
+          base64Image: base64Image.split(',')[1] // Remove the data URL prefix
+        };
+        this.gallery.push(newCard);
+      };
+      reader.readAsDataURL(file);
     }
     event.target.value = null;
+  }
+
+  updateCardImage(event: any, card: Card) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file = fileList[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Image = reader.result as string;
+        card.base64Image = base64Image.split(',')[1]; // Update the card's image
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  triggerFileInput(fileInput: HTMLInputElement) {
+    fileInput.click();
   }
 
   onCardNameBlur(event: FocusEvent, card: Card) {
@@ -119,21 +140,8 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
   }
 
 
-  getImageUrl(card: Card): string | null {
-  if (card.file) {
-    // Проверяем, был ли URL-адрес уже кэширован
-    if (card.imageUrl) {
-      return card.imageUrl;
-    } else {
-      const reader = new FileReader();
-      reader.onload = () => {
-        // Кэшируем URL-адрес изображения
-        card.imageUrl = reader.result as string;
-      };
-      reader.readAsDataURL(card.file);
-    }
-  }
-  return card.imageUrl ?? null;
+  getImageUrl(card: Card): string {
+    return 'data:image/png;base64,' + card.base64Image;
   }
 
 
@@ -145,9 +153,8 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
 
   sendGallery() {
     let title = this.headerInput;
-    if(title === '')
-      {
-        title = 'Untitled';
+    if(title === '') {
+      title = 'Untitled';
     }
     this.LeftMenuService.updateMenuItem(this.id, title);
     const gallery: GalleryDTO = {
@@ -158,26 +165,22 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
       currentLink: this.currentLink,
       iconPath: "assets/icons/left_menu/gallery_thumbnail.svg"
     };
-
+  
+    console.log("Gallery for send: ");
     console.log(gallery);
-
+  
     this.CreateNewUserItemService.sendGallery(gallery, 'gallery', 'Values/sendGallery');
   }
 
   private subscribeToGetParams(): void {
-    console.log('subscribe to params board')
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id') || '';
-      console.log(this.id);
 
-      if(this.newPageService.newPageName.trim().length > 0)
-        {
-          this.headerInput = this.newPageService.newPageName;
-        }
+      if (this.newPageService.newPageName.trim().length > 0) {
+        this.headerInput = this.newPageService.newPageName;
+      }
 
-        this.newPageService.newPageName = '';
-      
-      console.log(this.headerInput);
+      this.newPageService.newPageName = '';
 
       this.currentLink = this.location.path();
 
@@ -185,41 +188,32 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
         'Authorization': `Bearer ${this.UserService.userToken}`,
       });
 
-      const requestBody = { 
+      const requestBody = {
         email: this.UserService.userEmail,
         noteId: this.id,
       };
 
-      //if(!this.newPageService.justCreated)
-        //{
-          console.log('request to get page');
-        this.http.post<any>(this.GlobalValuesService.api + 'Values/getGallery', requestBody, {headers})
-        .subscribe(response => {
-          console.log('Response:', response);
-
-            this.gallery = response.lists.map((galleryData: any) => {
-              const cards: Card[] = galleryData.cards.map((cardData: any) => ({
-                id: cardData.id,
-                name: cardData.name,
-                description: cardData.description,
-                datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
-                files: cardData.files ? [...cardData.files] : undefined
-              }));
-    
-              return {
-                id: galleryData.id,
-                name: galleryData.name,
-                cards: cards
-              };
-            });
-            this.headerInput = response.title;
-          
-        }, error => {
-          console.error('Error:', error);
-        });
-        //}
-
-      });
-    }
-
+      this.http.post<any>(this.GlobalValuesService.api + 'Values/getGallery', requestBody, { headers })
+        .subscribe(
+          (response) => {
+            console.log('Response get gallery:', response);
+            const gallery = response || {};
+  
+            this.gallery = (gallery.content || []).map((cardData: any) => ({
+              id: cardData.id,
+              name: cardData.name,
+              description: cardData.description,
+              file: null,
+              base64Image: cardData.base64Image || '',
+              imageUrl: 'data:image/png;base64,' + cardData.base64Image
+            }));
+  
+            this.headerInput = gallery.title || '';
+          },
+          (error) => {
+            console.error('Error:', error);
+          }
+        );
+    });
+  }
 }

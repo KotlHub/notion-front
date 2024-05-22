@@ -19,8 +19,6 @@
     border: 1px white solid;
     border-radius: 6px;
     color: white;
-    padding-left: 13px;
-    padding-right: 13px;
 }
 
 /* //////////////////// */
@@ -40,6 +38,54 @@
 .header-buttons-container {
     margin-left: auto;
 }
+/* ////////////////////////// */
+
+.potential {
+    height: auto;
+    margin-top: 100px;
+}
+
+.potential span {
+    font-size: 96px;
+    color: #E8E8E8;
+}
+
+.potential .landing-button {
+    font-size: 24px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px ;
+    padding-bottom: 5px;
+    font-size: 24px;
+}
+
+.inline-image {
+    vertical-align: middle; /* Чтобы выровнять картинку по вертикали с текстом */
+    height: 1em; /* Высота картинки равна высоте текста */
+}
+
+.hand-image-container {
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    display: flex;
+    align-items: flex-start; /* Align the hand-image to the top of the container */
+}
+
+.hand-image {
+    height: auto;
+}
+
+.text-and-button {
+    width: 30%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.text-and-button span {
+    font-size: 24px;
+    color: #C8C8C8;
+}
 
 /* ///////////////////////// */
 
@@ -57,7 +103,11 @@
 .ideas-button-container .landing-button{
     margin-left: 20px;
     margin-right: 20px;
-    padding: 10px 20px 10px 20px;
+    padding-top: 5px ;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 24px;
 }
 
 .ideas-button-container .landing-button:hover,
