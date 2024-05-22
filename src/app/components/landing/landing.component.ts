@@ -28,22 +28,29 @@ export class LandingComponent implements OnInit {
     { id: 4, name: 'Kotlikov Albert', role: 'Frontend developer', text: 'ебашил на си шарике как ёбнутый. хороший мужик одним словом', imageUrl: 'assets/welcome/triple_section_1.svg' },
   ];
 
-  selectedButton: any;
+  faqItems: any[] = [
+    { question: 'What can your site be used for?', answer: 'This platform is designed to help you manage your notes efficiently and creatively, allowing you to capture your ideas in various formats.', isOpen: false },
+    { question: 'Can I use your site for work?', answer: 'You can use this platform by signing up and creating your first note. The platform supports various formats such as text, lists, boards, and tables.', isOpen: false },
+    { question: 'What can your site be used for?', answer: 'Yes, we have a mobile app available for both iOS and Android devices. You can download it from the respective app stores.', isOpen: false },
+    { question: 'What can your site be used for?', answer: 'Yes, we have a mobile app available for both iOS and Android devices. You can download it from the respective app stores.', isOpen: false },
+    { question: 'What can your site be used for?', answer: 'Yes, we have a mobile app available for both iOS and Android devices. You can download it from the respective app stores.', isOpen: false },
+  ];
 
+  selectedButton: any;
   selectedCharacter: any;
+
+  
 
   ngOnInit() {
     if (this.aboutUs && this.aboutUs.length > 0) {
       this.selectedCharacter = this.aboutUs[0];
     } else {
-      // обработка случая, когда массив пуст или не определен
       console.error('selectedCharacter is undefined or empty');
     }
 
     if (this.ideasButtons && this.ideasButtons.length > 0) {
       this.selectedButton = this.ideasButtons[0];
     } else {
-      // обработка случая, когда массив пуст или не определен
       console.error('ideasButtons is undefined or empty');
     }
   }
@@ -62,5 +69,10 @@ export class LandingComponent implements OnInit {
 
   selectButton(button: any) {
     this.selectedButton = button;
+  }
+
+  // Метод для переключения состояния FAQ
+  toggleFaq(index: number) {
+    this.faqItems[index].isOpen = !this.faqItems[index].isOpen;
   }
 }
