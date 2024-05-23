@@ -4,11 +4,14 @@ import { MenuItem } from '../interfaces/menu-item';
 import { GlobalValuesService } from './global-values.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class LeftMenuService {
-  constructor(private GlobalValuesService: GlobalValuesService, private http: HttpClient, private UserService: UserService){}
+  constructor(private GlobalValuesService: GlobalValuesService, private http: HttpClient, private UserService: UserService,
+    private router: Router
+  ){}
   
   leftMenuWidth: number = 0;
 
@@ -75,6 +78,17 @@ export class LeftMenuService {
     }
   }
 
+  deleteItemById(id: string) {
+    if (this.itemExists(id)) {
+      const currentItems = this.menuItemsMid.getValue();
+      const itemToDelete = currentItems.find(item => item.id === id);
+      if (itemToDelete) {
+        this.deleteItem(itemToDelete);
+      }
+    }
+  }
+  
+
 
   deleteItem(item: MenuItem) {
     const currentItems = this.menuItemsMid.getValue();
@@ -89,6 +103,8 @@ export class LeftMenuService {
     }
 
     console.log(this.trashItems);
+
+    this.router.navigate(['']);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`,

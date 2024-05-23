@@ -10,6 +10,7 @@ import { LeftMenuService } from 'src/app/services/left-menu.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { ElementRef } from '@angular/core';
+import { SettingsModalWindowService } from 'src/app/services/settings-modal-window.service';
 
 @Component({
   selector: 'app-createnewtable',
@@ -41,13 +42,12 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
     private newPageService: NewPageService,
     private GlobalValuesService: GlobalValuesService,
     private UserService: UserService,
-    private editCardListService: EditCardListService,
+    private SettingsModalWindowService: SettingsModalWindowService,
     private LeftMenuService: LeftMenuService,
     private CreateNewUserItemService: CreateNewUserItemService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private location: Location,
-    private elementRef: ElementRef
   ) {}
 
 
@@ -131,7 +131,7 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
       title: title,
       tableData: this.tableData,
       currentLink: this.currentLink,
-      iconPath: "assets/icons/left_menu/table.svg"
+      iconPath: this.icon
     };
 
     console.log(table);
@@ -143,7 +143,6 @@ export class CreatenewtableComponent implements OnInit, OnDestroy{
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id') || '';
       console.log(this.id);
-
       if(this.newPageService.newPageName.trim().length > 0)
         {
           this.headerInput = this.newPageService.newPageName;

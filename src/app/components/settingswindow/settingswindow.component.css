@@ -76,6 +76,18 @@
     font-size: 12px;
 }
 
+.message {
+    position: fixed;
+    top: 80%;
+    right: 50%;
+    background-color: #181818; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000; 
+}
+  
+
 
 
 

@@ -36,12 +36,7 @@
         </div>
     </div>
     <hr>
-    <button *ngFor="let item of menuItemsUpper" class="settings-window-clickable button-settings">
-        <img src="{{item.icon}}">
-        <span style="margin-left: 10px;">{{item.name}}</span>
-    </button>
-    <hr>
-    <button *ngFor="let item of menuItemsBottom" class="settings-window-clickable button-settings">
+    <button *ngFor="let item of menuItemsUpper" class="settings-window-clickable button-settings" (click)="callFunction(item)">
         <img src="{{item.icon}}">
         <span style="margin-left: 10px;">{{item.name}}</span>
     </button>
@@ -51,3 +46,7 @@
         <span class="last-edited">{{lastEditedDate.getDate()}}.{{lastEditedDate.getMonth()}} at {{lastEditedDate.getHours()}}:{{lastEditedDate.getMinutes()}}</span>
     </div>
 </div>
+
+<div *ngIf="showMessage" class="message">
+    {{ message }}
+  </div>

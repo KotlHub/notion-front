@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HeaderService } from 'src/app/services/header.service';
 import { SettingsModalWindowService } from 'src/app/services/settings-modal-window.service';
+import { GlobalValuesService } from 'src/app/services/global-values.service';
+import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.service';
+import { LeftMenuService } from 'src/app/services/left-menu.service';
 
 interface MenuItem {
   name: string;
@@ -21,20 +25,26 @@ interface CheckboxItem {
 })
 export class SettingswindowComponent {
 
-  constructor (private HeaderService: HeaderService, private SettingsModalWindowService: SettingsModalWindowService) {}
+  id: string = '';
+
+  showMessage: boolean = false;
+  message: string = '';
+
+  constructor (private HeaderService: HeaderService, private SettingsModalWindowService: SettingsModalWindowService,
+    private router: Router, private GlobalValuesService: GlobalValuesService, private LeftMenuService: LeftMenuService,
+    private CreateNewUserItemService: CreateNewUserItemService
+  ) {
+    this.duplicate = this.duplicate.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.copyLink = this.copyLink.bind(this);
+  }
 
   menuItemsUpper: MenuItem[] = [
-    { name: 'Copy link', icon: "assets/icons/attach_file.svg" },
-    { name: 'Duplicate', icon: "assets/icons/attach_file.svg"},
-    { name: 'Move to', icon: "assets/icons/attach_file.svg" },
-    { name: 'Delete', icon: "assets/icons/attach_file.svg"},
-    { name: 'Show Deleted pages', icon: "assets/icons/attach_file.svg"},
+    { name: 'Copy link', icon: "assets/icons/attach_file.svg", funcName: "copyLink"},
+    { name: 'Duplicate', icon: "assets/icons/attach_file.svg", funcName: "duplicate"},
+    { name: 'Delete', icon: "assets/icons/attach_file.svg", funcName: 'deleteItem'},
   ];
 
-  menuItemsBottom: MenuItem[] = [
-    { name: 'Import', icon: "assets/icons/attach_file.svg" },
-    { name: 'Export', icon: "assets/icons/attach_file.svg"},
-  ];
 
   checkboxes: CheckboxItem[] = [
     { label: 'Small text', checked: false, id: "smallText" },
@@ -54,6 +64,63 @@ export class SettingswindowComponent {
     console.log('Checkbox value:', checkbox.checked);
     if (checkbox.id === 'fullWidth') {
       this.SettingsModalWindowService.fullWidth = !this.SettingsModalWindowService.fullWidth;
+    }
+  }
+
+  duplicate() {
+    const url = this.router.url;
+    const segments = url.split('/');
+    this.id = segments[segments.length - 1]; // Assuming ID is the last segment
+    if (this.GlobalValuesService.isValidUUID(this.id))
+      {
+        const baseSegments = segments.slice(0, segments.length - 1);
+        // Generate new UUID
+        const newUUID = this.GlobalValuesService.generateUUID();
+        // Join base segments with new UUID
+        const newId = baseSegments.join('/') + '/' + newUUID;
+        console.log(newId);     
+        this.CreateNewUserItemService.createNewMenuItem(this.id + ' (copy)', newUUID, newId, '');
+      }
+  }
+
+  deleteItem()
+  {
+    const url = this.router.url;
+    const segments = url.split('/');
+    this.id = segments[segments.length - 1]; // Assuming ID is the last segment
+    if (this.GlobalValuesService.isValidUUID(this.id))
+      {
+        this.LeftMenuService.deleteItemById(this.id);
+      }
+  }
+
+  copyLink()
+  {
+    const url = this.router.url;
+    const segments = url.split('/');
+    this.id = segments[segments.length - 1]; // Assuming ID is the last segment
+    if (this.GlobalValuesService.isValidUUID(this.id))
+      {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          this.message = 'copied';
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 3000);
+        }).catch(err => {
+          console.error('Ошибка при копировании URL: ', err);
+        });
+      }
+  }
+
+  [key: string]: any; // Index signature
+  callFunction(item: any) {
+    const func = this[item.funcName];
+    if (typeof func === 'function') {
+      func(); // This calls the function dynamically
+    } 
+    else {
+      console.error(`${item.funcName} is not a function.`);
     }
   }
 }
