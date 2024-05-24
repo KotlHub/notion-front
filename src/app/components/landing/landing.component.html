@@ -1,4 +1,4 @@
-<div class="main content">
+<!-- <div class="main content">
     <div class="header">
         <img src="assets/welcome/logo-welcome-header.svg">
         <div class="header-buttons-container">
@@ -91,17 +91,172 @@
         </div>
     </div>
 
+
+</div> -->
+
+<div class="main content">
+    <div class="main-container">
+        <div class="first-body">
+            <div class="header">
+                <img class="icon-menu" src="assets/landing/logo.png" alt="Logo">
+                <div class="menu">
+                    <div class="menu-item">Features</div>
+                    <div class="menu-item">FAQ</div>
+                    <div class="menu-item">About Us</div>
+                    <div class="menu-item">Contacts</div>
+                    <button class="menu-item button-start" style="font-weight: 400;" [routerLink]="['/registration']">Log in</button>
+                </div>
+            </div>
+            <div class="line">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1632 2" fill="none">
+                    <path d="M0.0395508 1H1631.48" stroke="#979696" stroke-width="2" />
+                </svg>
+            </div>
+            <div class="first-block">
+                <div class="potential">
+                    <div>
+                        <span>Unlock your <span style="font-weight: 700;">potential</span> <br> with <img class="inline-image" src="assets/landing/imgriff.png"></span>
+                    </div>
+                    <div class="text-and-button">
+                        <span>the ultimate tool for note management
+                            helps you harness your creativity and
+                            reign in your note</span>
+                    </div>
+                    <button class="landing-button" [routerLink]="['/registration']">Get started</button>
+                    <div class="hand-image-container">
+                        <img class="hand-image" src="assets/landing/opener.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="main content">
+    <div class="main-container">
+        <div class="ideas">
+            <span>Craft your <u>ideas</u> in your style</span>
+            <div class="ideas-button-container">
+                <button *ngFor="let button of ideasButtons" class="landing-button"
+                    [ngClass]="{'active': selectedButton?.id === button.id}" (click)="selectButton(button)"
+                    [ngStyle]="getDynamicPadding(button.name)">
+                    {{ button.name }}
+                </button>
+            </div>
+
+            <div class="display-container">
+                <img [src]="selectedButton.imageUrl" style="width: 1036px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main content">
+    <div class="main-container">
+        <div class="triple-section">
+            <div *ngFor="let section of tripleSection" class="triple-section-container">
+                <img [src]="section.imageUrl">
+                <h3>{{section.name}}</h3>
+                <span>{{section.description}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main content">
+    <div class="main-container">
+        <div class="about-us">
+            <span>About <u>us</u></span>
+
+            <div class="carousel">
+                <div class="carousel-upper">
+                    <span class="characteristics" style="margin-left: 60px; ">Name: <span
+                            class="templ-text">{{selectedCharacter.name}}</span></span>
+                    <span class="characteristics" style="margin-left: 31px;">Role: <span
+                            class="templ-text">{{selectedCharacter.role}}</span></span>
+                    <div class="header-buttons-container">
+                        <img src="assets/welcome/left_arrow.svg" (click)="previousCharacter()"
+                            style="height: 24px; width: 24px; margin-right: 35px;">
+                        <img src="assets/welcome/left_arrow.svg" (click)="previousCharacter()"
+                            style="height: 24px; width: 24px; rotate: 180deg;">
+                    </div>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -60px;" width="1036" height="2"
+                    viewBox="0 0 1036 2" fill="none">
+                    <path d="M0.852539 0.999756L1035.15 0.999846" stroke="#D9D9D9" stroke-width="2" />
+                </svg>
+                <div class="carousel-main">
+                    <div class="carousel-image">
+                        <img [src]="selectedCharacter.imageUrl" style="width: 100%;">
+                    </div>
+                    <div class="carousel-text">
+                        {{selectedCharacter.text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main content">
+    <div class="main-container">
+        <div class="faq">
+            <div class="faq-title">FAQ</div>
+            <div class="faq-split-container">
+                <div class="faq-split">
+
+
+
+                    <div *ngFor="let item of faqItems; let i = index">
+                        <div class="faq-item" (click)="toggleFaq(i)">
+                            <span class="question">{{ item.question }}</span>
+                            <span class="icon">
+                                <img *ngIf="item.isOpen; else addIcon" src="assets/landing/minus.svg">
+                                <ng-template #addIcon>
+                                    <img src="assets/landing/add.svg">
+                                </ng-template>
+                            </span>
+                        </div>
+
+                        <div class="faq-answer" *ngIf="item.isOpen">
+                            <p>{{ item.answer }}</p>
+                        </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="560" height="2" viewBox="0 0 563 2" fill="none">
+                        <path d="M0.852539 0.880615L562.853 0.880566" stroke="#D9D9D9" />
+                    </svg>
+                </div>
+                <div class="faq-img-container">
+                    <img src="assets/welcome/question_mark.svg" style="height: 370px; margin-top: -90px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-container">
     <div class="footer">
         <img src="assets/welcome/logo_welcome_footer.svg">
         <div class="contacts">
             <span>IMGRIFF</span>
             <p>Features</p>
-            <p>About Us</p>
-            <p>Faq</p>
+            <p>FAQ</p>
+            <p>About us</p>
         </div>
         <div class="contacts">
             <span>Contacts</span>
             <p>support.imgriff&#64;gmail.com</p>
+            <div class="icon-container">
+                <img class="icon-footer" src="assets/landing/inst.svg" alt="">
+                <img class="icon-footer" src="assets/landing/twiter.svg" alt="">
+                <img class="icon-footer" src="assets/landing/faceboook.svg" alt="">
+                <img class="icon-footer" src="assets/landing/youtube.svg" alt="">
+                <img class="icon-footer" src="assets/landing/tiktok.svg" alt="">
+
+            </div>
         </div>
     </div>
+    
+    <div class="copyright">© 2024 Unlock your potential with Imgriff</div>
 </div>

@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   basicUrls: string[] = [];
   spaceUrls: string[] = [];
   parparUrls: string[] = [];
-  constructor(private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService, private http: HttpClient) {
+  constructor(private router: Router,private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService, private http: HttpClient) {
 
   }
   ngOnInit(): void {
@@ -38,5 +38,20 @@ export class AppComponent implements OnInit {
   isFullWidth(): boolean {
     return this.SettingsModalWindowService.fullWidth;
   }
+
+
+  isWelcomeRoute(): boolean {
+    return this.router.url === '/welcome';
+  }
+
+  isRegistrationRoute(): boolean {
+    return this.router.url === '/registration';
+  }
+
+  isMainRoute(): boolean {
+    return !this.isWelcomeRoute() && !this.isRegistrationRoute();
+  }
+
+
   
 }

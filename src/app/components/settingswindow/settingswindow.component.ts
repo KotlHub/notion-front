@@ -5,6 +5,8 @@ import { SettingsModalWindowService } from 'src/app/services/settings-modal-wind
 import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.service';
 import { LeftMenuService } from 'src/app/services/left-menu.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserService } from 'src/app/services/user.service';
 
 interface MenuItem {
   name: string;
@@ -32,7 +34,7 @@ export class SettingswindowComponent {
 
   constructor (private HeaderService: HeaderService, private SettingsModalWindowService: SettingsModalWindowService,
     private router: Router, private GlobalValuesService: GlobalValuesService, private LeftMenuService: LeftMenuService,
-    private CreateNewUserItemService: CreateNewUserItemService
+    private CreateNewUserItemService: CreateNewUserItemService, private http: HttpClient, private UserService: UserService
   ) {
     this.duplicate = this.duplicate.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -80,6 +82,25 @@ export class SettingswindowComponent {
         const newId = baseSegments.join('/') + '/' + newUUID;
         console.log(newId);     
         this.CreateNewUserItemService.createNewMenuItem(this.id + ' (copy)', newUUID, newId, '');
+
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${this.UserService.userToken}`,
+        });
+  
+        const requestBody = { 
+          noteId: this.id,
+          newId: newUUID,
+          newCurrentLink: newId
+        };
+
+        // this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+        // .subscribe(response => {
+        //   console.log('Response:', response);
+
+        // }, error => {
+        //   console.error('Error:', error);
+        // });
+        
       }
   }
 
