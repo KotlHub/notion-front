@@ -28,6 +28,7 @@ import { CreatenewgalleryComponent } from './components/createnewgallery/createn
 import { EditcardlistComponent } from './components/editcardlist/editcardlist.component';
 import { CreatenewtableComponent } from './components/createnewtable/createnewtable.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { LandingComponent } from './components/landing/landing.component';
     CreatenewgalleryComponent,
     EditcardlistComponent,
     CreatenewtableComponent,
-    LandingComponent
+    LandingComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

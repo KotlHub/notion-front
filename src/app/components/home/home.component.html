@@ -1,2 +1,12 @@
-<button>empty page</button>   
-<button>table</button>   
+<div class="main">
+    <div class="container">
+        <input class="home-input header-input" placeholder="Untitled" type="text" [(ngModel)]="headerInput">
+        <hr>
+        <div class="buttons-container">
+            <button *ngFor="let button of buttons" class="big-button" (click)="createNewPage(button.funcName, button.imageUrl)">
+                <img src="{{button.imageUrl}}">
+                <span>{{button.name}}</span>
+            </button>
+        </div>
+    </div>
+</div>
