@@ -13,9 +13,8 @@ export class SearchpageComponent implements OnInit {
   constructor(private SearchPageService: SearchPageService, private LeftMenuService: LeftMenuService, private router: Router) { }
 
   ListItems: MenuItem[] = [
-    { name: 'Sort', icon: "assets/icons/search_page/swap_vert.svg", id: "sortButton"},
-    { name: 'Title only', icon: "assets/icons/search_page/swap_vert.svg", id: "titleOnlyButton"},
-    { name: 'Created by', icon: "assets/icons/search_page/swap_vert.svg", id: "createdByButton" },
+    { name: 'Sort', icon: "assets/icons/search_page/swap_vert.svg", id: "sortButton", sortButtons: ['A-Z', 'Z-A']},
+    { name: 'Type', icon: "assets/icons/search_page/swap_vert.svg", id: "typeButton", sortButtons: ['All', 'Empty page', 'Board', 'List', 'Gallery', 'Table']},
     { name: 'In', icon: "assets/icons/search_page/attach_file.svg", id: "inButton"},
     { name: 'Date', icon: "assets/icons/search_page/swap_vert.svg", id: "dateButton" },
   ];
@@ -23,9 +22,12 @@ export class SearchpageComponent implements OnInit {
   isSortButtonsVisible: boolean = false;
   searchText: string = '';
   filteredItems: MenuItem[] = [];
+  originalItems: any[] = [];
 
   ngOnInit() {
+    
     this.LeftMenuService.menuItemsMid.subscribe(items => {
+      this.originalItems = items;
       this.filteredItems = items;
     });
   }
@@ -48,6 +50,38 @@ export class SearchpageComponent implements OnInit {
     this.LeftMenuService.menuItemsMid.subscribe(items => {
       this.filteredItems = items.filter(item => item.name.toLowerCase().includes(this.searchText.toLowerCase()));
     });
+  }
+
+  sortItems(sortOrder: string) {
+    switch (sortOrder) {
+      case 'A-Z':
+        this.filteredItems.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'Z-A':
+        this.filteredItems.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'Empty page':
+        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/table_chart.svg");
+        break;
+      case 'Board':
+        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/table_chart.svg");
+        break;
+      case 'List':
+        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/format_list_bulleted.svg");
+        break;
+      case 'Gallery':
+        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/gallery_thumbnail.svg");
+        break;
+      case 'Table':
+        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/table.svg");
+        break;
+      case 'All':
+        this.filteredItems = [...this.originalItems];
+        this.filterItems();
+        break;
+      default:
+        break;
+    }
   }
 
   newRoute(link: string | undefined) {

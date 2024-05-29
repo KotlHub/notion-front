@@ -35,7 +35,6 @@ export class HomeComponent {
     this.router.navigate(['/createnewpage', page, id ]);
     const link = '/createnewpage/' + page + "/" + id;
     this.CreateNewUserItemService.createNewMenuItem(this.headerInput, id, link, imageUrl);
-    this.newPageService.newPageName = '';
 
 
   }

@@ -11,10 +11,8 @@
         <img src="{{button.icon}}">
         <span>{{ button.name }}</span>
       </button>
-      <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
-        <li class="dropdown-item"><img src="assets/icons/board/add.svg"><span>Add Cardlalalalaalal</span></li>
-        <li class="dropdown-item"><img src="assets/icons/board/content_copy.svg"><span>Copy list</span></li>
-        <li class="dropdown-item"><img src="assets/icons/board/delete.svg"><span>Delete list</span></li>
+      <ul *ngIf="button.sortButtons" class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
+        <li *ngFor="let sortButton of button.sortButtons" class="dropdown-item" (click)="sortItems(sortButton)"><span>{{sortButton}}</span></li>
       </ul>
     </div>
   </div>

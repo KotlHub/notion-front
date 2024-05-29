@@ -218,9 +218,8 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
       if(this.newPageService.newPageName.trim().length > 0)
         {
           this.headerInput = this.newPageService.newPageName;
+          
         }
-
-        this.newPageService.newPageName = '';
       
       console.log(this.headerInput);
 
