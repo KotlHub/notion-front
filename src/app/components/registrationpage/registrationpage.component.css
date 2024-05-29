@@ -16,7 +16,7 @@
   .right {
     width: 755px;
     right: 0;
-    background-color: rgb(255, 255, 255);
+    background-color: #181818;
   }
 
   .centered {
@@ -32,12 +32,14 @@
     font-size: 48px;
     margin-bottom: 20px;
     display: block;
+    color: #E3E3E3;
   }
 
   .centered p {
     text-align: left;
     font-size: 16px;
     margin-bottom: 4px;
+    color: #D9D9D9;
   }
 
   .login-clickable {
@@ -45,52 +47,55 @@
     height: 44px;
     font-size: 16px;
     border-radius: 4px;
-    border: 1px solid black;
+    border: 1px solid #D9D9D9;
     margin-bottom: 20px;
     text-align: center;
   }
 
   .google-button {
-    background-color: white;
-    color: #1E1E1E;
+    background-color: #181818;
+    color: #D9D9D9;
   }
 
   .google-button:hover {
-    background-color: #F2F3FF;
+    background-color: #222222;
   }
 
   .login-input {
     padding-left: 20px;
-    
+    background-color: #181818;
+    color: #D9D9D9;
   }
 
   .login-input:focus {
     outline: none !important;
     padding-left: 20px;
     border: 1px solid #4F57FF;
-    box-shadow: 0 0 10px #c4c4c4;
   }
   
   .login-input-err {
     outline: none !important;
     padding-left: 20px;
-    border: 1px solid #FF0000;
-    box-shadow: 0 0 10px #c4c4c4;
-    background-color: #FAEFEF;
+    border: 1px solid #C95151;
+    background-color: #261F1F;
   }
 
   .login-input-filled {
     outline: none !important;
     padding-left: 20px;
     border: 1px solid #4F57FF;
-    box-shadow: 0 0 10px #c4c4c4;
-    background-color: #F3F4FF;
+    background-color: #222222 !important;
+    color: #AFAFAF;
   }
 
   .black-button {
-    background-color: #1E1E1E;
-    color: white;
+    background-color: #E3E3E3;
+    color: #363636;
     margin-bottom: 4px;
+  }
+
+  .black-button:hover {
+    background-color: #C0C0C0;
   }
 
   .extended-page small {
