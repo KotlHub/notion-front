@@ -14,12 +14,12 @@
   <ul class="nav-list">
 
     <li class="nav-list-item">
-      <img src="assets/icons/more_horiz.svg">
+      <img src="assets/icons/left_menu/private.svg">
       <span>Private</span>
     </li>
 
     <ng-container *ngFor="let item of menuItemsMid; let j = index">
-      <li class="nav-list-item">
+      <li class="nav-list-item" style="margin-left: 20px;">
         <img *ngIf="item.submenu" [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
         <img src="{{item.icon}}">
         <span (click)="newRoute(item.currentLink)"><a>{{ item.name }}</a></span>
@@ -30,6 +30,7 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
             <li class="dropdown-item" (click)="deleteItem(item)"><img src="assets/icons/board/delete.svg"><span>Delete item</span></li>
+            <li class="dropdown-item" (click)="addToFavourites(item)"><img src="assets/icons/board/delete.svg"><span>Fav Item</span></li>
           </ul>
         </div>
       </li>
@@ -44,12 +45,27 @@
   </ul>
 
   <li class="nav-list-item">
-    <span>Teamspaces</span>
+    <img src="assets/icons/left_menu/favorites.svg">
+    <span>Favorite</span>
   </li>
 
-  <li class="nav-list-item">
-    <span>Favourite</span>
-  </li>
+  <ng-container *ngFor="let item of favouriteItems; let j = index">
+    <li class="nav-list-item" style="margin-left: 20px;">
+      <img *ngIf="item.submenu" [src]="(showDropdown && item.name === activeMenuItem) ? 'assets/icons/left_menu/down_arrow.svg' : 'assets/icons/left_menu/right_arrow.svg'" (click)="toggleDropdown(item.name)">
+      <img src="{{item.icon}}">
+      <span (click)="newRoute(item.currentLink)"><a>{{ item.name }}</a></span>
+      <!-- <img src="assets/icons/more_horiz.svg" class="triple-dot-button"> -->
+      <div class="dropdown dropdown-div" class="triple-dot-button">
+        <button class="triple-dot-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/icons/more_horiz.svg">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
+          <li class="dropdown-item" (click)="deleteItem(item)"><img src="assets/icons/board/delete.svg"><span>Delete item</span></li>
+          <li class="dropdown-item" (click)="addToFavourites(item)"><img src="assets/icons/board/delete.svg"><span>Fav Item</span></li>
+        </ul>
+      </div>
+    </li>
+  </ng-container>
 
   <hr>
 
@@ -70,7 +86,8 @@
                 <img src="assets/icons/more_horiz.svg">
               </button>
               <ul class="dropdown-menu dropdown-menu-ul" aria-labelledby="dropdownMenuButton1">
-                <li class="dropdown-item" (click)="recoverItem(subItem)"><img src="assets/icons/board/delete.svg"><span>Recover item</span></li>              </ul>
+                <li class="dropdown-item" (click)="recoverItem(subItem)"><img src="assets/icons/board/delete.svg"><span>Recover item</span></li>              
+              </ul>
             </div>
           </li>
         </ul>

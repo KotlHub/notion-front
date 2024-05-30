@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { EditCardListService } from 'src/app/services/edit-card-list.service';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { UserService } from 'src/app/services/user.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
 import { Location } from '@angular/common';
+import { LeftMenuService } from 'src/app/services/left-menu.service';
 
 @Component({
   selector: 'app-createnewpage',
@@ -30,7 +31,7 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
     private newPageService: NewPageService,
     private GlobalValuesService: GlobalValuesService,
     private UserService: UserService,
-    private editCardListService: EditCardListService,
+    private LeftMenuService: LeftMenuService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private location: Location
@@ -39,12 +40,31 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
   userEmail = this.UserSevice.userEmail;
   userToken = this.UserSevice.userToken;
 
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    this.sendPage();
+    $event.returnValue = true;
+  }
+
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || '';
     console.log(this.id);
     this.headerInput = this.newPageService.newPageName;
     console.log(this.headerInput);
     this.currentLink = this.location.path();
+
+    this.subscribeToGetParams();
+  }
+  updateMainText(event: Event) {
+    this.mainText = (event.target as HTMLElement).innerHTML;
+    console.log(this.mainText); // Check if mainText is correctly updated
+  }
+
+  onIdChange(previous: string | null, current: string | null) {
+    this.sendPage();
+    console.log('ID изменился. Предыдущий:', previous, 'Новый:', current);
+    this.mainText = '';
+    this.headerInput = '';
   }
 
   makeFormat(event: MouseEvent, style: string) {
@@ -74,37 +94,82 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //this.onClose();
+    this.sendPage();
   }
 
-  onClose() {
+  sendPage() {
+    let title = this.headerInput;
+    if(title === '')
+      {
+        title = 'Untitled';
+    }
+    
+    this.LeftMenuService.updateMenuItem(this.id, title);
     const page = {
       email: this.UserService.userEmail,
       noteId: this.id,
-      title: this.headerInput,
-      
-      currentLink: this.currentLink
+      title: title,
+      mainText: this.mainText,
+      currentLink: this.currentLink,
+      iconPath: "assets/icons/left_menu/note_stack.svg"
     };
+
+    console.log(page);
 
     const formData = new FormData();
 
-    // Добавляем JSON-данные
-    formData.append('page', JSON.stringify(page)); // Сериализуем объект в JSON
+    formData.append('page', JSON.stringify(page));
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`
     });
 
-    // Отправка запроса на бэкенд
     this.http
       .post(this.GlobalValuesService.api + 'Values/sendPage', formData, {headers})
       .subscribe(
         (response) => {
-          console.log('Response:', response); // Успешный ответ
+          console.log('Response:', response);
         },
         (error) => {
-          console.error('Error:', error); // Обработка ошибок
+          console.error('Error:', error);
         }
       );
+  }
+
+  private subscribeToGetParams(): void {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id') || '';
+      console.log(this.id);
+
+      if(this.newPageService.newPageName.trim().length > 0)
+        {
+          this.headerInput = this.newPageService.newPageName;
+          
+        }
+      
+      console.log(this.headerInput);
+
+      this.currentLink = this.location.path();
+      
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.UserService.userToken}`,
+      });
+
+      const requestBody = { 
+        email: this.UserService.userEmail,
+        noteId: this.id,
+      };
+      this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+        .subscribe(response => {
+          console.log('Response:', response);
+
+          if (response && response.mainText) {
+            this.mainText = response.mainText;
+            this.headerInput = response.title;
+          }
+        }, error => {
+          console.error('Error:', error);
+        });
+    });
   }
 }

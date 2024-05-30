@@ -24,6 +24,9 @@ export class LeftMenuService {
   trashItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
   ]);
 
+  favouriteItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
+  ]);
+
   itemExists(id: string): boolean {
     const items = this.menuItemsMid.getValue();
     return items.some(item => item.id === id);
@@ -40,14 +43,25 @@ export class LeftMenuService {
     console.log(requestBody);
     this.http.post<any>(this.GlobalValuesService.api + 'Values/getUserNotes', requestBody, {headers})
     .subscribe(response => {
-      response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
+      console.log(response);
+      response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any; isFavorite: any;}) => {
         const newItem: MenuItem = {
           name: element.name,
           icon: element.iconPath,
           currentLink: element.currentLink,
-          id: element.id
+          id: element.id,
+          isFavorite: element.isFavorite
         };
+        if(newItem.isFavorite)
+          {
+            const currentFavouritesItems = this.favouriteItems.getValue();
+        
+              currentFavouritesItems.push(newItem);
+              this.favouriteItems.next(currentFavouritesItems);
+          }
+        else {
         this.addMenuItem(newItem);
+      }
       });
     }, error => {
       console.error('Error:', error);
@@ -81,6 +95,7 @@ export class LeftMenuService {
 
   addMenuItem(item: MenuItem) {
     const currentItems = this.menuItemsMid.getValue();
+    const favItems = this.favouriteItems.getValue();
     // Проверяем, существует ли элемент с таким id
     
     const existingIndex = currentItems.findIndex(existingItem => existingItem.id === item.id);
@@ -100,6 +115,45 @@ export class LeftMenuService {
       currentItems.push(item);
       this.trashItems.next(currentItems);
     }
+
+  }
+
+  addToFavourites(item: MenuItem)
+  {
+    const currentItems = this.menuItemsMid.getValue();
+    const currentFavouritesItems = this.favouriteItems.getValue();
+    const index = currentItems.findIndex(menuItem => menuItem === item);
+    if (index !== -1) {
+      currentItems.splice(index, 1);
+      this.menuItemsMid.next(currentItems);
+
+      currentFavouritesItems.push(item);
+      this.favouriteItems.next(currentFavouritesItems);
+    }
+
+    console.log(this.favouriteItems);
+
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`,
+    });
+
+    const requestBody = {
+       email: this.UserService.userEmail,
+       noteId: item.id
+      };
+
+      console.log(item.id);
+
+    console.log(requestBody);
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/favPage', requestBody, {headers})
+    .subscribe(response => {
+      console.log('Response:', response);
+      
+    }, error => {
+      console.error('Error:', error);
+    });
+
 
   }
 

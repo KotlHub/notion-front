@@ -7,4 +7,5 @@ export interface MenuItem {
     id?: string;
     currentLink?: string;
     newPageIcon?: string;
+    isFavorite?: boolean;
   }

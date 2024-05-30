@@ -30,6 +30,7 @@
 }
 
 .big-button {
+    margin: 10px;
     border: none;
     border-radius: 6px;
     background-color: #202020;

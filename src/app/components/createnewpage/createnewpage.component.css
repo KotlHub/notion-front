@@ -25,7 +25,7 @@
 
 .content-input {
     color: #525252;
-    font-size: 16;
+    font-size: 16px;
     resize: none; /* Disable user resizing */
     max-width: 100%;
     overflow-y: hidden; /* Hide vertical scrollbar */

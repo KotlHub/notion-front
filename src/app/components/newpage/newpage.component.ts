@@ -13,7 +13,7 @@ import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.
 export class NewpageComponent {
 
   menuItemsLeft: MenuItem[] = [
-    { name: 'Empty page', icon: "assets/icons/new_page_modal/note_stack.svg", funcName: "emptypage", newPageIcon: "assets/icons/new_page_modal/note_stack.svg" },
+    { name: 'Empty page', icon: "assets/icons/new_page_modal/note_stack.svg", funcName: "emptypage", newPageIcon: "assets/icons/left_menu/note_stack.svg" },
     { name: 'Table', icon: "assets/icons/new_page_modal/table.svg", funcName: "table", newPageIcon: "assets/icons/left_menu/table.svg"},
     { name: 'List', icon: "assets/icons/new_page_modal/format_list_bulleted.svg", funcName: "list", newPageIcon: "assets/icons/left_menu/format_list_bulleted.svg"},
     { name: 'Template', icon: "assets/icons/new_page_modal/extension.svg", funcName: "template"},

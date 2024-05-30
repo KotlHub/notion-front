@@ -29,8 +29,11 @@ export class LeftmenuComponent implements OnInit {
   trashItems: MenuItem[] = [
   ];
 
+  favouriteItems: MenuItem[] = [
+
+  ];
+
   menuItemsLower: MenuItem[] = [
-    { name: 'Import', icon: "assets/icons/left_menu/upload.svg"},
     { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", },
     { name: 'Trash', icon: "assets/icons/left_menu/delete.svg", submenu: this.trashItems }
   ];
@@ -69,6 +72,10 @@ export class LeftmenuComponent implements OnInit {
       });
     });
 
+    this.LeftMenuService.favouriteItems.subscribe((items: MenuItem[]) => {
+      this.favouriteItems = items;
+    });
+
     console.log(this.trashItems);
 
     this.LeftMenuService.getMenu();
@@ -94,6 +101,11 @@ export class LeftmenuComponent implements OnInit {
     this.BigModalWindowService.modalVisible = this.SearchPageService.searchPageVisible;
     console.log(this.SearchPageService.searchPageVisible);
     console.log(this.BigModalWindowService.modalVisible);
+  }
+
+  addToFavourites(item: MenuItem)
+  {
+    this.LeftMenuService.addToFavourites(item);
   }
 
   deleteItem(item: MenuItem) {
