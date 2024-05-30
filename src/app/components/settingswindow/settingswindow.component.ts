@@ -32,6 +32,8 @@ export class SettingswindowComponent {
   showMessage: boolean = false;
   message: string = '';
 
+  changeFont: boolean = false;
+
   constructor (private HeaderService: HeaderService, private SettingsModalWindowService: SettingsModalWindowService,
     private router: Router, private GlobalValuesService: GlobalValuesService, private LeftMenuService: LeftMenuService,
     private CreateNewUserItemService: CreateNewUserItemService, private http: HttpClient, private UserService: UserService
@@ -59,6 +61,20 @@ export class SettingswindowComponent {
 
   isSettingsWindowVisible(): boolean
   {
+    const url = this.router.url;
+    const segments = url.split('/');
+    this.id = segments[segments.length - 1]; // Assuming ID is the last segment
+    if (this.GlobalValuesService.isValidUUID(this.id))
+      {
+        if (segments.some(segment => segment === 'emptypage')) {
+          this.changeFont = true
+        }
+        else
+        {
+          this.changeFont = false;
+        }
+      }
+    
     return this.HeaderService.settingsWindowVisible;
   }
 

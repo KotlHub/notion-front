@@ -1,5 +1,5 @@
 <div *ngIf="isSettingsWindowVisible()" class="settings-window">
-    <div class="split">
+    <div class="split" *ngIf="changeFont">
         <div class="inside-split" (click)="applyFont('font-weight: 400; font-family: Jost;')">
             <div>
               <span>Ag</span>

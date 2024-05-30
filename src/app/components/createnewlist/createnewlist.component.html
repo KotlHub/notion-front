@@ -12,3 +12,39 @@
         </div>
     </div>
 </div>
+
+
+<app-bigmodalwindow *ngIf="isCardListVisible() && currentList && currentList.length > 0">
+    <input class="edit-input" placeholder="Untitled" type="text" [(ngModel)]="currentList[0].name">
+  <div class="split">
+    <div class="left">
+        <div class="split">
+            <div class="left">
+                <div *ngFor="let item of currentList[0].properties">
+                    <button class="list-edit-clickable"><img src={{item.icon}}><span>{{item.name}}</span></button>
+                </div>
+                <div class="dropdown">
+                    <button class="top-right-button new-list-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="assets/icons/edit_card_list/add.svg"><span>Add a property</span>
+                    </button>
+                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                        <div *ngFor="let option of propertyOptions" (click)="selectProperty(option)">
+                            <img src={{option.icon}}>
+                            <span>{{option.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="left">
+                <div *ngFor="let item of currentList[0].properties">
+                    <input class="list-edit-clickable" style="color: aqua;" [(ngModel)]="item.description">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr width=".1vw" height="80vw">
+    <div class="right">
+      <textarea placeholder="Description" [(ngModel)]="currentList[0].description" class="list-edit-textarea"></textarea> <!-- Изменено на currentList[0] -->
+    </div>
+  </div> 
+</app-bigmodalwindow>

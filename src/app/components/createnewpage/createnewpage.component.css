@@ -32,11 +32,10 @@
 }
 
 .button-container {
-    padding: 3px 0 3px 3px;
     display: none; 
     position: fixed;
-    border-radius: 4px;
-    background-color: black;
+    border-radius: 5px;
+    background-color: #202020;
 }
 
 .link-container {
@@ -55,18 +54,19 @@
     font-size: 14px;
     border-radius: 4px;
     background-color: #202020;
-    color: white;
+    color: #7C7C7C;
     text-align: left;
 }
 
 .style-button {
-    border: solid 1px white;
-    margin-right: 3px;
+    border: none;
+    background-color: transparent;
+    margin: 5px;
     width: 25px;
     height: 25px;
     text-align: center;
 }
   
 .style-button:hover {
-    background-color: #434BF3;
+    background-color: #313131;
 }

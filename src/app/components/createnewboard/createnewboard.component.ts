@@ -6,7 +6,7 @@ import {
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
-import { EditCardListService } from 'src/app/services/edit-card-list.service';
+import { EditCardListService, Property } from 'src/app/services/edit-card-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { GlobalValuesService } from 'src/app/services/global-values.service';
@@ -25,6 +25,7 @@ interface Card {
   description?: string;
   datetime?: Date;
   files?: string[];
+  properties?: Property[];
 }
 
 interface List {
@@ -53,6 +54,10 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   currentId: string | null = null;
   previousId: string | null = null;
 
+  currentList?: Card[] = [];
+
+  propertyOptions: MenuItem[] = [
+  ];
 
   paramMapSubscription: Subscription | undefined;
 
@@ -70,14 +75,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     private location: Location,
     private router: Router
   ) {
-    this.editCardListService.descriptionSubject.subscribe((description) => {
-      const cardToUpdate = this.findCardById(
-        this.editCardListService.currentItemId
-      );
-      if (cardToUpdate) {
-        cardToUpdate.description = description;
-      }
-    });
+
   }
 
   ngOnInit(): void {
@@ -95,6 +93,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     this.subscribeToGetParams();
     //this.CreateNewUserItemService.createNewMenuItem(this.headerInput, this.id, this.currentLink, this.icon)
     this.newPageService.justCreated = false;
+    this.propertyOptions = this.editCardListService.propertyOptions;
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -207,29 +206,30 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     }
   }
 
-  toggleCard(card: any) {
-
-    this.editCardListService.currentItemId = card.id;
-    this.editCardListService.currentItemDescription = card.description || '';
-    console.log(
-      'current description',
-      this.editCardListService.currentItemDescription
-    );
-    this.editCardListService.editCardListVisible =
-      !this.editCardListService.editCardListVisible;
-    this.BigModalWindowService.modalVisible =
-      this.editCardListService.editCardListVisible;
+  toggleCard(list: Card) {
+    this.currentList = [list]; // Обновляем currentList, используя массив
+    this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
+    this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
   }
 
-  private findCardById(id: string): Card | undefined {
-    for (const list of this.lists) {
-      const card = list.cards.find((c) => c.id === id);
-      if (card) {
-        return card;
-      }
+  selectProperty(option: MenuItem) {
+    const newItem: Property = {
+      name: option.name,
+      description: "test",
+      icon: option.icon
+    };
+
+    // Проверяем наличие currentList и инициализируем properties, если нужно
+    if (this.currentList && this.currentList[0]) {
+        if (!this.currentList[0].properties) {
+            this.currentList[0].properties = [];
+        }
+        this.currentList[0].properties.push(newItem);
     }
-    return undefined;
-  }
+
+    console.log(this.currentList);
+}
+
 
   // Обработка выбора файлов
   onFilesSelected(event: any) {
@@ -243,6 +243,10 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
     console.log("destructor");
     this.sendBoard();
 
+  }
+
+  isCardListVisible(): boolean {
+    return this.editCardListService.editCardListVisible;
   }
 
   sendBoard() {

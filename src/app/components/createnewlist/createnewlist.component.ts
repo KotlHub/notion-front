@@ -1,6 +1,6 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { EditCardListService } from 'src/app/services/edit-card-list.service';
+import { EditCardListService, Property } from 'src/app/services/edit-card-list.service';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -16,6 +16,7 @@ interface List {
   name: string;
   id: string;
   description?: string;
+  properties?: Property[];
 }
 
 @Component({
@@ -29,10 +30,16 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   headerInput: string = "";
   id: string = "";
   currentLink: string = "";
-  selectedFiles: File[] = []; // Список файлов, которые нужно отправить
+  selectedFiles: File[] = [];
+
+  currentList?: List[] = []; // Изменено на массив List[]
+
 
   currentId: string | null = null;
   previousId: string | null = null;
+
+  propertyOptions: MenuItem[] = [
+  ];
 
   paramMapSubscription: Subscription | undefined;
 
@@ -41,31 +48,22 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
     private GlobalValuesService: GlobalValuesService, private LeftMenuService: LeftMenuService,
     private location: Location, private http: HttpClient
   ) {
-    this.editCardListService.descriptionSubject.subscribe(description => {
-      if (this.lists.length > 0) {
-        const index = this.lists.findIndex(list => list.id === this.editCardListService.currentItemId);
-        if (index !== -1) {
-          this.lists[index].description = description;
-        }
-      }
-    });
   }
 
   ngOnInit(): void {
-
     this.paramMapSubscription = this.route.params.subscribe((params) => {
-      this.previousId = this.currentId; // Сохраняем текущее значение как предыдущее
-      this.currentId = params['id']; // Обновляем текущий ID
+      this.previousId = this.currentId;
+      this.currentId = params['id'];
 
       if (this.previousId !== this.currentId) {
-        this.onIdChange(this.previousId, this.currentId); // Вызываем функцию при изменении ID
+        this.onIdChange(this.previousId, this.currentId);
       }
     });
     this.headerInput = '';
     this.lists = [];
     this.subscribeToGetParams();
-    //this.createNewMenuItem();
     this.newPageService.justCreated = false;
+    this.propertyOptions = this.editCardListService.propertyOptions;
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -74,32 +72,11 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
     $event.returnValue = true;
   }
 
-  // createNewMenuItem() {
-  //   console.log("create new menu");
-  //   let title = this.headerInput;
-  //   if(title === '')
-  //     {
-  //       title = 'Untitled';
-  //     }
-  //   const newItem: MenuItem = {
-  //     id: this.id,
-  //     name: title,
-  //     currentLink: this.currentLink,
-  //     icon: "assets/icons/left_menu/format_list_bulleted.svg"
-  //   };
-    
-  //   this.LeftMenuService.addMenuItem(newItem);
-  // }
-
   onIdChange(previous: string | null, current: string | null) {
-    console.log(this.id);
-    console.log('lists: ', this.lists);
-    console.log('header: ', this.headerInput);
     this.sendList();
     console.log('ID изменился. Предыдущий:', previous, 'Новый:', current);
     this.lists = [];
     this.headerInput = '';
-    // Выполняем действия, когда ID меняется
   }
 
   createList() {
@@ -126,12 +103,12 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
         }
         this.newListName = newName;
       }
-
     }
     
     const newList: List = {
       name: this.newListName,
-      id: Date.now().toString()
+      id: Date.now().toString(),
+      properties: [] // Инициализируем пустой массив свойств
     };
 
     this.lists.push(newList);
@@ -153,13 +130,29 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
     console.log(this.headerInput);
   }
 
-  toggleCard(list: List){
-    this.editCardListService.currentItemId = list.id;
-    this.editCardListService.currentItemDescription = list.description || "";
-    console.log("current description", this.editCardListService.currentItemDescription);
+  isCardListVisible(): boolean {
+    return this.editCardListService.editCardListVisible;
+  }
+
+  toggleCard(list: List) {
+    this.currentList = [list]; // Обновляем currentList, используя массив
     this.editCardListService.editCardListVisible = !this.editCardListService.editCardListVisible;
     this.BigModalWindowService.modalVisible = this.editCardListService.editCardListVisible;
-  }  
+  }
+
+  selectProperty(option: MenuItem) {
+    const newItem: Property = {
+      name: option.name, 
+      description: "test",
+      icon: option.icon
+    };
+  
+    if (this.currentList && this.currentList[0] && this.currentList[0].properties) {
+      this.currentList[0].properties.push(newItem);
+    }
+  
+    console.log(this.currentList);
+  }
 
   ngOnDestroy(): void {
     this.sendList();
@@ -184,33 +177,29 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
 
     const formData = new FormData();
 
-    // Добавляем JSON-данные
-    formData.append('list', JSON.stringify(list)); // Сериализуем объект в JSON
+    formData.append('list', JSON.stringify(list));
 
-    // Добавляем все выбранные файлы
     this.selectedFiles.forEach((file, index) => {
-      formData.append(`file_${index}`, file, file.name); // Добавляем файлы с уникальными ключами
+      formData.append(`file_${index}`, file, file.name);
     });
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`
     });
 
-    // Отправка запроса на бэкенд
     this.http
       .post(this.GlobalValuesService.api + 'Values/sendList', formData, {headers})
       .subscribe(
         (response) => {
-          console.log('Response:', response); // Успешный ответ
+          console.log('Response:', response);
         },
         (error) => {
-          console.error('Error:', error); // Обработка ошибок
+          console.error('Error:', error);
         }
       );
   }
 
   private subscribeToGetParams(): void {
-    
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = params.get('id') || '';
       console.log(this.id);
@@ -233,10 +222,9 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
         email: this.UserService.userEmail,
         noteId: this.id,
       };
-      //if(!this.newPageService.justCreated)
-        //{
-          console.log('get list');
-        this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+
+      console.log('get list');
+      this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
         .subscribe(response => {
           console.log('Response:', response);
 
@@ -244,7 +232,9 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
             this.lists = response.lists.map((listData: any) => {
               return {
                 id: listData.id,
-                name: listData.name
+                name: listData.name,
+                description: listData.description,
+                properties: listData.properties || [] // Загружаем свойства
               };
             });
             this.headerInput = response.title;
@@ -252,8 +242,6 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
         }, error => {
           console.error('Error:', error);
         });
-       // }
-
-      });
-    }
+    });
+  }
 }

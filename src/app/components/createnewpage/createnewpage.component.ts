@@ -58,36 +58,6 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
     this.isLinkContainer = !this.isLinkContainer;
   }
 
-  confirmLink(event: MouseEvent) {
-    let linkContainer = (event.target as HTMLElement).parentElement;
-    while (linkContainer && !linkContainer.classList.contains('link-container')) {
-        linkContainer = linkContainer.parentElement;
-    }
-
-    if (linkContainer) {
-        const linkInput = linkContainer.querySelector('.link-input') as HTMLInputElement;
-        const link = linkInput.value;
-        const selection = window.getSelection();
-        if (selection) {
-            const range = selection.getRangeAt(0);
-            const linkElement = document.createElement('a');
-            linkElement.href = link;
-            linkElement.textContent = range.toString();
-            range.deleteContents();
-            range.insertNode(linkElement);
-        }
-        this.toggleLinkContainer(); // Hide the link container after confirming link
-    } else {
-      console.error('linkContainer is undefined');
-    }
-  }
-
-  cancelLink(event: MouseEvent) {
-    this.toggleLinkContainer(); // Hide the link container after canceling link
-  }
-
-
-
   @HostListener('mouseup', ['$event'])
   onMouseUp(event: MouseEvent) {
     const selection = window.getSelection();
