@@ -1,29 +1,29 @@
 <div *ngIf="isSettingsWindowVisible()" class="settings-window">
     <div class="split">
-        <div class="inside-split">
+        <div class="inside-split" (click)="applyFont('font-weight: 400; font-family: Jost;')">
             <div>
-                <span>Ag</span>
+              <span>Ag</span>
             </div>
             <div>
-                <small>lol</small>
+              <small>regular</small>
             </div>
-        </div>
-        <div class="inside-split">
+          </div>
+        <div class="inside-split" style="font-family: DM Serif Display;" (click)="applyFont('font-weight: 400; font-family: DM Serif Display;')">
             <div>
-                <span>Ag</span>
-            </div>
-            <div>
-                <small>lol</small>
-            </div>
-        </div>
-        <div class="inside-split">
-            <div>
-                <span>Ag</span>
+              <span>Ag</span>
             </div>
             <div>
-                <small>lol</small>
+              <small>Serif</small>
             </div>
-        </div>
+          </div>
+        <div class="inside-split" style="font-weight: 300;" (click)="applyFont('font-weight: 200; font-family: Jost;')">
+            <div>
+              <span>Ag</span>
+            </div>
+            <div>
+              <small>light</small>
+            </div>
+          </div>          
     </div>
     <hr>
     <div *ngFor="let checkbox of checkboxes" class="settings-window-clickable">

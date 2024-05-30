@@ -18,17 +18,33 @@ export class AppComponent implements OnInit {
   basicUrls: string[] = [];
   spaceUrls: string[] = [];
   parparUrls: string[] = [];
+
+  appliedStyles: { [key: string]: string } = {};
   constructor(private router: Router,private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService, private http: HttpClient) {
 
   }
   ngOnInit(): void {
+
     this.http.get<string[]>('assets/wallpapers/spaceCollection.json').subscribe(data => {
       this.spaceUrls = data;
     });
   }
   wallpaper: string = this.UserService.userWallpaper;
 
-  
+  fontStyles(): { [klass: string]: any } | null {
+    const fontParameter = this.SettingsModalWindowService.font;
+    if (!fontParameter) {
+      return null;
+    }
+    const styleObject: { [klass: string]: any } = {};
+    fontParameter.split(';').forEach(style => {
+      const [key, value] = style.split(':');
+      if (key && value) {
+        styleObject[key.trim()] = value.trim();
+      }
+    });
+    return styleObject;
+  }
   changeWallpaper(image: string)
   {
     this.UserService.userWallpaper = image;

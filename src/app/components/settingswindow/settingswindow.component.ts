@@ -69,6 +69,11 @@ export class SettingswindowComponent {
     }
   }
 
+  applyFont(font: string) {
+    localStorage.setItem("fontParameter", font);
+    this.SettingsModalWindowService.font = font;
+  }
+
   duplicate() {
     const url = this.router.url;
     const segments = url.split('/');

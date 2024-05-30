@@ -3,7 +3,7 @@
 <ng-container *ngIf="isMainRoute()">
   <app-header (LeftMenuToggled)="menuVisible = $event"></app-header>
   <app-leftmenu [menuVisible]="menuVisible" [ngClass]="{'nav-list-close': menuVisible}"></app-leftmenu>
-  <div class="main" [ngClass]="{'main-menu-visible': !menuVisible}">
+  <div class="main" [ngClass]="{'main-menu-visible': !menuVisible}" [ngStyle]="fontStyles()">
     <div class="image-wrapper">
       <img [src]="wallpaper" class="wallpaper">
       <div class="dropdown top-right-div">

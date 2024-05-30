@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsModalWindowService {
   fullWidth: boolean = true;
+  font: string | null = localStorage.getItem("fontParameter");
   constructor() { }
 }
