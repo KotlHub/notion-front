@@ -67,6 +67,7 @@ export class RegistrationpageComponent {
       this.UserService.setUserEmail(this.email);
       this.router.navigate(['']);
       this.LeftMenuService.getMenu();
+      this.LeftMenuService.getTrash();
     }, error => {
       console.error('Error:', error);
     });

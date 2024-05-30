@@ -54,6 +54,31 @@ export class LeftMenuService {
     });
   }
 
+  getTrash()
+  {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`,
+    });
+
+    const requestBody = { email: this.UserService.userEmail };
+
+    console.log(requestBody);
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/getDeletedUserNotes', requestBody, {headers})
+    .subscribe(response => {
+      response.forEach((element: { name: any; iconPath: any; currentLink: any; id: any;}) => {
+        const newItem: MenuItem = {
+          name: element.name,
+          icon: element.iconPath,
+          currentLink: element.currentLink,
+          id: element.id
+        };
+        this.addTrashItem(newItem);
+      });
+    }, error => {
+      console.error('Error:', error);
+    });
+  }
+
   addMenuItem(item: MenuItem) {
     const currentItems = this.menuItemsMid.getValue();
     // Проверяем, существует ли элемент с таким id
@@ -62,6 +87,18 @@ export class LeftMenuService {
     if (existingIndex === -1) {
       currentItems.push(item);
       this.menuItemsMid.next(currentItems);
+    }
+
+  }
+
+  addTrashItem(item: MenuItem) {
+    const currentItems = this.trashItems.getValue();
+    // Проверяем, существует ли элемент с таким id
+    
+    const existingIndex = currentItems.findIndex(existingItem => existingItem.id === item.id);
+    if (existingIndex === -1) {
+      currentItems.push(item);
+      this.trashItems.next(currentItems);
     }
 
   }

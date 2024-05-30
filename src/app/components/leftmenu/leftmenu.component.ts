@@ -72,6 +72,7 @@ export class LeftmenuComponent implements OnInit {
     console.log(this.trashItems);
 
     this.LeftMenuService.getMenu();
+    this.LeftMenuService.getTrash();
 
   }
 
