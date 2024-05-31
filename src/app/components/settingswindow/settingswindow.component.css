@@ -28,6 +28,8 @@
     width: 33.3%;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 .inside-split span {
@@ -38,6 +40,10 @@
 .inside-split small {
     font-size: 10px;
     color: #9C9C9C;
+}
+
+.inside-split:hover {
+    background-color: #252525;
 }
 
 .settings-window-clickable {

@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class LandingComponent implements OnInit {
 
   ideasButtons: any = [
-    { id: 1, name: 'Board', description: 'Description 1', imageUrl: 'assets/welcome/board_screenshot.svg' },
-    { id: 2, name: 'List', description: 'Description 2', imageUrl: 'assets/welcome/board_screenshot.svg' },
+    { id: 1, name: 'Board', description: 'Description 1', imageUrl: 'assets/welcome/board_screenshot.jpg' },
+    { id: 2, name: 'List', description: 'Description 2', imageUrl: 'assets/welcome/board_screenshot.jpg' },
     { id: 3, name: 'Calendar', description: 'the ultimate tool for note management helps you harness your creativity and reign in your note, you harness your creativity and reign in your note', imageUrl: 'assets/welcome/board_screenshot.svg' },
-    { id: 4, name: 'Table', description: 'Description 4', imageUrl: 'assets/welcome/board_screenshot.svg' },
-    { id: 5, name: 'Empty page', description: 'Description 5', imageUrl: 'assets/welcome/board_screenshot.svg' }
+    { id: 4, name: 'Table', description: 'Description 4', imageUrl: 'assets/welcome/board_screenshot.jpg' },
+    { id: 5, name: 'Empty page', description: 'Description 5', imageUrl: 'assets/welcome/board_screenshot.jpg' }
   ];
 
   tripleSection: any = [
@@ -31,10 +31,11 @@ export class LandingComponent implements OnInit {
   faqItems: any[] = [
     { question: 'What can your site be used for?', answer: 'This platform is designed to help you manage your notes efficiently and creatively, allowing you to capture your ideas in various formats.', isOpen: false },
     { question: 'Can I use your site for work?', answer: 'You can use this platform by signing up and creating your first note. The platform supports various formats such as text, lists, boards, and tables.', isOpen: false },
-    { question: 'What can your site be used for?', answer: 'Yes, we have a mobile app available for both iOS and Android devices. You can download it from the respective app stores.', isOpen: false },
-    { question: 'What can your site be used for?', answer: 'Yes, we have a mobile app available for both iOS and Android devices. You can download it from the respective app stores.', isOpen: false },
-    { question: 'What can your site be used for?', answer: 'Yes, we have a mobile app available for both iOS and Android devices. You can download it from the respective app stores.', isOpen: false },
-  ];
+    { question: 'Is there a limit to the number of notes I can create?', answer: 'There is no limit to the number of notes you can create. You can create as many notes as you need.', isOpen: false },
+    { question: 'Can I add images and attachments to my notes?', answer: 'Yes, you can add images to your notes to make them more comprehensive.', isOpen: false },
+    { question: 'How secure is my data?', answer: 'We take data security very seriously. Your notes are encrypted and securely stored on our servers.', isOpen: false },
+];
+
 
   selectedButton: any;
   selectedCharacter: any;

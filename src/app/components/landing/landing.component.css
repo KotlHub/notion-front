@@ -1,3 +1,5 @@
+
+
 .main {
     z-index: 1;
     top: 0;
@@ -72,8 +74,8 @@
 
 .hand-image-container {
     height: 50%;
-    margin-top: -550px;
-    margin-left: 720px;
+    top: 50px;
+    right: 0px;
     position: absolute;
 }
 
@@ -422,6 +424,8 @@ body.main.content {
 }
 
 .header {
+    position: relative;
+    padding-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -436,14 +440,8 @@ body.main.content {
 .first-body {
     background-color: #181818;
     margin-top: 46px;
-    margin-left: 142px;
-    margin-right: 142px;
     width: 100%;
-    /* Исправление синтаксиса */
-    max-width: 1736px;
-    /* Пример ограничения максимальной ширины */
-    box-sizing: border-box;
-    /* Чтобы padding не увеличивал ширину блока */
+    padding-left: 150px;
 }
 
 .icon-menu {
@@ -460,6 +458,8 @@ body.main.content {
     display: flex;
     align-items: center;
     margin-bottom: 6px;
+    position: absolute;
+    right: 0;
 }
 
 .menu-item {

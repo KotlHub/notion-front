@@ -54,7 +54,14 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
     this.currentLink = this.location.path();
 
     this.subscribeToGetParams();
-  }
+
+    // Добавить код для установки initial mainText
+    setTimeout(() => {
+        this.contentEditable.nativeElement.innerHTML = this.mainText;
+    });
+}
+
+
   updateMainText(event: Event) {
     this.mainText = (event.target as HTMLElement).innerHTML;
     console.log(this.mainText); // Check if mainText is correctly updated
@@ -138,38 +145,42 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
 
   private subscribeToGetParams(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = params.get('id') || '';
-      console.log(this.id);
+        this.id = params.get('id') || '';
+        console.log(this.id);
 
-      if(this.newPageService.newPageName.trim().length > 0)
-        {
-          this.headerInput = this.newPageService.newPageName;
-          
+        if (this.newPageService.newPageName.trim().length > 0) {
+            this.headerInput = this.newPageService.newPageName;
         }
-      
-      console.log(this.headerInput);
 
-      this.currentLink = this.location.path();
-      
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.UserService.userToken}`,
-      });
+        console.log(this.headerInput);
 
-      const requestBody = { 
-        email: this.UserService.userEmail,
-        noteId: this.id,
-      };
-      this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
-        .subscribe(response => {
-          console.log('Response:', response);
+        this.currentLink = this.location.path();
 
-          if (response && response.mainText) {
-            this.mainText = response.mainText;
-            this.headerInput = response.title;
-          }
-        }, error => {
-          console.error('Error:', error);
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.UserService.userToken}`,
         });
+
+        const requestBody = { 
+            email: this.UserService.userEmail,
+            noteId: this.id,
+        };
+        this.http.post<any>(this.GlobalValuesService.api + 'Values/getPage', requestBody, {headers})
+            .subscribe(response => {
+                console.log('Response:', response);
+
+                if (response && response.mainText) {
+                    this.mainText = response.mainText;
+                    this.headerInput = response.title;
+
+                    // Обновить contentEditable содержимым mainText
+                    setTimeout(() => {
+                        this.contentEditable.nativeElement.innerHTML = this.mainText;
+                    });
+                }
+            }, error => {
+                console.error('Error:', error);
+            });
     });
-  }
+}
+
 }
