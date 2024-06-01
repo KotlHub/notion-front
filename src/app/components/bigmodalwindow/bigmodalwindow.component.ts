@@ -2,7 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { BigModalWindowService } from 'src/app/services/big-modal-window.service';
 import { NewPageService } from 'src/app/services/new-page.service';
 import { SearchPageService } from 'src/app/services/search-page.service';
-
+import { UserService } from 'src/app/services/user.service';
 import { EditCardListService } from 'src/app/services/edit-card-list.service';
 
 @Component({
@@ -15,14 +15,15 @@ export class BigmodalwindowComponent {
   constructor(private NewPageService: NewPageService, 
     private SearchPageService: SearchPageService, 
     private BigModalWindowService: BigModalWindowService, 
-    private EditCardListService: EditCardListService) { }
+    private EditCardListService: EditCardListService,
+    private UserService: UserService) { }
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if (this.BigModalWindowService.modalVisible && event.key === "Escape") {
       this.BigModalWindowService.modalVisible = false;
       this.NewPageService.newPageVisible = false;
       this.SearchPageService.searchPageVisible = false;
-
+      this.UserService.userSettingsVisible = false;
       this.EditCardListService.editCardListVisible = false;
     }
   }
@@ -34,7 +35,7 @@ export class BigmodalwindowComponent {
       this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
       this.NewPageService.newPageVisible = false;
       this.SearchPageService.searchPageVisible = false;
-
+      this.UserService.userSettingsVisible = false;
       this.EditCardListService.editCardListVisible = false;
     }
 
@@ -42,7 +43,7 @@ export class BigmodalwindowComponent {
       this.BigModalWindowService.modalVisible = !this.BigModalWindowService.modalVisible;
       this.NewPageService.newPageVisible = false;
       this.SearchPageService.searchPageVisible = false;
-
+      this.UserService.userSettingsVisible = false;
       this.EditCardListService.editCardListVisible = false;
   }
   }

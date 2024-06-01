@@ -7,6 +7,7 @@ export class UserService {
   userToken: string = "";
   userEmail: string = "";
   userWallpaper: string = "assets/wallpapers/space1.png";
+  userSettingsVisible: boolean = false;
   constructor() {
     // Initialize userToken and userEmail from localStorage or use empty strings if not found
     this.userToken = localStorage.getItem('userToken') || '';

@@ -34,7 +34,7 @@ export class LeftmenuComponent implements OnInit {
   ];
 
   menuItemsLower: MenuItem[] = [
-    { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", },
+    { name: 'Settings', icon: "assets/icons/left_menu/settings.svg", funcName: "toggleUserSettings"},
     { name: 'Trash', icon: "assets/icons/left_menu/delete.svg", submenu: this.trashItems }
   ];
 
@@ -48,7 +48,7 @@ export class LeftmenuComponent implements OnInit {
   {
     this.toggleNewPage = this.toggleNewPage.bind(this);
     this.toggleSearchPage = this.toggleSearchPage.bind(this);
-
+    this.toggleUserSettings = this.toggleUserSettings.bind(this);
   }
 
   @Input() menuVisible: boolean = false;
@@ -99,8 +99,12 @@ export class LeftmenuComponent implements OnInit {
   toggleSearchPage() {
     this.SearchPageService.searchPageVisible = !this.SearchPageService.searchPageVisible;
     this.BigModalWindowService.modalVisible = this.SearchPageService.searchPageVisible;
-    console.log(this.SearchPageService.searchPageVisible);
-    console.log(this.BigModalWindowService.modalVisible);
+  }
+
+  toggleUserSettings() {
+    this.UserService.userSettingsVisible = !this.UserService.userSettingsVisible;
+    this.BigModalWindowService.modalVisible = this.UserService.userSettingsVisible;
+    console.log('user settings');
   }
 
   addToFavourites(item: MenuItem)

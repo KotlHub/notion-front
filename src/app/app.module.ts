@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
@@ -19,16 +18,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreatenewlistComponent } from './components/createnewlist/createnewlist.component';
 import { CreatenewgalleryComponent } from './components/createnewgallery/createnewgallery.component';
-
 import { CreatenewtableComponent } from './components/createnewtable/createnewtable.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { HomeComponent } from './components/home/home.component';
+import { UsersettingsComponent } from './components/usersettings/usersettings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-
     LeftmenuComponent,
     HeaderComponent,
     RegistrationpageComponent,
@@ -42,7 +40,8 @@ import { HomeComponent } from './components/home/home.component';
     CreatenewgalleryComponent,
     CreatenewtableComponent,
     LandingComponent,
-    HomeComponent
+    HomeComponent,
+    UsersettingsComponent
   ],
   imports: [
     BrowserModule,

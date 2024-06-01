@@ -1,0 +1,125 @@
+<app-bigmodalwindow *ngIf="isUserSettingsVisible()">
+    <div class="split">
+        <div class="left">
+            <div class="name-avatar">
+                <img src="assets/avatar.png">
+                <div class="name-email">
+                    <span>{{userName}}</span>
+                    <small>{{userEmail}}</small>
+                </div>
+            </div>
+            <div class="left-buttons">
+                <button class="left-button" *ngFor="let button of leftButtons" (click)="selectButton(button.id)">
+                    <img src="{{button.imageUrl}}">
+                    <span>{{button.name}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="right">
+            <div *ngIf="settingsToShow == 1">
+                <h3>Profile</h3>
+                <hr>
+                <div class="name-avatar">
+                    <img src="assets/avatar.png">
+                    <div class="name-email">
+                        <span>{{userName}}</span>
+                        <input placeholder="Ozzy Osbourne">
+                    </div>
+                </div>
+                <hr>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Email</span>
+                        <small>{{userEmail}}</small>
+                    </div>
+                    <div class="right-text-option">
+                        <button class="change-email-button">Change email</button>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Email notifications</span>
+                        <small>Receive notifications about your plans by email</small>
+                    </div>
+                    <div class="right-text-option">
+                        <label class="form-switch">
+                            <input type="checkbox">
+                            <i></i>
+                          </label>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Workspace notification</span>
+                        <small>Receive notifications about your plans in workspace</small>
+                    </div>
+                    <div class="right-text-option">
+                        <label class="form-switch">
+                            <input type="checkbox">
+                            <i></i>
+                          </label>
+                    </div>
+                </div>
+                <hr>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span style="color: #D35252;">Delete my account</span>
+                        <small>Deleting your account permanently without the possibility of recovery</small>
+                    </div>
+                    <div class="right-text-option">
+                        <img src="assets/icons/user_settings/arrow_forward_ios.svg">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="settingsToShow == 2">
+                <h3>My settings</h3>
+                <hr>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Light theme</span>
+                        <small>Changes the page color to light</small>
+                    </div>
+                    <div class="right-text-option">
+                        <label class="form-switch">
+                            <input type="checkbox">
+                            <i></i>
+                          </label>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Randomly covers</span>
+                        <small>Randomly change covers on notes when the page is refreshed</small>
+                    </div>
+                    <div class="right-text-option">
+                        <label class="form-switch">
+                            <input type="checkbox">
+                            <i></i>
+                          </label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="settingsToShow == 3">
+                <h3>Language & region</h3>
+                <hr>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Language</span>
+                        <small>Change the language used in the user interface.</small>
+                    </div>
+                    <div class="right-text-option">
+                        <span>English</span>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="left-text-option">
+                        <span>Choose your region</span>
+                    </div>
+                    <div class="right-text-option">
+                        <span>Ukraine</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-bigmodalwindow>
