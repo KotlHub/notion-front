@@ -8,6 +8,7 @@ import { CreatenewgalleryComponent } from './components/createnewgallery/createn
 import { CreatenewtableComponent } from './components/createnewtable/createnewtable.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { HomeComponent } from './components/home/home.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 const routes: Routes = [ 
   { path: "registration", component: RegistrationpageComponent }, 
@@ -20,7 +21,11 @@ const routes: Routes = [
   { path: "createnewpage/list/:id", component: CreatenewlistComponent }, 
   { path: "createnewpage/gallery/:id", component: CreatenewgalleryComponent }, 
   { path: "createnewpage/table/:id", component: CreatenewtableComponent }, 
-  
+  /////////
+
+  { path: "404", component: NotfoundComponent },
+
+  { path: "**", component: NotfoundComponent }
  
 ];
 

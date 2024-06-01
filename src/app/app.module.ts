@@ -22,6 +22,7 @@ import { CreatenewtableComponent } from './components/createnewtable/createnewta
 import { LandingComponent } from './components/landing/landing.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsersettingsComponent } from './components/usersettings/usersettings.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UsersettingsComponent } from './components/usersettings/usersettings.co
     CreatenewtableComponent,
     LandingComponent,
     HomeComponent,
-    UsersettingsComponent
+    UsersettingsComponent,
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,

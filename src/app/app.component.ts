@@ -64,6 +64,10 @@ export class AppComponent implements OnInit {
     return this.router.url === '/registration';
   }
 
+  isNotFoundRoute(): boolean {
+    return this.router.url === '/registration';
+  }
+
   isMainRoute(): boolean {
     return !this.isWelcomeRoute() && !this.isRegistrationRoute();
   }

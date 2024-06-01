@@ -1,0 +1,49 @@
+.split {
+    height: 100%;
+    
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+  }
+  
+  .left {
+    width: 100%;
+    left: 0;
+    background-color: #181818;
+  }
+  
+  .centered-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sorry {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 50px;
+  }
+
+  .sorry span {
+    font-size: 64px;
+    color: #D9D9D9;
+  }
+
+  .sorry p {
+    font-size: 24px;
+    color: #D9D9D9;
+  }
+
+  .change-email-button {
+    border: 1px solid #7C7C7C;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #D9D9D9;
+    font-size: 18px;
+    width: 135px
+}
