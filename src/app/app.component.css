@@ -123,9 +123,3 @@ app-leftmenu {
     padding: 0px 250px 0px 250px;
 }
 
-
-@media screen and (max-width: 755px) {
-    app-leftmenu {
-        width: 100%;
-    }
-  }

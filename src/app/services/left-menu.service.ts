@@ -15,10 +15,14 @@ export class LeftMenuService {
   
   leftMenuWidth: number = 0;
 
-  menuItemsMid: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
+  initMidItems = [
     { name: 'Quick Note', icon: "assets/icons/left_menu/attach_file.svg", id: '1'},
     { name: 'Personal Home', icon: "assets/icons/left_menu/location_home.svg", id: '2'},
     { name: 'Task list', icon: "assets/icons/left_menu/check.svg", id: '3' }
+  ];
+
+  menuItemsMid: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
+    
   ]);
 
   trashItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>([
@@ -34,6 +38,10 @@ export class LeftMenuService {
 
   getMenu()
   {
+
+    this.menuItemsMid.next([]);
+    console.log(this.menuItemsMid);
+    this.menuItemsMid.next(this.initMidItems);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`,
     });
@@ -70,6 +78,7 @@ export class LeftMenuService {
 
   getTrash()
   {
+    this.trashItems.next([]);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.UserService.userToken}`,
     });

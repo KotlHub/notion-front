@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
   menuVisible: boolean = false;
   userWallpaper: string = "";
 
-  basicUrls: string[] = [];
+  movieUrls: string[] = [];
   spaceUrls: string[] = [];
-  parparUrls: string[] = [];
+  natureUrls: string[] = [];
 
   appliedStyles: { [key: string]: string } = {};
   constructor(private router: Router,private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService, private http: HttpClient) {
@@ -27,6 +27,14 @@ export class AppComponent implements OnInit {
 
     this.http.get<string[]>('assets/wallpapers/spaceCollection.json').subscribe(data => {
       this.spaceUrls = data;
+    });
+
+    this.http.get<string[]>('assets/wallpapers/movieCollection.json').subscribe(data => {
+      this.movieUrls = data;
+    });
+
+    this.http.get<string[]>('assets/wallpapers/natureCollection.json').subscribe(data => {
+      this.natureUrls = data;
     });
   }
   wallpaper: string = this.UserService.userWallpaper;
@@ -65,11 +73,11 @@ export class AppComponent implements OnInit {
   }
 
   isNotFoundRoute(): boolean {
-    return this.router.url === '/registration';
+    return this.router.url === '/404';
   }
 
   isMainRoute(): boolean {
-    return !this.isWelcomeRoute() && !this.isRegistrationRoute();
+    return !this.isWelcomeRoute() && !this.isRegistrationRoute() && !this.isNotFoundRoute();
   }
 
 

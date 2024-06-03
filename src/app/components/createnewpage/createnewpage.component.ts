@@ -64,7 +64,6 @@ export class CreatenewpageComponent implements OnInit, OnDestroy {
 
   updateMainText(event: Event) {
     this.mainText = (event.target as HTMLElement).innerHTML;
-    console.log(this.mainText); // Check if mainText is correctly updated
   }
 
   onIdChange(previous: string | null, current: string | null) {
