@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   movieUrls: string[] = [];
   spaceUrls: string[] = [];
   natureUrls: string[] = [];
+  basicUrls: string[] = [];
 
   appliedStyles: { [key: string]: string } = {};
   constructor(private router: Router,private UserService: UserService, private SettingsModalWindowService: SettingsModalWindowService, private http: HttpClient) {
@@ -35,6 +36,10 @@ export class AppComponent implements OnInit {
 
     this.http.get<string[]>('assets/wallpapers/natureCollection.json').subscribe(data => {
       this.natureUrls = data;
+    });
+
+    this.http.get<string[]>('assets/wallpapers/basicCollection.json').subscribe(data => {
+      this.basicUrls = data;
     });
   }
   wallpaper: string = this.UserService.userWallpaper;

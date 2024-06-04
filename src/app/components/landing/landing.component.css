@@ -37,8 +37,7 @@
 /* ////////////////////////// */
 
 .potential {
-    margin-top: 255px;
-    position: relative;
+    margin-top: 150px;
 }
 
 .potential span {
@@ -74,8 +73,8 @@
 
 .hand-image-container {
     height: 50%;
-    top: 50px;
-    right: 0px;
+    top: 0;
+    right: 30px;
     position: absolute;
 }
 
@@ -439,9 +438,9 @@ body.main.content {
 
 .first-body {
     background-color: #181818;
-    margin-top: 46px;
     width: 100%;
     padding-left: 150px;
+    position: relative;
 }
 
 .icon-menu {

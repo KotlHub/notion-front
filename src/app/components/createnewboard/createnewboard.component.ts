@@ -213,9 +213,11 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   }
 
   selectProperty(option: MenuItem) {
+    const placeholder = "Input " + option.name;
     const newItem: Property = {
       name: option.name,
-      description: "test",
+      description: "",
+      placeholder: placeholder,
       icon: option.icon
     };
 

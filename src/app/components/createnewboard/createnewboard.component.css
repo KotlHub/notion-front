@@ -122,7 +122,9 @@
     border: none;
     background-color: transparent;
     border-radius: 2px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -185,6 +187,7 @@
     flex-direction: column;
     width: 50%;
     height: auto;
+    padding-right: 10px;
   }
   
   .right {
@@ -205,11 +208,12 @@
     text-align: left;
     height: 33px;
     border: none;
+    color: #AAAAAA;
+    width: 100%;
   }
 
   .list-edit-clickable span{
     margin-left: 5px;
-    color: #AAAAAA;
     
   }
 

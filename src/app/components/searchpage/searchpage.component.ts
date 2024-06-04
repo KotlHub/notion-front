@@ -61,7 +61,7 @@ export class SearchpageComponent implements OnInit {
         this.filteredItems.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case 'Empty page':
-        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/table_chart.svg");
+        this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/note_stack.svg");
         break;
       case 'Board':
         this.filteredItems = this.originalItems.filter(item => item.icon === "assets/icons/left_menu/table_chart.svg");

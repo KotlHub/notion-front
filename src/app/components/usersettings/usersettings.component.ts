@@ -13,7 +13,7 @@ export class UsersettingsComponent implements OnInit{
   settingsToShow: number = 1;
 
   leftButtons: any = [
-    { id: 1, name: 'My account', imageUrl: 'assets/icons/user_settings/arrow_forward_ios.svg' },
+    { id: 1, name: 'My account', imageUrl: 'assets/icons/user_settings/account_circle.svg' },
     { id: 2, name: 'Appearance', imageUrl: 'assets/icons/user_settings/imagesearch_roller.svg' },
     { id: 3, name: 'Language & region', imageUrl: 'assets/icons/user_settings/language.svg' },
   ];

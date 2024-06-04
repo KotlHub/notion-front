@@ -12,6 +12,12 @@
           Change cover
         </button>
         <div class="dropdown-menu top-right-menu" aria-labelledby="dropdownMenuButton1">
+          <small>Basic</small>
+          <div style="display: flex;">
+            <div *ngFor="let image of basicUrls" class="image-container" (click)="changeWallpaper(image)">
+              <img [src]="image" class="cropped-image">
+            </div>      
+          </div>  
           <small>Space</small>
           <div style="display: flex;">
             <div *ngFor="let image of spaceUrls" class="image-container" (click)="changeWallpaper(image)">

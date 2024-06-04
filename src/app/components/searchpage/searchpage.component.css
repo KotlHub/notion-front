@@ -57,7 +57,7 @@ hr {
     padding-right: 10px;
     border-radius: 4px;
     background-color: transparent;
-    color: white;
+    color: #D9D9D9;
     text-align: left;
     margin-bottom: 4px;
 }
@@ -67,7 +67,7 @@ hr {
 }
 .search-list-button
 {
-  border: solid 1px white;
+  border: solid 1px #D9D9D9;
   height: 23px;
   font-size: 14px;
   margin-right: 10px;
@@ -77,7 +77,7 @@ hr {
 
 input {
   font-size: 18px;
-  color: #525252;
+  color: #D9D9D9;
   border: none;
   outline: none;
   background: transparent;
