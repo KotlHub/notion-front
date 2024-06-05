@@ -4,6 +4,7 @@ import { NewPageService } from 'src/app/services/new-page.service';
 import { SearchPageService } from 'src/app/services/search-page.service';
 import { UserService } from 'src/app/services/user.service';
 import { EditCardListService } from 'src/app/services/edit-card-list.service';
+import { TemplatesServiceService } from 'src/app/services/templates-service.service';
 
 @Component({
   selector: 'app-bigmodalwindow',
@@ -16,7 +17,8 @@ export class BigmodalwindowComponent {
     private SearchPageService: SearchPageService, 
     private BigModalWindowService: BigModalWindowService, 
     private EditCardListService: EditCardListService,
-    private UserService: UserService) { }
+    private UserService: UserService,
+    private TemplatesServiceService: TemplatesServiceService) { }
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if (this.BigModalWindowService.modalVisible && event.key === "Escape") {
@@ -25,6 +27,7 @@ export class BigmodalwindowComponent {
       this.SearchPageService.searchPageVisible = false;
       this.UserService.userSettingsVisible = false;
       this.EditCardListService.editCardListVisible = false;
+      this.TemplatesServiceService.templateVisible = false;
     }
   }
 
@@ -37,6 +40,7 @@ export class BigmodalwindowComponent {
       this.SearchPageService.searchPageVisible = false;
       this.UserService.userSettingsVisible = false;
       this.EditCardListService.editCardListVisible = false;
+      this.TemplatesServiceService.templateVisible = false;
     }
 
     else if (!event && this.BigModalWindowService.modalVisible) {
@@ -45,6 +49,7 @@ export class BigmodalwindowComponent {
       this.SearchPageService.searchPageVisible = false;
       this.UserService.userSettingsVisible = false;
       this.EditCardListService.editCardListVisible = false;
+      this.TemplatesServiceService.templateVisible = false;
   }
   }
 

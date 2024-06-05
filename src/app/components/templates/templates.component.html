@@ -1,0 +1,27 @@
+<app-bigmodalwindow *ngIf="isTemplateVisible()">
+    <div class="split">
+        <div class="left">
+            <div class="header-div">
+                <img src="assets/icons/left_menu/extension.svg">
+                <span>Templates</span>
+            </div>
+            <ul class="nav-list">
+                <ng-container *ngFor="let item of templatesItems; let i = index">
+                  <li class="nav-list-item">
+                    <img *ngIf="item.submenu" src="assets/icons/left_menu/down_arrow.svg" >
+                    <img src="{{item.icon}}">
+                    <span>{{ item.name }}</span>
+                  </li>
+                  <li *ngFor="let subItem of item.submenu" class="nav-list-item" (click)="subItem.id ? setActiveElement(subItem.id) : null">
+                    <span>{{ subItem.name }}</span>
+                  </li>
+                </ng-container>
+              </ul>
+        </div>
+        <div class="right">
+            <img src="{{ getActiveScreenshotUrl() }}">
+            
+            <button class="get-template-button">Get template</button>
+        </div>
+    </div>
+</app-bigmodalwindow>

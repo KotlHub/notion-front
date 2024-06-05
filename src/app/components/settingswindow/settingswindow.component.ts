@@ -7,12 +7,7 @@ import { CreateNewUserItemService } from 'src/app/services/create-new-user-item.
 import { LeftMenuService } from 'src/app/services/left-menu.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
-
-interface MenuItem {
-  name: string;
-  icon: string;
-  funcName?: string;
-}
+import { MenuItem } from 'src/app/interfaces/menu-item';
 
 interface CheckboxItem {
   label: string;
@@ -44,9 +39,9 @@ export class SettingswindowComponent {
   }
 
   menuItemsUpper: MenuItem[] = [
-    { name: 'Copy link', icon: "assets/icons/attach_file.svg", funcName: "copyLink"},
-    { name: 'Duplicate', icon: "assets/icons/attach_file.svg", funcName: "duplicate"},
-    { name: 'Delete', icon: "assets/icons/attach_file.svg", funcName: 'deleteItem'},
+    { name: 'Copy link', icon: "assets/icons/settings_window/link.svg", funcName: "copyLink"},
+    { name: 'Duplicate', icon: "assets/icons/settings_window/content_copy.svg", funcName: "duplicate"},
+    { name: 'Delete', icon: "assets/icons/settings_window/delete.svg", funcName: 'deleteItem'},
   ];
 
 

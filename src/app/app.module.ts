@@ -23,6 +23,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsersettingsComponent } from './components/usersettings/usersettings.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { TemplatesComponent } from './components/templates/templates.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     HomeComponent,
     UsersettingsComponent,
     NotfoundComponent,
+    TemplatesComponent
   ],
   imports: [
     BrowserModule,

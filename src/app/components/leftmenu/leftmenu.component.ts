@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { LeftMenuService } from 'src/app/services/left-menu.service';
 import { MenuItem } from 'src/app/interfaces/menu-item';
+import { TemplatesServiceService } from 'src/app/services/templates-service.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class LeftmenuComponent implements OnInit {
     menuItemsUpper: MenuItem[] = [
     { name: 'Search', icon: "assets/icons/left_menu/search.svg", funcName: "toggleSearchPage" },
     { name: 'New Page', icon: "assets/icons/left_menu/add_circle.svg", funcName: "toggleNewPage"},
-    { name: 'Templates', icon: "assets/icons/left_menu/extension.svg" },
+    { name: 'Templates', icon: "assets/icons/left_menu/extension.svg", funcName: "toggleTemplates" },
   ];
 
   menuItemsMid: MenuItem[] = [
@@ -44,11 +45,13 @@ export class LeftmenuComponent implements OnInit {
     private SearchPageService: SearchPageService, private GlobalValuesService: GlobalValuesService,
     private UserService: UserService, private LeftMenuService: LeftMenuService,
     private BigModalWindowService: BigModalWindowService, private http: HttpClient,
+    private TemplatesServiceService: TemplatesServiceService,
     private router: Router) 
   {
     this.toggleNewPage = this.toggleNewPage.bind(this);
     this.toggleSearchPage = this.toggleSearchPage.bind(this);
     this.toggleUserSettings = this.toggleUserSettings.bind(this);
+    this.toggleTemplates = this.toggleTemplates.bind(this);
   }
 
   @Input() menuVisible: boolean = false;
@@ -104,7 +107,13 @@ export class LeftmenuComponent implements OnInit {
   toggleUserSettings() {
     this.UserService.userSettingsVisible = !this.UserService.userSettingsVisible;
     this.BigModalWindowService.modalVisible = this.UserService.userSettingsVisible;
-    console.log('user settings');
+  }
+
+  toggleTemplates()
+  {
+    this.TemplatesServiceService.templateVisible = !this.TemplatesServiceService.templateVisible;
+    this.BigModalWindowService.modalVisible = this.TemplatesServiceService.templateVisible;
+    console.log('templates');
   }
 
   addToFavourites(item: MenuItem)
