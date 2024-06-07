@@ -124,6 +124,10 @@ export class LeftmenuComponent implements OnInit {
   deleteItem(item: MenuItem) {
     this.LeftMenuService.deleteItem(item);
   }
+
+  fullDeleteItem(item: MenuItem) {
+    this.LeftMenuService.fullDeleteItem(item);
+  }
   
   recoverItem(item: MenuItem) {
     this.LeftMenuService.recoverItem(item);

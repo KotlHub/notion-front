@@ -51,6 +51,11 @@ export class CreateNewUserItemService {
    
   }
 
+  sendTemplate(templateName: string, templateLink: string)
+  {
+    
+  }
+
   sendPage(page: any, pageStr: string, apiStr: string, selectedFiles?: File[])
   {
     const formData = new FormData();

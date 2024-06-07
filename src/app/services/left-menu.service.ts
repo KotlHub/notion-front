@@ -229,6 +229,42 @@ export class LeftMenuService {
 
   }
 
+
+  fullDeleteItem(item: MenuItem) {
+    const currentTrashItems = this.trashItems.getValue();
+    const indexInTrash = currentTrashItems.findIndex(trashItem => trashItem === item);
+    if (indexInTrash !== -1) {
+      currentTrashItems.splice(indexInTrash, 1);
+      this.trashItems.next(currentTrashItems);
+    }
+
+    console.log(this.trashItems);
+
+    this.router.navigate(['']);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`,
+    });
+
+    const requestBody = {
+       email: this.UserService.userEmail,
+       noteId: item.id
+      };
+
+      console.log(item.id);
+
+    console.log(requestBody);
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/fullDelPage', requestBody, {headers})
+    .subscribe(response => {
+      console.log('Response:', response);
+      
+    }, error => {
+      console.error('Error:', error);
+    });
+
+
+  }
+
   recoverItem(item: MenuItem)
   {
     const currentItems = this.menuItemsMid.getValue();
