@@ -1,7 +1,7 @@
 <div class="main">
     <div class="container">
         <input class="create-page-input header-input" placeholder="Empty page" type="text" [(ngModel)]="headerInput">
-        <div #contentEditable contenteditable class="create-page-input content-input" (input)="updateMainText($event)"></div>
+        <div #contentEditable contenteditable class="create-page-input content-input" spellcheck="false" (input)="updateMainText($event)"></div>
         <div #buttonContainer class="button-container">
             <button (mousedown)="makeFormat($event, 'bold')" class="new-page-clickable style-button"><b>B</b></button>
             <button (mousedown)="makeFormat($event, 'italic')" class="new-page-clickable style-button"><i>I</i></button>

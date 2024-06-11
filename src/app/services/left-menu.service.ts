@@ -277,6 +277,26 @@ export class LeftMenuService {
       currentItems.push(item);
       this.menuItemsMid.next(currentItems);
     }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.UserService.userToken}`,
+    });
+
+    const requestBody = {
+       email: this.UserService.userEmail,
+       noteId: item.id
+      };
+
+      console.log(item.id);
+
+    console.log(requestBody);
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/recoverPage', requestBody, {headers})
+    .subscribe(response => {
+      console.log('Response:', response);
+      
+    }, error => {
+      console.error('Error:', error);
+    });
   }
   
 }
