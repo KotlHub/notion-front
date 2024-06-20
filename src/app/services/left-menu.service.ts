@@ -290,7 +290,7 @@ export class LeftMenuService {
       console.log(item.id);
 
     console.log(requestBody);
-    this.http.post<any>(this.GlobalValuesService.api + 'Values/recoverPage', requestBody, {headers})
+    this.http.post<any>(this.GlobalValuesService.api + 'Values/delPage', requestBody, {headers})
     .subscribe(response => {
       console.log('Response:', response);
       

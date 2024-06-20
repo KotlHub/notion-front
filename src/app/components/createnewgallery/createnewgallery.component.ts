@@ -39,7 +39,7 @@ export class CreatenewgalleryComponent implements OnInit, OnDestroy {
 
   id: string = "";
 
-  selectedFiles: File[] = []; // Список файлов, которые нужно отправить
+  selectedFiles: File[] = []; 
   currentLink: string = "";
 
 

@@ -32,7 +32,7 @@ export class CreatenewlistComponent implements OnDestroy, OnInit {
   currentLink: string = "";
   selectedFiles: File[] = [];
 
-  currentList?: List[] = []; // Изменено на массив List[]
+  currentList?: List[] = [];
 
 
   currentId: string | null = null;

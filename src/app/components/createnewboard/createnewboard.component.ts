@@ -47,7 +47,7 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
   headerInput: string = '';
   newListName: string = '';
   newListVisible: boolean = true;
-  selectedFiles: File[] = []; // Список файлов, которые нужно отправить
+  selectedFiles: File[] = []; 
   currentLink: string = "";
 
 
