@@ -310,7 +310,8 @@ export class CreatenewboardComponent implements OnDestroy, OnInit{
                 name: cardData.name,
                 description: cardData.description,
                 datetime: cardData.datetime ? new Date(cardData.datetime) : undefined,
-                files: cardData.files ? [...cardData.files] : undefined
+                files: cardData.files ? [...cardData.files] : undefined,
+                properties: cardData.properties || []
               }));
     
               return {

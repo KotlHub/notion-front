@@ -208,6 +208,19 @@
 
 /* //////////////////////// */
 
+.triple-picture {
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+.double-horisontal-picture {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* //////////////////////// */
+
 .about-us {
     text-align: center;
     margin-top: 120px;
